@@ -7,7 +7,6 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
 
-
 def safe_title(s: str) -> str:
     # Keep chart titles readable and safe
     return str(s).strip().replace("\n", " ")
@@ -136,9 +135,26 @@ def render_html_report(
 
 def main():
     parser = argparse.ArgumentParser(description="Generate housekeeping management visuals + summaries from CSV.")
-    parser.add_argument("--csv", required=True, help="Path to input CSV")
-    parser.add_argument("--out", default=".", help="Output directory base (default: current folder)")
-    parser.add_argument("--top", type=int, default=10, help="Top N for housekeepers/user charts (default: 10)")
+    parser.add_argument(
+    "--room-usage-csv",
+    default="Room Usage.csv",
+    help="Path to Room Usage CSV (default: Room Usage.csv)")
+
+    parser.add_argument(
+        "--housekeeping-csv",
+        default="Housekeeping Change Log.csv",
+        help="Path to Housekeeping Change Log CSV (default: Housekeeping Change Log.csv)")
+
+    parser.add_argument(
+        "--out",
+        default=".",
+        help="Output directory base (default: current folder)")
+
+    parser.add_argument(
+        "--top",
+        type=int,
+        default=10,
+        help="Top N for housekeepers/user charts (default: 10)")
     args = parser.parse_args()
 
     csv_path = Path(args.csv)
