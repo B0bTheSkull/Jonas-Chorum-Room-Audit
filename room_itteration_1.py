@@ -11,6 +11,16 @@ def safe_title(s: str) -> str:
     return str(s).strip().replace("\n", " ")
 
 
+def rotation_quality_label(rate: float) -> str:
+    if rate < 0.2:
+        return "Very low (poor rotation)"
+    if rate < 0.4:
+        return "Low (needs improvement)"
+    if rate < 0.6:
+        return "Moderate"
+    return "High (good rotation)"
+
+
 def coerce_datetime(series: pd.Series) -> pd.Series:
     """
     Tries common date parsing patterns robustly.
@@ -76,9 +86,9 @@ def main():
     df["FD Status"] = df["FD Status"].astype(str).str.strip()
     df["HSK Status Before"] = df["HSK Status Before"].astype(str).str.strip()
     df["HSK Status After"] = df["HSK Status After"].astype(str).str.strip()
-    df["Housekeeper Before"] = df["Housekeeper Before"].astype(str).str.strip()
-    df["Housekeeper After"] = df["Housekeeper After"].astype(str).str.strip()
-    df["Username"] = df["Username"].astype(str).str.strip()
+    df["Housekeeper Before"] = df["Housekeeper Before"].fillna("Unknown").astype(str).str.strip()
+    df["Housekeeper After"] = df["Housekeeper After"].fillna("Unknown").astype(str).str.strip()
+    df["Username"] = df["Username"].fillna("Unknown").astype(str).str.strip()
 
     df["DateTime"] = coerce_datetime(df["Date"])
     # If Date parsing fails, we'll still report but day-based charts may be limited.
@@ -165,6 +175,27 @@ def main():
     )
     by_user["change_rate"] = (by_user["changed"] / by_user["rows"]).round(4)
     save_df(by_user, out_dir / "summary_by_username.csv")
+
+    # Room uniqueness by user (rotation quality)
+    uniqueness_by_user = (
+        df.groupby("Username", dropna=False)
+          .agg(
+              total_actions=("Room Number", "size"),
+              unique_rooms=("Room Number", "nunique"),
+              status_changes=("HSK_Changed", "sum"),
+          )
+          .reset_index()
+    )
+    uniqueness_by_user["room_uniqueness_rate"] = (
+        uniqueness_by_user["unique_rooms"] / uniqueness_by_user["total_actions"].replace(0, pd.NA)
+    ).fillna(0.0)
+    uniqueness_by_user["rotation_quality"] = uniqueness_by_user["room_uniqueness_rate"].map(rotation_quality_label)
+    uniqueness_by_user = uniqueness_by_user.sort_values(
+        ["room_uniqueness_rate", "total_actions"],
+        ascending=[True, False],
+    )
+    uniqueness_by_user["room_uniqueness_rate"] = uniqueness_by_user["room_uniqueness_rate"].round(3)
+    save_df(uniqueness_by_user, out_dir / "username_room_rotation_uniqueness.csv")
 
     # Transition matrix (Before -> After)
     transition = (
