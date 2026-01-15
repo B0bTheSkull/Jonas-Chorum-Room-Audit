@@ -1,0 +1,6 @@
+HSK Status Before,Clean/Occupied,Clean/Vacant,Dirty,inspect,nan
+Clean/Occupied,0,1,107,1,0
+Clean/Vacant,82,70,3,0,0
+Dirty,24,6,224,84,0
+inspect,13,71,1,1,0
+nan,0,0,0,0,4
