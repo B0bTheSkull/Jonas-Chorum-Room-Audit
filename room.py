@@ -1,4 +1,5 @@
-import re
+from collections import defaultdict
+import sys
 
 
 def build_html_report(out_dir: Path, title: str, housekeeping: dict, room_usage: dict):
@@ -89,39 +90,46 @@ def build_html_report(out_dir: Path, title: str, housekeeping: dict, room_usage:
     (source.get("uniqueness_by_user") for source in rotation_sources if source),
     None,
   )
-  rotation_callouts_html = rotation_callouts(uniqueness_by_user)
-  rotation_table_html = df_to_html_table(uniqueness_by_user, max_rows=50)
+  rotation_callouts_html = rotation_callouts(uniqueness_by_user) or ""
+  rotation_table_html = df_to_html_table(uniqueness_by_user, max_rows=50) or ""
 
-  def inject_rotation_placeholders(html_doc: str) -> str:
-    replacements = {
-      "{UNI_CHART_HTML}": uni_chart_html,
-      "{ROTATION_CALLOUTS_HTML}": rotation_callouts_html,
-      "{uni_chart_html}": uni_chart_html,
-      "{rotation_callouts_html}": rotation_callouts_html,
-      "{rotation_table_html}": rotation_table_html,
-    }
-    for token, value in replacements.items():
-      html_doc = html_doc.replace(token, value)
-    html_doc = re.sub(
-      r'(<div class="caption">Rotation table \(all users\)</div>\s*)\{\}',
-      lambda match: f"{match.group(1)}{rotation_table_html}",
-      html_doc,
-    )
-    return html_doc
+  housekeeping_kpis_html = kpi_cards(housekeeping.get("kpis"))
+  housekeeping_exec_notes_html = exec_notes(housekeeping.get("exec_notes", []))
+  housekeeping_charts_html = charts_grid(housekeeping.get("charts", []))
+  housekeeping_by_day_html = df_to_html_table(housekeeping.get("by_day"))
+  housekeeping_by_room_type_html = df_to_html_table(housekeeping.get("by_room_type"))
+  housekeeping_by_hk_after_html = df_to_html_table(housekeeping.get("by_hk_after"))
+  housekeeping_by_user_html = df_to_html_table(housekeeping.get("by_user"))
+  housekeeping_transition_matrix_html = df_to_html_table(
+    housekeeping.get("transition_matrix")
+  )
 
-  html = f"""
+  room_usage_kpis_html = kpi_cards(room_usage.get("kpis"))
+  room_usage_exec_notes_html = exec_notes(room_usage.get("exec_notes", []))
+  room_usage_charts_html = charts_grid(room_usage.get("charts", []))
+  room_usage_by_room_type_html = df_to_html_table(room_usage.get("by_room_type"))
+  room_usage_top_rooms_html = df_to_html_table(room_usage.get("top_rooms"))
+  room_usage_by_feature_html = df_to_html_table(room_usage.get("by_feature"))
+
+  rotation_placeholders = {
+    "uni_chart_html": uni_chart_html or "",
+    "rotation_callouts_html": rotation_callouts_html or "",
+    "rotation_table_html": rotation_table_html or "",
+  }
+
+  html_template = """
   <!doctype html>
   <html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{htmllib.escape(title)}</title>
+    <title>{title}</title>
     <style>{css}</style>
   </head>
   <body>
     <div class="wrap">
-    <h1>{htmllib.escape(title)}</h1>
-    <div class="sub">Generated {htmllib.escape(now)} • Folder: <span class="pill">{htmllib.escape(out_dir.name)}</span></div>
+    <h1>{title}</h1>
+    <div class="sub">Generated {now} • Folder: <span class="pill">{out_dir_name}</span></div>
 
     <div class="card soft">
       <div class="caption">What this report is</div>
@@ -133,37 +141,37 @@ def build_html_report(out_dir: Path, title: str, housekeeping: dict, room_usage:
 
     <h2>Housekeeping Change Log</h2>
     <h3>KPIs</h3>
-    {kpi_cards(housekeeping.get("kpis"))}
+    {housekeeping_kpis_html}
 
     <div class="card">
       <div class="caption">Executive notes</div>
-      {exec_notes(housekeeping.get("exec_notes", []))}
+      {housekeeping_exec_notes_html}
     </div>
 
     <h3>Charts</h3>
-    {charts_grid(housekeeping.get("charts", []))}
+    {housekeeping_charts_html}
 
     <h3>Summaries</h3>
     <div class="grid stack">
       <div class="card span-12">
       <div class="caption">By day</div>
-      {df_to_html_table(housekeeping.get("by_day"))}
+      {housekeeping_by_day_html}
       </div>
       <div class="card span-12">
       <div class="caption">By room type</div>
-      {df_to_html_table(housekeeping.get("by_room_type"))}
+      {housekeeping_by_room_type_html}
       </div>
       <div class="card span-12">
       <div class="caption">By housekeeper (After)</div>
-      {df_to_html_table(housekeeping.get("by_hk_after"))}
+      {housekeeping_by_hk_after_html}
       </div>
       <div class="card span-12">
       <div class="caption">By username</div>
-      {df_to_html_table(housekeeping.get("by_user"))}
+      {housekeeping_by_user_html}
       </div>
       <div class="card span-12">
       <div class="caption">HSK transition matrix (Before → After)</div>
-      {df_to_html_table(housekeeping.get("transition_matrix"))}
+      {housekeeping_transition_matrix_html}
       </div>
     </div>
 
@@ -171,35 +179,42 @@ def build_html_report(out_dir: Path, title: str, housekeeping: dict, room_usage:
 
     <h2>Room Usage</h2>
     <h3>KPIs</h3>
-    {kpi_cards(room_usage.get("kpis"))}
+    {room_usage_kpis_html}
 
     <div class="card">
       <div class="caption">Executive notes</div>
-      {exec_notes(room_usage.get("exec_notes", []))}
+      {room_usage_exec_notes_html}
     </div>
 
     <h3>Charts</h3>
-    {charts_grid(room_usage.get("charts", []))}
+    {room_usage_charts_html}
 
     <h3>Summaries</h3>
     <div class="grid">
       <div class="card span-12">
       <div class="caption">Nights by room type</div>
-      {df_to_html_table(room_usage.get("by_room_type"))}
+      {room_usage_by_room_type_html}
       </div>
       <div class="card span-12">
       <div class="caption">Top rooms by nights</div>
-      {df_to_html_table(room_usage.get("top_rooms"))}
+      {room_usage_top_rooms_html}
       </div>
       <div class="card span-12">
       <div class="caption">Orientation/Features rollup</div>
-      {df_to_html_table(room_usage.get("by_feature"))}
+      {room_usage_by_feature_html}
       </div>
     </div>
 
     <div class="hr"></div>
 
     <h3>Room Rotation by Username</h3>
+    <div class="card">
+      <div class="caption">How to read this</div>
+      <p class="muted">
+        Metric: <b>unique_rooms / total_actions</b>. Lower values = less rotation (more repetition).
+        Only users with <b>10+ actions</b> should be considered “real signals.”
+      </p>
+    </div>
     <div class="grid">
       <div class="card span-12">
       {uni_chart_html}
@@ -216,5 +231,52 @@ def build_html_report(out_dir: Path, title: str, housekeeping: dict, room_usage:
   </html>
   """
 
-  html = inject_rotation_placeholders(html)
+  html = html_template.format_map(
+    defaultdict(
+      str,
+      {
+        "title": htmllib.escape(title),
+        "now": htmllib.escape(now),
+        "out_dir_name": htmllib.escape(out_dir.name),
+        "css": css,
+        "housekeeping_kpis_html": housekeeping_kpis_html,
+        "housekeeping_exec_notes_html": housekeeping_exec_notes_html,
+        "housekeeping_charts_html": housekeeping_charts_html,
+        "housekeeping_by_day_html": housekeeping_by_day_html,
+        "housekeeping_by_room_type_html": housekeeping_by_room_type_html,
+        "housekeeping_by_hk_after_html": housekeeping_by_hk_after_html,
+        "housekeeping_by_user_html": housekeeping_by_user_html,
+        "housekeeping_transition_matrix_html": housekeeping_transition_matrix_html,
+        "room_usage_kpis_html": room_usage_kpis_html,
+        "room_usage_exec_notes_html": room_usage_exec_notes_html,
+        "room_usage_charts_html": room_usage_charts_html,
+        "room_usage_by_room_type_html": room_usage_by_room_type_html,
+        "room_usage_top_rooms_html": room_usage_top_rooms_html,
+        "room_usage_by_feature_html": room_usage_by_feature_html,
+        **rotation_placeholders,
+      },
+    )
+  )
   (out_dir / "report.html").write_text(html, encoding="utf-8")
+
+
+def _template_self_test() -> None:
+  template = "{uni_chart_html}{rotation_callouts_html}{rotation_table_html}"
+  rendered = template.format_map(
+    defaultdict(
+      str,
+      {
+        "uni_chart_html": "chart",
+        "rotation_callouts_html": "callouts",
+        "rotation_table_html": "table",
+      },
+    )
+  )
+  assert "chart" in rendered
+  assert "callouts" in rendered
+  assert "table" in rendered
+
+
+if __name__ == "__main__":
+  if "--test-template" in sys.argv:
+    _template_self_test()
