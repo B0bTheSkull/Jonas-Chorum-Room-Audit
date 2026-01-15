@@ -1,0 +1,98 @@
+
+<!doctype html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <link rel="stylesheet" href="Report.css">
+</head>
+    <html>
+    <body>
+      <div class="wrap">
+        <h1>{htmllib.escape(title)}</h1>
+        <div class="sub">Generated {htmllib.escape(now)} • Folder: <span class="pill">{htmllib.escape(out_dir.name)}</span></div>
+
+        <div class="card">
+          <div class="caption">What this report is</div>
+          <div class="muted">
+            A clean snapshot of housekeeping status changes and room usage.
+            It focuses on volume, real changes (Before ≠ After), who closed work, and what room types/features are getting used.
+          </div>
+        </div>
+
+        <h2>Housekeeping Change Log</h2>
+        <h3>KPIs</h3>
+        {kpi_cards(housekeeping.get("kpis"))}
+
+        <div class="card">
+          <div class="caption">Executive notes</div>
+          {exec_notes(housekeeping.get("exec_notes", []))}
+        </div>
+
+        <h3>Charts</h3>
+        {charts_grid(housekeeping.get("charts", []))}
+
+        <h3>Summaries</h3>
+        <div class="grid">
+          <div class="card span-12">
+            <div class="caption">By day</div>
+            {df_to_html_table(housekeeping.get("by_day"))}
+          </div>
+          <div class="card span-12">
+            <div class="caption">By room type</div>
+            {df_to_html_table(housekeeping.get("by_room_type"))}
+          </div>
+          <div class="card span-12">
+            <div class="caption">By housekeeper (After)</div>
+            {df_to_html_table(housekeeping.get("by_hk_after"))}
+          </div>
+          <div class="card span-12">
+            <div class="caption">By username</div>
+            {df_to_html_table(housekeeping.get("by_user"))}
+          </div>
+          <div class="card span-12">
+            <div class="caption">HSK transition matrix (Before → After)</div>
+            {df_to_html_table(housekeeping.get("transition_matrix"))}
+          </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <h2>Room Usage</h2>
+        <h3>KPIs</h3>
+        {kpi_cards(room_usage.get("kpis"))}
+
+        <div class="card">
+          <div class="caption">Executive notes</div>
+          {exec_notes(room_usage.get("exec_notes", []))}
+        </div>
+
+        <h3>Charts</h3>
+        {charts_grid(room_usage.get("charts", []))}
+
+        <h3>Summaries</h3>
+        <div class="grid">
+          <div class="card span-12">
+            <div class="caption">Nights by room type</div>
+            {df_to_html_table(room_usage.get("by_room_type"))}
+          </div>
+          <div class="card span-12">
+            <div class="caption">Top rooms by nights</div>
+            {df_to_html_table(room_usage.get("top_rooms"))}
+          </div>
+          <div class="card span-12">
+            <div class="caption">Orientation/Features rollup</div>
+            {df_to_html_table(room_usage.get("by_feature"))}
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="caption">Notes</div>
+          <ul>
+            <li>All tables are capped for display; full CSV summaries are in the same folder.</li>
+            <li>If the housekeeping “By day” section is empty, your Date column is too inconsistent to parse — fix the format and rerun.</li>
+          </ul>
+        </div>
+      </div> 
+    </body>
+    </html>
