@@ -136,9 +136,9 @@ def render_html_report(
 def main():
     parser = argparse.ArgumentParser(description="Generate housekeeping management visuals + summaries from CSV.")
     parser.add_argument(
-    "--room-usage-csv",
-    default="Room Usage.csv",
-    help="Path to Room Usage CSV (default: Room Usage.csv)")
+        "--room-usage-csv",
+        default="Room Usage.csv",
+        help="Path to Room Usage CSV (default: Room Usage.csv)")
 
     parser.add_argument(
         "--housekeeping-csv",
@@ -157,16 +157,19 @@ def main():
         help="Top N for housekeepers/user charts (default: 10)")
     args = parser.parse_args()
 
-    csv_path = Path(args.csv)
+    housekeeping_csv_path = Path(args.housekeeping_csv)
+    room_usage_csv_path = Path(args.room_usage_csv)
     out_base = Path(args.out)
 
-    if not csv_path.exists():
-        raise FileNotFoundError(f"CSV not found: {csv_path}")
+    if not housekeeping_csv_path.exists():
+        raise FileNotFoundError(f"CSV not found: {housekeeping_csv_path}")
+    if not room_usage_csv_path.exists():
+        raise FileNotFoundError(f"CSV not found: {room_usage_csv_path}")
 
     out_dir = ensure_output_dir(out_base)
 
-    # ---- Load ----
-    df = pd.read_csv(csv_path)
+    # ---- Load housekeeping ----
+    df = pd.read_csv(housekeeping_csv_path)
 
     required_cols = [
         "Room Number",
@@ -217,7 +220,7 @@ def main():
         "HSK status changes (rate)": round(change_rate, 4),
         "Date parse success rate": round(df["DateTime"].notna().mean(), 4),
         "Generated at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "Source CSV": str(csv_path.resolve()),
+        "Source CSV": str(housekeeping_csv_path.resolve()),
     }])
     save_df(overall, out_dir / "summary_overall.csv")
 
@@ -477,13 +480,155 @@ def main():
         "transition_matrix": transition.reset_index(),
     }
 
+    # ---- Load room usage ----
+    usage_df = pd.read_csv(room_usage_csv_path)
+    usage_required_cols = [
+        "Room Number",
+        "Room Type",
+        "Number of Nights",
+        "Orientation/Features",
+    ]
+    usage_missing = [c for c in usage_required_cols if c not in usage_df.columns]
+    if usage_missing:
+        raise ValueError(f"Missing required columns in Room Usage CSV: {usage_missing}")
+
+    usage_df["Room Number"] = usage_df["Room Number"].astype(str).str.strip()
+    usage_df["Room Type"] = usage_df["Room Type"].astype(str).str.strip()
+    usage_df["Number of Nights"] = pd.to_numeric(usage_df["Number of Nights"], errors="coerce").fillna(0)
+    usage_df["Orientation/Features"] = usage_df["Orientation/Features"].fillna("").astype(str).str.strip()
+
+    total_nights = float(usage_df["Number of Nights"].sum())
+    avg_nights = float(usage_df["Number of Nights"].mean()) if not usage_df.empty else 0.0
+    rooms_count = int(usage_df["Room Number"].nunique())
+
+    usage_overall = pd.DataFrame([{
+        "Total nights": total_nights,
+        "Average nights per room": round(avg_nights, 2),
+        "Unique rooms": rooms_count,
+        "Generated at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "Source CSV": str(room_usage_csv_path.resolve()),
+    }])
+    save_df(usage_overall, out_dir / "room_usage_summary_overall.csv")
+
+    nights_by_room_type = (
+        usage_df.groupby("Room Type", dropna=False)
+        .agg(
+            rooms=("Room Number", "nunique"),
+            total_nights=("Number of Nights", "sum"),
+            avg_nights=("Number of Nights", "mean"),
+        )
+        .reset_index()
+        .sort_values(["total_nights", "rooms"], ascending=[False, False])
+    )
+    nights_by_room_type["avg_nights"] = nights_by_room_type["avg_nights"].round(2)
+    save_df(nights_by_room_type, out_dir / "room_usage_by_room_type.csv")
+
+    top_rooms = (
+        usage_df.groupby(["Room Number", "Room Type"], dropna=False)["Number of Nights"]
+        .sum()
+        .reset_index()
+        .sort_values("Number of Nights", ascending=False)
+    )
+    save_df(top_rooms, out_dir / "room_usage_top_rooms.csv")
+
+    feature_rows = usage_df.assign(
+        Feature=usage_df["Orientation/Features"]
+        .str.split(r"\s*,\s*")
+    ).explode("Feature")
+    feature_rows["Feature"] = feature_rows["Feature"].fillna("").str.strip()
+    feature_rows = feature_rows[feature_rows["Feature"] != ""]
+    if feature_rows.empty:
+        nights_by_feature = pd.DataFrame(columns=["Feature", "rooms", "total_nights", "avg_nights"])
+    else:
+        nights_by_feature = (
+            feature_rows.groupby("Feature", dropna=False)
+            .agg(
+                rooms=("Room Number", "nunique"),
+                total_nights=("Number of Nights", "sum"),
+                avg_nights=("Number of Nights", "mean"),
+            )
+            .reset_index()
+            .sort_values(["total_nights", "rooms"], ascending=[False, False])
+        )
+        nights_by_feature["avg_nights"] = nights_by_feature["avg_nights"].round(2)
+    save_df(nights_by_feature, out_dir / "room_usage_by_feature.csv")
+
+    usage_charts = []
+    if not nights_by_room_type.empty:
+        fig = plt.figure()
+        plt.barh(nights_by_room_type["Room Type"].map(safe_title), nights_by_room_type["total_nights"])
+        plt.title("Total nights by room type")
+        plt.xlabel("Total nights")
+        plt.ylabel("Room type")
+        plt.gca().invert_yaxis()
+        room_type_nights_path = out_dir / "room_usage_room_type_nights.png"
+        plot_and_save(fig, room_type_nights_path)
+        usage_charts.append({
+            "title": "Total nights by room type",
+            "filename": room_type_nights_path.name,
+        })
+
+    if not top_rooms.empty:
+        fig = plt.figure()
+        top_rooms_plot = top_rooms.head(top_n)
+        labels = top_rooms_plot.apply(
+            lambda row: f"{row['Room Number']} ({row['Room Type']})", axis=1
+        )
+        plt.barh(labels.map(safe_title), top_rooms_plot["Number of Nights"])
+        plt.title(f"Top {top_n} rooms by nights")
+        plt.xlabel("Number of nights")
+        plt.ylabel("Room")
+        plt.gca().invert_yaxis()
+        top_rooms_path = out_dir / "room_usage_top_rooms.png"
+        plot_and_save(fig, top_rooms_path)
+        usage_charts.append({
+            "title": f"Top {top_n} rooms by nights",
+            "filename": top_rooms_path.name,
+        })
+
+    if not nights_by_feature.empty:
+        fig = plt.figure()
+        feature_plot = nights_by_feature.head(top_n)
+        plt.barh(feature_plot["Feature"].map(safe_title), feature_plot["total_nights"])
+        plt.title(f"Top {top_n} features by nights")
+        plt.xlabel("Total nights")
+        plt.ylabel("Feature")
+        plt.gca().invert_yaxis()
+        feature_nights_path = out_dir / "room_usage_feature_nights.png"
+        plot_and_save(fig, feature_nights_path)
+        usage_charts.append({
+            "title": f"Top {top_n} features by nights",
+            "filename": feature_nights_path.name,
+        })
+
+    usage_kpis = [
+        {"label": "Total nights", "value": f"{total_nights:.0f}"},
+        {"label": "Average nights/room", "value": f"{avg_nights:.1f}"},
+        {"label": "Unique rooms", "value": rooms_count},
+        {"label": "Room types", "value": nights_by_room_type["Room Type"].nunique()},
+    ]
+
+    usage_notes = [
+        f"{int(total_nights)} room-nights tracked across {rooms_count} rooms.",
+    ]
+    if not top_rooms.empty:
+        top_room = top_rooms.iloc[0]
+        usage_notes.append(
+            f"Top room: {top_room['Room Number']} ({top_room['Room Type']}) with {int(top_room['Number of Nights'])} nights."
+        )
+    if not nights_by_room_type.empty:
+        top_type = nights_by_room_type.iloc[0]
+        usage_notes.append(
+            f"Top room type: {top_type['Room Type']} with {int(top_type['total_nights'])} nights."
+        )
+
     room_usage_payload = {
-        "kpis": [],
-        "exec_notes": [],
-        "charts": [],
-        "by_room_type": None,
-        "top_rooms": None,
-        "by_feature": None,
+        "kpis": usage_kpis,
+        "exec_notes": usage_notes,
+        "charts": usage_charts,
+        "by_room_type": nights_by_room_type,
+        "top_rooms": top_rooms,
+        "by_feature": nights_by_feature,
     }
 
     template_path = Path(__file__).resolve().parent / "Fixing up layout.html"
