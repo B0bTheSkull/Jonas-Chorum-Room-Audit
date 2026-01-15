@@ -2,35 +2,35 @@ Room Number,Room Type,FD Status,HSK Status Before,HSK Status After,Housekeeper B
 316,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,MasonR,1768434335
 404,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,MasonR,1768427275
 515,Deluxe,Occupied,Clean/Vacant,Clean/Occupied,,,MasonR,1768425182
-323,Classc,Vacant,inspect,Clean/Vacant,Dixie Collins,Dixie Collins,CyndiC,1768424507
-323,Classc,Vacant,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1768424184
+323,Classc,Vacant,inspect,Clean/Vacant,Dixie C.,Dixie C.,CyndiC,1768424507
+323,Classc,Vacant,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1768424184
 406,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,MasonR,1768423901
-317,Classc,Occupied,inspect,Clean/Occupied,Dixie Collins,Dixie Collins,CyndiC,1768421392
-317,Classc,Occupied,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1768421079
-405,Classc,Occupied,inspect,Clean/Occupied,Dixie Collins,Dixie Collins,CyndiC,1768420422
-405,Classc,Occupied,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1768420346
-414,Classc,Occupied,inspect,Clean/Occupied,Dixie Collins,Dixie Collins,CyndiC,1768419745
-414,Classc,Occupied,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1768419731
-521,Classc,Occupied,inspect,Clean/Occupied,Dixie Collins,Dixie Collins,CyndiC,1768419010
-313,Classc,Occupied,inspect,Clean/Occupied,Dixie Collins,Dixie Collins,CyndiC,1768419010
-306,Classc,Occupied,inspect,Clean/Occupied,Dixie Collins,Dixie Collins,CyndiC,1768419010
-313,Classc,Occupied,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1768418789
-306,Classc,Occupied,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1768418769
-521,Classc,Occupied,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1768418648
-323,Classc,Vacant,Dirty,Dirty,Dixie Collins,Dixie Collins,ChiaraM,1768405505
-521,Classc,Occupied,Dirty,Dirty,,Dixie Collins,CyndiC,1768399594
-414,Classc,Occupied,Dirty,Dirty,,Dixie Collins,CyndiC,1768399594
-405,Classc,Occupied,Dirty,Dirty,,Dixie Collins,CyndiC,1768399594
-323,Classc,Occupied,Dirty,Dirty,,Dixie Collins,CyndiC,1768399594
-317,Classc,Occupied,Dirty,Dirty,,Dixie Collins,CyndiC,1768399594
-313,Classc,Occupied,Dirty,Dirty,,Dixie Collins,CyndiC,1768399594
-306,Classc,Occupied,Dirty,Dirty,,Dixie Collins,CyndiC,1768399594
+317,Classc,Occupied,inspect,Clean/Occupied,Dixie C.,Dixie C.,CyndiC,1768421392
+317,Classc,Occupied,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1768421079
+405,Classc,Occupied,inspect,Clean/Occupied,Dixie C.,Dixie C.,CyndiC,1768420422
+405,Classc,Occupied,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1768420346
+414,Classc,Occupied,inspect,Clean/Occupied,Dixie C.,Dixie C.,CyndiC,1768419745
+414,Classc,Occupied,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1768419731
+521,Classc,Occupied,inspect,Clean/Occupied,Dixie C.,Dixie C.,CyndiC,1768419010
+313,Classc,Occupied,inspect,Clean/Occupied,Dixie C.,Dixie C.,CyndiC,1768419010
+306,Classc,Occupied,inspect,Clean/Occupied,Dixie C.,Dixie C.,CyndiC,1768419010
+313,Classc,Occupied,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1768418789
+306,Classc,Occupied,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1768418769
+521,Classc,Occupied,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1768418648
+323,Classc,Vacant,Dirty,Dirty,Dixie C.,Dixie C.,ChiaraM,1768405505
+521,Classc,Occupied,Dirty,Dirty,,Dixie C.,CyndiC,1768399594
+414,Classc,Occupied,Dirty,Dirty,,Dixie C.,CyndiC,1768399594
+405,Classc,Occupied,Dirty,Dirty,,Dixie C.,CyndiC,1768399594
+323,Classc,Occupied,Dirty,Dirty,,Dixie C.,CyndiC,1768399594
+317,Classc,Occupied,Dirty,Dirty,,Dixie C.,CyndiC,1768399594
+313,Classc,Occupied,Dirty,Dirty,,Dixie C.,CyndiC,1768399594
+306,Classc,Occupied,Dirty,Dirty,,Dixie C.,CyndiC,1768399594
 515,Deluxe,Vacant,Dirty,Clean/Vacant,,,CyndiC,1768399507
-514,Deluxe,Vacant,Clean/Vacant,Clean/Vacant,Kyra Christiansen,,Administrator,1768384878
-421,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kyra Christiansen,,Administrator,1768384878
-413,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kyra Christiansen,,Administrator,1768384878
-403,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kyra Christiansen,,Administrator,1768384878
-306,Classc,Occupied,Dirty,Dirty,Kyra Christiansen,,Administrator,1768384878
+514,Deluxe,Vacant,Clean/Vacant,Clean/Vacant,Kyra C.,,Administrator,1768384878
+421,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kyra C.,,Administrator,1768384878
+413,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kyra C.,,Administrator,1768384878
+403,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kyra C.,,Administrator,1768384878
+306,Classc,Occupied,Dirty,Dirty,Kyra C.,,Administrator,1768384878
 515,Deluxe,Vacant,Dirty,Dirty,,,ChorumPMS,1768384865
 515,Deluxe,Vacant,,,,,ChorumPMS,1768384865
 323,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1768384865
@@ -39,66 +39,66 @@ Room Number,Room Type,FD Status,HSK Status Before,HSK Status After,Housekeeper B
 405,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1768384865
 521,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1768384865
 414,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1768384865
-306,Classc,Occupied,Clean/Occupied,Dirty,Kyra Christiansen,Kyra Christiansen,ChorumPMS,1768384864
+306,Classc,Occupied,Clean/Occupied,Dirty,Kyra C.,Kyra C.,ChorumPMS,1768384864
 313,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CameronS,1768363593
 317,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CameronS,1768358607
 414,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CameronS,1768353094
 405,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CameronS,1768351033
 323,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,ChiaraM,1768348382
 521,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,ChiaraM,1768346727
-421,Classc,Vacant,inspect,Clean/Vacant,Kyra Christiansen,Kyra Christiansen,CyndiC,1768338830
-413,Classc,Vacant,inspect,Clean/Vacant,Kyra Christiansen,Kyra Christiansen,CyndiC,1768338830
-403,Classc,Vacant,inspect,Clean/Vacant,Kyra Christiansen,Kyra Christiansen,CyndiC,1768338830
-421,Classc,Vacant,Dirty,inspect,Kyra Christiansen,Kyra Christiansen,KyraC,1768335823
-413,Classc,Vacant,Dirty,inspect,Kyra Christiansen,Kyra Christiansen,KyraC,1768334512
-403,Classc,Vacant,Dirty,inspect,Kyra Christiansen,Kyra Christiansen,KyraC,1768333203
-306,Classc,Occupied,Dirty,Clean/Occupied,Kyra Christiansen,Kyra Christiansen,CyndiC,1768326774
-514,Deluxe,Vacant,inspect,Clean/Vacant,Kyra Christiansen,Kyra Christiansen,CyndiC,1768326767
-514,Deluxe,Vacant,Dirty,inspect,Kyra Christiansen,Kyra Christiansen,KyraC,1768326382
-403,Classc,Vacant,Dirty,Dirty,Kyra Christiansen,Kyra Christiansen,BethanyP,1768324167
-421,Classc,Vacant,Dirty,Dirty,Kyra Christiansen,Kyra Christiansen,BethanyP,1768323033
-413,Classc,Vacant,Dirty,Dirty,Kyra Christiansen,Kyra Christiansen,BethanyP,1768315453
-514,Deluxe,Vacant,Dirty,Dirty,,Kyra Christiansen,CyndiC,1768312870
-421,Classc,Occupied,Dirty,Dirty,,Kyra Christiansen,CyndiC,1768312870
-413,Classc,Occupied,Dirty,Dirty,,Kyra Christiansen,CyndiC,1768312870
-403,Classc,Occupied,Dirty,Dirty,,Kyra Christiansen,CyndiC,1768312870
-306,Classc,Occupied,Dirty,Dirty,,Kyra Christiansen,CyndiC,1768312870
+421,Classc,Vacant,inspect,Clean/Vacant,Kyra C.,Kyra C.,CyndiC,1768338830
+413,Classc,Vacant,inspect,Clean/Vacant,Kyra C.,Kyra C.,CyndiC,1768338830
+403,Classc,Vacant,inspect,Clean/Vacant,Kyra C.,Kyra C.,CyndiC,1768338830
+421,Classc,Vacant,Dirty,inspect,Kyra C.,Kyra C.,KyraC,1768335823
+413,Classc,Vacant,Dirty,inspect,Kyra C.,Kyra C.,KyraC,1768334512
+403,Classc,Vacant,Dirty,inspect,Kyra C.,Kyra C.,KyraC,1768333203
+306,Classc,Occupied,Dirty,Clean/Occupied,Kyra C.,Kyra C.,CyndiC,1768326774
+514,Deluxe,Vacant,inspect,Clean/Vacant,Kyra C.,Kyra C.,CyndiC,1768326767
+514,Deluxe,Vacant,Dirty,inspect,Kyra C.,Kyra C.,KyraC,1768326382
+403,Classc,Vacant,Dirty,Dirty,Kyra C.,Kyra C.,BethanyP,1768324167
+421,Classc,Vacant,Dirty,Dirty,Kyra C.,Kyra C.,BethanyP,1768323033
+413,Classc,Vacant,Dirty,Dirty,Kyra C.,Kyra C.,BethanyP,1768315453
+514,Deluxe,Vacant,Dirty,Dirty,,Kyra C.,CyndiC,1768312870
+421,Classc,Occupied,Dirty,Dirty,,Kyra C.,CyndiC,1768312870
+413,Classc,Occupied,Dirty,Dirty,,Kyra C.,CyndiC,1768312870
+403,Classc,Occupied,Dirty,Dirty,,Kyra C.,CyndiC,1768312870
+306,Classc,Occupied,Dirty,Dirty,,Kyra C.,CyndiC,1768312870
 514,Deluxe,Vacant,Dirty,Dirty,,,BethanyP,1768312728
-514,Deluxe,Occupied,Dirty,Dirty,Emery Rowles,,Administrator,1768298655
-214,Classc,Vacant,Clean/Vacant,Clean/Vacant,Emery Rowles,,Administrator,1768298655
-513,Deluxe,Vacant,Clean/Vacant,Clean/Vacant,Emery Rowles,,Administrator,1768298654
-421,Classc,Occupied,Dirty,Dirty,Emery Rowles,,Administrator,1768298654
-413,Classc,Occupied,Dirty,Dirty,Emery Rowles,,Administrator,1768298654
-403,Classc,Occupied,Dirty,Dirty,Emery Rowles,,Administrator,1768298654
-512,Deluxe,Vacant,Clean/Vacant,Clean/Vacant,Emery Rowles,,Administrator,1768298654
+514,Deluxe,Occupied,Dirty,Dirty,Emery R.,,Administrator,1768298655
+214,Classc,Vacant,Clean/Vacant,Clean/Vacant,Emery R.,,Administrator,1768298655
+513,Deluxe,Vacant,Clean/Vacant,Clean/Vacant,Emery R.,,Administrator,1768298654
+421,Classc,Occupied,Dirty,Dirty,Emery R.,,Administrator,1768298654
+413,Classc,Occupied,Dirty,Dirty,Emery R.,,Administrator,1768298654
+403,Classc,Occupied,Dirty,Dirty,Emery R.,,Administrator,1768298654
+512,Deluxe,Vacant,Clean/Vacant,Clean/Vacant,Emery R.,,Administrator,1768298654
 515,Deluxe,Out of Order,,,,,ChorumPMS,1768298639
 515,Deluxe,Out of Order,Clean/Vacant,Dirty,,,ChorumPMS,1768298639
 306,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1768298639
-421,Classc,Occupied,Clean/Occupied,Dirty,Emery Rowles,Emery Rowles,ChorumPMS,1768298639
-403,Classc,Occupied,Clean/Occupied,Dirty,Emery Rowles,Emery Rowles,ChorumPMS,1768298639
-413,Classc,Occupied,Clean/Occupied,Dirty,Emery Rowles,Emery Rowles,ChorumPMS,1768298639
-514,Deluxe,Occupied,Clean/Occupied,Dirty,Emery Rowles,Emery Rowles,ChorumPMS,1768298639
+421,Classc,Occupied,Clean/Occupied,Dirty,Emery R.,Emery R.,ChorumPMS,1768298639
+403,Classc,Occupied,Clean/Occupied,Dirty,Emery R.,Emery R.,ChorumPMS,1768298639
+413,Classc,Occupied,Clean/Occupied,Dirty,Emery R.,Emery R.,ChorumPMS,1768298639
+514,Deluxe,Occupied,Clean/Occupied,Dirty,Emery R.,Emery R.,ChorumPMS,1768298639
 306,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CameronS,1768264300
-513,Deluxe,Vacant,inspect,Clean/Vacant,Emery Rowles,Emery Rowles,CyndiC,1768245041
-512,Deluxe,Vacant,inspect,Clean/Vacant,Emery Rowles,Emery Rowles,CyndiC,1768245041
-512,Deluxe,Vacant,Dirty,inspect,Emery Rowles,Emery Rowles,EmeryR,1768244697
-512,Deluxe,Vacant,inspect,Dirty,Emery Rowles,Emery Rowles,MasonR,1768244619
-413,Classc,Occupied,Dirty,Clean/Occupied,Emery Rowles,Emery Rowles,EmeryR,1768244579
-403,Classc,Occupied,Dirty,Clean/Occupied,Emery Rowles,Emery Rowles,EmeryR,1768243400
-421,Classc,Occupied,Dirty,Clean/Occupied,Emery Rowles,Emery Rowles,EmeryR,1768243367
-512,Deluxe,Occupied,Dirty,inspect,Emery Rowles,Emery Rowles,EmeryR,1768243350
-513,Deluxe,Vacant,Dirty,inspect,Emery Rowles,Emery Rowles,EmeryR,1768240776
-514,Deluxe,Occupied,Dirty,Clean/Occupied,Emery Rowles,Emery Rowles,EmeryR,1768240753
-214,Classc,Vacant,inspect,Clean/Vacant,Emery Rowles,Emery Rowles,CyndiC,1768236138
-214,Classc,Vacant,Dirty,inspect,Emery Rowles,Emery Rowles,EmeryR,1768235978
-513,Deluxe,Vacant,Dirty,Dirty,Emery Rowles,Emery Rowles,TylerE,1768233205
-514,Deluxe,Occupied,Dirty,Dirty,,Emery Rowles,CyndiC,1768226533
-513,Deluxe,Occupied,Dirty,Dirty,,Emery Rowles,CyndiC,1768226533
-512,Deluxe,Occupied,Dirty,Dirty,,Emery Rowles,CyndiC,1768226533
-421,Classc,Occupied,Dirty,Dirty,,Emery Rowles,CyndiC,1768226533
-413,Classc,Occupied,Dirty,Dirty,,Emery Rowles,CyndiC,1768226533
-403,Classc,Occupied,Dirty,Dirty,,Emery Rowles,CyndiC,1768226533
-214,Classc,Vacant,Dirty,Dirty,,Emery Rowles,CyndiC,1768226533
+513,Deluxe,Vacant,inspect,Clean/Vacant,Emery R.,Emery R.,CyndiC,1768245041
+512,Deluxe,Vacant,inspect,Clean/Vacant,Emery R.,Emery R.,CyndiC,1768245041
+512,Deluxe,Vacant,Dirty,inspect,Emery R.,Emery R.,EmeryR,1768244697
+512,Deluxe,Vacant,inspect,Dirty,Emery R.,Emery R.,MasonR,1768244619
+413,Classc,Occupied,Dirty,Clean/Occupied,Emery R.,Emery R.,EmeryR,1768244579
+403,Classc,Occupied,Dirty,Clean/Occupied,Emery R.,Emery R.,EmeryR,1768243400
+421,Classc,Occupied,Dirty,Clean/Occupied,Emery R.,Emery R.,EmeryR,1768243367
+512,Deluxe,Occupied,Dirty,inspect,Emery R.,Emery R.,EmeryR,1768243350
+513,Deluxe,Vacant,Dirty,inspect,Emery R.,Emery R.,EmeryR,1768240776
+514,Deluxe,Occupied,Dirty,Clean/Occupied,Emery R.,Emery R.,EmeryR,1768240753
+214,Classc,Vacant,inspect,Clean/Vacant,Emery R.,Emery R.,CyndiC,1768236138
+214,Classc,Vacant,Dirty,inspect,Emery R.,Emery R.,EmeryR,1768235978
+513,Deluxe,Vacant,Dirty,Dirty,Emery R.,Emery R.,TylerE,1768233205
+514,Deluxe,Occupied,Dirty,Dirty,,Emery R.,CyndiC,1768226533
+513,Deluxe,Occupied,Dirty,Dirty,,Emery R.,CyndiC,1768226533
+512,Deluxe,Occupied,Dirty,Dirty,,Emery R.,CyndiC,1768226533
+421,Classc,Occupied,Dirty,Dirty,,Emery R.,CyndiC,1768226533
+413,Classc,Occupied,Dirty,Dirty,,Emery R.,CyndiC,1768226533
+403,Classc,Occupied,Dirty,Dirty,,Emery R.,CyndiC,1768226533
+214,Classc,Vacant,Dirty,Dirty,,Emery R.,CyndiC,1768226533
 421,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1768212104
 403,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1768212104
 513,Deluxe,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1768212104
@@ -114,50 +114,50 @@ Room Number,Room Type,FD Status,HSK Status Before,HSK Status After,Housekeeper B
 427,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CarterJ,1768176204
 421,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CarterJ,1768170174
 214,Classc,Vacant,Dirty,Dirty,,,TammyW,1768149965
-316,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee Thomsen,,Administrator,1768125888
-319,Classc,Vacant,Clean/Vacant,Clean/Vacant,Jesse Rowles,,Administrator,1768125887
-317,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee Thomsen,,Administrator,1768125887
-321,Classc,Vacant,Clean/Vacant,Clean/Vacant,Jesse Rowles,,Administrator,1768125887
-413,Classc,Vacant,Clean/Vacant,Clean/Vacant,Jesse Rowles,,Administrator,1768125887
-318,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee Thomsen,,Administrator,1768125887
-315,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee Thomsen,,Administrator,1768125887
+316,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee T.,,Administrator,1768125888
+319,Classc,Vacant,Clean/Vacant,Clean/Vacant,Jesse R.,,Administrator,1768125887
+317,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee T.,,Administrator,1768125887
+321,Classc,Vacant,Clean/Vacant,Clean/Vacant,Jesse R.,,Administrator,1768125887
+413,Classc,Vacant,Clean/Vacant,Clean/Vacant,Jesse R.,,Administrator,1768125887
+318,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee T.,,Administrator,1768125887
+315,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee T.,,Administrator,1768125887
 214,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1768125873
 214,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,TammyW,1768103472
-315,Classc,Vacant,inspect,Clean/Vacant,Kaylee Thomsen,Kaylee Thomsen,NachelleW,1768078878
-315,Classc,Vacant,Dirty,inspect,Kaylee Thomsen,Kaylee Thomsen,KayleeT,1768078395
-316,Classc,Vacant,inspect,Clean/Vacant,Kaylee Thomsen,Kaylee Thomsen,NachelleW,1768078234
-413,Classc,Vacant,inspect,Clean/Vacant,Jesse Rowles,Jesse Rowles,NachelleW,1768078037
-413,Classc,Vacant,Dirty,inspect,Jesse Rowles,Jesse Rowles,JesseR,1768077003
-316,Classc,Vacant,Dirty,inspect,Kaylee Thomsen,Kaylee Thomsen,KayleeT,1768076229
-321,Classc,Vacant,inspect,Clean/Vacant,Jesse Rowles,Jesse Rowles,NachelleW,1768071143
-319,Classc,Vacant,inspect,Clean/Vacant,Jesse Rowles,Jesse Rowles,NachelleW,1768071083
-317,Classc,Vacant,inspect,Clean/Vacant,Kaylee Thomsen,Kaylee Thomsen,NachelleW,1768071015
-321,Classc,Vacant,Dirty,inspect,Jesse Rowles,Jesse Rowles,JesseR,1768070779
-319,Classc,Vacant,Dirty,inspect,Jesse Rowles,Jesse Rowles,JesseR,1768070776
-318,Classc,Vacant,inspect,Clean/Vacant,Kaylee Thomsen,Kaylee Thomsen,NachelleW,1768069158
-317,Classc,Vacant,Dirty,inspect,Kaylee Thomsen,Kaylee Thomsen,KayleeT,1768069140
-413,Classc,Vacant,Dirty,Dirty,Jesse Rowles,Jesse Rowles,TammyW,1768067784
-318,Classc,Vacant,Dirty,inspect,Kaylee Thomsen,Kaylee Thomsen,KayleeT,1768066807
-413,Classc,Occupied,Dirty,Dirty,,Jesse Rowles,NachelleW,1768061774
-321,Classc,Vacant,Dirty,Dirty,,Jesse Rowles,NachelleW,1768061774
-319,Classc,Vacant,Dirty,Dirty,,Jesse Rowles,NachelleW,1768061774
-318,Classc,Vacant,Dirty,Dirty,,Kaylee Thomsen,NachelleW,1768061774
-317,Classc,Vacant,Dirty,Dirty,,Kaylee Thomsen,NachelleW,1768061774
-316,Classc,Vacant,Dirty,Dirty,,Kaylee Thomsen,NachelleW,1768061774
-315,Classc,Vacant,Dirty,Dirty,,Kaylee Thomsen,NachelleW,1768061774
+315,Classc,Vacant,inspect,Clean/Vacant,Kaylee T.,Kaylee T.,NachelleW,1768078878
+315,Classc,Vacant,Dirty,inspect,Kaylee T.,Kaylee T.,KayleeT,1768078395
+316,Classc,Vacant,inspect,Clean/Vacant,Kaylee T.,Kaylee T.,NachelleW,1768078234
+413,Classc,Vacant,inspect,Clean/Vacant,Jesse R.,Jesse R.,NachelleW,1768078037
+413,Classc,Vacant,Dirty,inspect,Jesse R.,Jesse R.,JesseR,1768077003
+316,Classc,Vacant,Dirty,inspect,Kaylee T.,Kaylee T.,KayleeT,1768076229
+321,Classc,Vacant,inspect,Clean/Vacant,Jesse R.,Jesse R.,NachelleW,1768071143
+319,Classc,Vacant,inspect,Clean/Vacant,Jesse R.,Jesse R.,NachelleW,1768071083
+317,Classc,Vacant,inspect,Clean/Vacant,Kaylee T.,Kaylee T.,NachelleW,1768071015
+321,Classc,Vacant,Dirty,inspect,Jesse R.,Jesse R.,JesseR,1768070779
+319,Classc,Vacant,Dirty,inspect,Jesse R.,Jesse R.,JesseR,1768070776
+318,Classc,Vacant,inspect,Clean/Vacant,Kaylee T.,Kaylee T.,NachelleW,1768069158
+317,Classc,Vacant,Dirty,inspect,Kaylee T.,Kaylee T.,KayleeT,1768069140
+413,Classc,Vacant,Dirty,Dirty,Jesse R.,Jesse R.,TammyW,1768067784
+318,Classc,Vacant,Dirty,inspect,Kaylee T.,Kaylee T.,KayleeT,1768066807
+413,Classc,Occupied,Dirty,Dirty,,Jesse R.,NachelleW,1768061774
+321,Classc,Vacant,Dirty,Dirty,,Jesse R.,NachelleW,1768061774
+319,Classc,Vacant,Dirty,Dirty,,Jesse R.,NachelleW,1768061774
+318,Classc,Vacant,Dirty,Dirty,,Kaylee T.,NachelleW,1768061774
+317,Classc,Vacant,Dirty,Dirty,,Kaylee T.,NachelleW,1768061774
+316,Classc,Vacant,Dirty,Dirty,,Kaylee T.,NachelleW,1768061774
+315,Classc,Vacant,Dirty,Dirty,,Kaylee T.,NachelleW,1768061774
 321,Classc,Vacant,Dirty,Dirty,,,TammyW,1768057653
 315,Classc,Vacant,Dirty,Dirty,,,TammyW,1768056242
 319,Classc,Vacant,Dirty,Dirty,,,TammyW,1768056082
 316,Classc,Vacant,Dirty,Dirty,,,TammyW,1768056069
 317,Classc,Vacant,Dirty,Dirty,,,TammyW,1768056055
 318,Classc,Vacant,Dirty,Dirty,,,TammyW,1768056044
-308,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kyra Christiansen,,Administrator,1768039352
-321,Classc,Occupied,Dirty,Dirty,Kyra Christiansen,,Administrator,1768039352
-413,Classc,Occupied,Dirty,Dirty,Dixie Collins,,Administrator,1768039352
-410,Classc,Vacant,Clean/Vacant,Clean/Vacant,Dixie Collins,,Administrator,1768039352
-306,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kyra Christiansen,,Administrator,1768039352
-413,Classc,Occupied,Clean/Occupied,Dirty,Dixie Collins,Dixie Collins,ChorumPMS,1768039330
-321,Classc,Occupied,Clean/Occupied,Dirty,Kyra Christiansen,Kyra Christiansen,ChorumPMS,1768039330
+308,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kyra C.,,Administrator,1768039352
+321,Classc,Occupied,Dirty,Dirty,Kyra C.,,Administrator,1768039352
+413,Classc,Occupied,Dirty,Dirty,Dixie C.,,Administrator,1768039352
+410,Classc,Vacant,Clean/Vacant,Clean/Vacant,Dixie C.,,Administrator,1768039352
+306,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kyra C.,,Administrator,1768039352
+413,Classc,Occupied,Clean/Occupied,Dirty,Dixie C.,Dixie C.,ChorumPMS,1768039330
+321,Classc,Occupied,Clean/Occupied,Dirty,Kyra C.,Kyra C.,ChorumPMS,1768039330
 318,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1768039330
 317,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1768039330
 315,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1768039330
@@ -168,170 +168,170 @@ Room Number,Room Type,FD Status,HSK Status Before,HSK Status After,Housekeeper B
 315,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CarterJ,1768015139
 318,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CarterJ,1768015118
 316,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CarterJ,1768015099
-413,Classc,Occupied,Clean/Vacant,Clean/Occupied,Dixie Collins,Dixie Collins,CarterJ,1768012191
-321,Classc,Occupied,Clean/Vacant,Clean/Occupied,Kyra Christiansen,Kyra Christiansen,CarterJ,1768006016
-413,Classc,Vacant,inspect,Clean/Vacant,Dixie Collins,Dixie Collins,CyndiC,1767993469
-413,Classc,Vacant,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1767993099
-410,Classc,Vacant,inspect,Clean/Vacant,Dixie Collins,Dixie Collins,CyndiC,1767990877
-410,Classc,Vacant,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1767990841
-321,Classc,Vacant,inspect,Clean/Vacant,Kyra Christiansen,Kyra Christiansen,CyndiC,1767988049
-321,Classc,Vacant,Dirty,inspect,Kyra Christiansen,Kyra Christiansen,KyraC,1767987972
-308,Classc,Vacant,inspect,Clean/Vacant,Kyra Christiansen,Kyra Christiansen,CyndiC,1767985157
-308,Classc,Vacant,Dirty,inspect,Kyra Christiansen,Kyra Christiansen,KyraC,1767984743
-306,Classc,Vacant,inspect,Clean/Vacant,Kyra Christiansen,Kyra Christiansen,CyndiC,1767984630
-410,Classc,Vacant,Dirty,Dirty,Dixie Collins,Dixie Collins,BethanyP,1767983961
-306,Classc,Vacant,Dirty,inspect,Kyra Christiansen,Kyra Christiansen,KyraC,1767983702
-321,Classc,Vacant,Dirty,Dirty,Kyra Christiansen,Kyra Christiansen,BethanyP,1767978546
-306,Classc,Vacant,Dirty,Dirty,Kyra Christiansen,Kyra Christiansen,BethanyP,1767976281
-308,Classc,Vacant,Dirty,Dirty,Kyra Christiansen,Kyra Christiansen,BethanyP,1767973047
-413,Classc,Vacant,Dirty,Dirty,Dixie Collins,Dixie Collins,BethanyP,1767969288
+413,Classc,Occupied,Clean/Vacant,Clean/Occupied,Dixie C.,Dixie C.,CarterJ,1768012191
+321,Classc,Occupied,Clean/Vacant,Clean/Occupied,Kyra C.,Kyra C.,CarterJ,1768006016
+413,Classc,Vacant,inspect,Clean/Vacant,Dixie C.,Dixie C.,CyndiC,1767993469
+413,Classc,Vacant,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1767993099
+410,Classc,Vacant,inspect,Clean/Vacant,Dixie C.,Dixie C.,CyndiC,1767990877
+410,Classc,Vacant,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1767990841
+321,Classc,Vacant,inspect,Clean/Vacant,Kyra C.,Kyra C.,CyndiC,1767988049
+321,Classc,Vacant,Dirty,inspect,Kyra C.,Kyra C.,KyraC,1767987972
+308,Classc,Vacant,inspect,Clean/Vacant,Kyra C.,Kyra C.,CyndiC,1767985157
+308,Classc,Vacant,Dirty,inspect,Kyra C.,Kyra C.,KyraC,1767984743
+306,Classc,Vacant,inspect,Clean/Vacant,Kyra C.,Kyra C.,CyndiC,1767984630
+410,Classc,Vacant,Dirty,Dirty,Dixie C.,Dixie C.,BethanyP,1767983961
+306,Classc,Vacant,Dirty,inspect,Kyra C.,Kyra C.,KyraC,1767983702
+321,Classc,Vacant,Dirty,Dirty,Kyra C.,Kyra C.,BethanyP,1767978546
+306,Classc,Vacant,Dirty,Dirty,Kyra C.,Kyra C.,BethanyP,1767976281
+308,Classc,Vacant,Dirty,Dirty,Kyra C.,Kyra C.,BethanyP,1767973047
+413,Classc,Vacant,Dirty,Dirty,Dixie C.,Dixie C.,BethanyP,1767969288
 317,Classc,Vacant,inspect,Clean/Vacant,,,CyndiC,1767967463
 207,Classc,Out of Order,,,,,CyndiC,1767967310
 207,Classc,Out of Order,Clean/Vacant,Dirty,,,CyndiC,1767967310
 205,Classc,Out of Order,,,,,CyndiC,1767967286
 205,Classc,Out of Order,Clean/Vacant,Dirty,,,CyndiC,1767967286
-413,Classc,Occupied,Dirty,Dirty,,Dixie Collins,CyndiC,1767966856
-410,Classc,Occupied,Dirty,Dirty,,Dixie Collins,CyndiC,1767966856
-321,Classc,Occupied,Dirty,Dirty,,Kyra Christiansen,CyndiC,1767966856
-308,Classc,Occupied,Dirty,Dirty,,Kyra Christiansen,CyndiC,1767966856
-306,Classc,Occupied,Dirty,Dirty,,Kyra Christiansen,CyndiC,1767966856
-317,Classc,Vacant,inspect,inspect,Felicity Arnold,,Administrator,1767953083
-413,Classc,Occupied,Dirty,Dirty,Felicity Arnold,,Administrator,1767953083
+413,Classc,Occupied,Dirty,Dirty,,Dixie C.,CyndiC,1767966856
+410,Classc,Occupied,Dirty,Dirty,,Dixie C.,CyndiC,1767966856
+321,Classc,Occupied,Dirty,Dirty,,Kyra C.,CyndiC,1767966856
+308,Classc,Occupied,Dirty,Dirty,,Kyra C.,CyndiC,1767966856
+306,Classc,Occupied,Dirty,Dirty,,Kyra C.,CyndiC,1767966856
+317,Classc,Vacant,inspect,inspect,Felicity A.,,Administrator,1767953083
+413,Classc,Occupied,Dirty,Dirty,Felicity A.,,Administrator,1767953083
 321,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767953069
 410,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767953069
 308,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767953069
 306,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767953068
-413,Classc,Occupied,Clean/Occupied,Dirty,Felicity Arnold,Felicity Arnold,ChorumPMS,1767953068
+413,Classc,Occupied,Clean/Occupied,Dirty,Felicity A.,Felicity A.,ChorumPMS,1767953068
 321,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,MckenzieS,1767939460
 306,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,MckenzieS,1767939311
 308,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CameronS,1767929347
 410,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,BethanyP,1767916857
-317,Classc,Vacant,Dirty,inspect,Felicity Arnold,Felicity Arnold,FelicityA,1767905019
-413,Classc,Occupied,Dirty,Clean/Occupied,Felicity Arnold,Felicity Arnold,FelicityA,1767894292
-413,Classc,Occupied,Dirty,Dirty,,Felicity Arnold,CyndiC,1767880766
-317,Classc,Vacant,Dirty,Dirty,,Felicity Arnold,CyndiC,1767880766
+317,Classc,Vacant,Dirty,inspect,Felicity A.,Felicity A.,FelicityA,1767905019
+413,Classc,Occupied,Dirty,Clean/Occupied,Felicity A.,Felicity A.,FelicityA,1767894292
+413,Classc,Occupied,Dirty,Dirty,,Felicity A.,CyndiC,1767880766
+317,Classc,Vacant,Dirty,Dirty,,Felicity A.,CyndiC,1767880766
 317,Classc,Vacant,Dirty,Dirty,,,HelerP,1767876108
-308,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee Thomsen,,Administrator,1767866544
-210,Classc,Vacant,Clean/Vacant,Clean/Vacant,Emery Rowles,,Administrator,1767866544
-313,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee Thomsen,,Administrator,1767866544
-317,Classc,Occupied,Dirty,Dirty,Emery Rowles,,Administrator,1767866544
-310,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee Thomsen,,Administrator,1767866544
-314,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee Thomsen,,Administrator,1767866544
+308,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee T.,,Administrator,1767866544
+210,Classc,Vacant,Clean/Vacant,Clean/Vacant,Emery R.,,Administrator,1767866544
+313,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee T.,,Administrator,1767866544
+317,Classc,Occupied,Dirty,Dirty,Emery R.,,Administrator,1767866544
+310,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee T.,,Administrator,1767866544
+314,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee T.,,Administrator,1767866544
 413,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767866529
-317,Classc,Occupied,Clean/Occupied,Dirty,Emery Rowles,Emery Rowles,ChorumPMS,1767866529
+317,Classc,Occupied,Clean/Occupied,Dirty,Emery R.,Emery R.,ChorumPMS,1767866529
 413,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,MasonR,1767827337
-314,Classc,Vacant,inspect,Clean/Vacant,Kaylee Thomsen,Kaylee Thomsen,CyndiC,1767813146
-313,Classc,Vacant,inspect,Clean/Vacant,Kaylee Thomsen,Kaylee Thomsen,CyndiC,1767813146
-314,Classc,Vacant,Dirty,inspect,Kaylee Thomsen,Kaylee Thomsen,KayleeT,1767812803
-210,Classc,Vacant,inspect,Clean/Vacant,Emery Rowles,Emery Rowles,CyndiC,1767812690
-210,Classc,Vacant,Dirty,inspect,Emery Rowles,Emery Rowles,EmeryR,1767812445
-313,Classc,Vacant,Dirty,inspect,Kaylee Thomsen,Kaylee Thomsen,KayleeT,1767811720
-310,Classc,Vacant,inspect,Clean/Vacant,Kaylee Thomsen,Kaylee Thomsen,CyndiC,1767810674
-308,Classc,Vacant,inspect,Clean/Vacant,Kaylee Thomsen,Kaylee Thomsen,CyndiC,1767810674
-308,Classc,Vacant,Dirty,inspect,Kaylee Thomsen,Kaylee Thomsen,KayleeT,1767810344
-310,Classc,Vacant,Dirty,inspect,Kaylee Thomsen,Kaylee Thomsen,KayleeT,1767809511
-317,Classc,Occupied,Dirty,Clean/Occupied,Emery Rowles,Emery Rowles,EmeryR,1767808598
-210,Classc,Vacant,Dirty,Dirty,Emery Rowles,Emery Rowles,JustinM,1767808387
-314,Classc,Vacant,Dirty,Dirty,Kaylee Thomsen,Kaylee Thomsen,JustinM,1767804110
-313,Classc,Vacant,Dirty,Dirty,Kaylee Thomsen,Kaylee Thomsen,JustinM,1767803382
-310,Classc,Vacant,Dirty,Dirty,Kaylee Thomsen,Kaylee Thomsen,JustinM,1767801468
-308,Classc,Vacant,Dirty,Dirty,Kaylee Thomsen,Kaylee Thomsen,JustinM,1767801416
-317,Classc,Occupied,Dirty,Dirty,,Emery Rowles,CyndiC,1767794921
-314,Classc,Occupied,Dirty,Dirty,,Kaylee Thomsen,CyndiC,1767794921
-313,Classc,Occupied,Dirty,Dirty,,Kaylee Thomsen,CyndiC,1767794921
-310,Classc,Occupied,Dirty,Dirty,,Kaylee Thomsen,CyndiC,1767794921
-308,Classc,Occupied,Dirty,Dirty,,Kaylee Thomsen,CyndiC,1767794921
-210,Classc,Occupied,Dirty,Dirty,,Emery Rowles,CyndiC,1767794921
-320,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kyra Christiansen,,Administrator,1767780320
-307,Classc,Vacant,Clean/Vacant,Clean/Vacant,Jesse Rowles,,Administrator,1767780320
-313,Classc,Occupied,Dirty,Dirty,Jesse Rowles,,Administrator,1767780320
-317,Classc,Occupied,Dirty,Dirty,Kyra Christiansen,,Administrator,1767780320
-413,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kyra Christiansen,,Administrator,1767780320
-311,Classc,Vacant,Clean/Vacant,Clean/Vacant,Jesse Rowles,,Administrator,1767780320
-318,Classc,Vacant,Clean/Vacant,Clean/Vacant,Rylee Call,,Administrator,1767780320
-314,Classc,Occupied,Dirty,Dirty,Jesse Rowles,,Administrator,1767780320
-417,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kyra Christiansen,,Administrator,1767780320
-306,Classc,Vacant,Clean/Vacant,Clean/Vacant,Rylee Call,,Administrator,1767780320
-313,Classc,Occupied,Clean/Occupied,Dirty,Jesse Rowles,Jesse Rowles,ChorumPMS,1767780301
+314,Classc,Vacant,inspect,Clean/Vacant,Kaylee T.,Kaylee T.,CyndiC,1767813146
+313,Classc,Vacant,inspect,Clean/Vacant,Kaylee T.,Kaylee T.,CyndiC,1767813146
+314,Classc,Vacant,Dirty,inspect,Kaylee T.,Kaylee T.,KayleeT,1767812803
+210,Classc,Vacant,inspect,Clean/Vacant,Emery R.,Emery R.,CyndiC,1767812690
+210,Classc,Vacant,Dirty,inspect,Emery R.,Emery R.,EmeryR,1767812445
+313,Classc,Vacant,Dirty,inspect,Kaylee T.,Kaylee T.,KayleeT,1767811720
+310,Classc,Vacant,inspect,Clean/Vacant,Kaylee T.,Kaylee T.,CyndiC,1767810674
+308,Classc,Vacant,inspect,Clean/Vacant,Kaylee T.,Kaylee T.,CyndiC,1767810674
+308,Classc,Vacant,Dirty,inspect,Kaylee T.,Kaylee T.,KayleeT,1767810344
+310,Classc,Vacant,Dirty,inspect,Kaylee T.,Kaylee T.,KayleeT,1767809511
+317,Classc,Occupied,Dirty,Clean/Occupied,Emery R.,Emery R.,EmeryR,1767808598
+210,Classc,Vacant,Dirty,Dirty,Emery R.,Emery R.,JustinM,1767808387
+314,Classc,Vacant,Dirty,Dirty,Kaylee T.,Kaylee T.,JustinM,1767804110
+313,Classc,Vacant,Dirty,Dirty,Kaylee T.,Kaylee T.,JustinM,1767803382
+310,Classc,Vacant,Dirty,Dirty,Kaylee T.,Kaylee T.,JustinM,1767801468
+308,Classc,Vacant,Dirty,Dirty,Kaylee T.,Kaylee T.,JustinM,1767801416
+317,Classc,Occupied,Dirty,Dirty,,Emery R.,CyndiC,1767794921
+314,Classc,Occupied,Dirty,Dirty,,Kaylee T.,CyndiC,1767794921
+313,Classc,Occupied,Dirty,Dirty,,Kaylee T.,CyndiC,1767794921
+310,Classc,Occupied,Dirty,Dirty,,Kaylee T.,CyndiC,1767794921
+308,Classc,Occupied,Dirty,Dirty,,Kaylee T.,CyndiC,1767794921
+210,Classc,Occupied,Dirty,Dirty,,Emery R.,CyndiC,1767794921
+320,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kyra C.,,Administrator,1767780320
+307,Classc,Vacant,Clean/Vacant,Clean/Vacant,Jesse R.,,Administrator,1767780320
+313,Classc,Occupied,Dirty,Dirty,Jesse R.,,Administrator,1767780320
+317,Classc,Occupied,Dirty,Dirty,Kyra C.,,Administrator,1767780320
+413,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kyra C.,,Administrator,1767780320
+311,Classc,Vacant,Clean/Vacant,Clean/Vacant,Jesse R.,,Administrator,1767780320
+318,Classc,Vacant,Clean/Vacant,Clean/Vacant,Rylee C.,,Administrator,1767780320
+314,Classc,Occupied,Dirty,Dirty,Jesse R.,,Administrator,1767780320
+417,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kyra C.,,Administrator,1767780320
+306,Classc,Vacant,Clean/Vacant,Clean/Vacant,Rylee C.,,Administrator,1767780320
+313,Classc,Occupied,Clean/Occupied,Dirty,Jesse R.,Jesse R.,ChorumPMS,1767780301
 310,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767780301
 308,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767780301
 210,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767780301
-317,Classc,Occupied,Clean/Occupied,Dirty,Kyra Christiansen,Kyra Christiansen,ChorumPMS,1767780301
-314,Classc,Occupied,Clean/Occupied,Dirty,Jesse Rowles,Jesse Rowles,ChorumPMS,1767780301
+317,Classc,Occupied,Clean/Occupied,Dirty,Kyra C.,Kyra C.,ChorumPMS,1767780301
+314,Classc,Occupied,Clean/Occupied,Dirty,Jesse R.,Jesse R.,ChorumPMS,1767780301
 310,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CameronS,1767761980
 308,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CameronS,1767753337
 210,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,BethanyP,1767743003
-313,Classc,Occupied,Clean/Vacant,Clean/Occupied,Jesse Rowles,Jesse Rowles,BethanyP,1767742854
-318,Classc,Vacant,inspect,Clean/Vacant,Rylee Call,Rylee Call,CyndiC,1767735349
-306,Classc,Vacant,inspect,Clean/Vacant,Rylee Call,Rylee Call,CyndiC,1767735349
-318,Classc,Vacant,Dirty,inspect,Rylee Call,Rylee Call,RyleeC,1767734653
-306,Classc,Vacant,Dirty,inspect,Rylee Call,Rylee Call,RyleeC,1767734646
-317,Classc,Occupied,Dirty,Clean/Occupied,Kyra Christiansen,Kyra Christiansen,KyraC,1767727844
-320,Classc,Vacant,inspect,Clean/Vacant,Kyra Christiansen,Kyra Christiansen,CyndiC,1767727638
-313,Classc,Vacant,inspect,Clean/Vacant,Jesse Rowles,Jesse Rowles,CyndiC,1767727638
-311,Classc,Vacant,inspect,Clean/Vacant,Jesse Rowles,Jesse Rowles,CyndiC,1767727638
-320,Classc,Vacant,Dirty,inspect,Kyra Christiansen,Kyra Christiansen,KyraC,1767727380
-314,Classc,Occupied,Dirty,Clean/Occupied,Jesse Rowles,Jesse Rowles,JesseR,1767727241
-311,Classc,Vacant,Dirty,inspect,Jesse Rowles,Jesse Rowles,JesseR,1767726814
-313,Classc,Vacant,Dirty,inspect,Jesse Rowles,Jesse Rowles,JesseR,1767726811
-417,Classc,Vacant,inspect,Clean/Vacant,Kyra Christiansen,Kyra Christiansen,CyndiC,1767725644
-413,Classc,Vacant,inspect,Clean/Vacant,Kyra Christiansen,Kyra Christiansen,CyndiC,1767725644
-413,Classc,Vacant,Dirty,inspect,Kyra Christiansen,Kyra Christiansen,KyraC,1767724897
-417,Classc,Vacant,Dirty,inspect,Kyra Christiansen,Kyra Christiansen,KyraC,1767724044
-307,Classc,Vacant,inspect,Clean/Vacant,Jesse Rowles,Jesse Rowles,CyndiC,1767723571
-318,Classc,Vacant,Dirty,Dirty,Rylee Call,Rylee Call,BethanyP,1767723380
-307,Classc,Vacant,Dirty,inspect,Jesse Rowles,Jesse Rowles,JesseR,1767721566
-306,Classc,Vacant,Dirty,Dirty,Rylee Call,Rylee Call,BethanyP,1767711145
-417,Classc,Vacant,Dirty,Dirty,,Kyra Christiansen,CyndiC,1767707718
-413,Classc,Vacant,Dirty,Dirty,,Kyra Christiansen,CyndiC,1767707718
-320,Classc,Vacant,Dirty,Dirty,,Kyra Christiansen,CyndiC,1767707718
-318,Classc,Occupied,Dirty,Dirty,,Rylee Call,CyndiC,1767707718
-317,Classc,Occupied,Dirty,Dirty,,Kyra Christiansen,CyndiC,1767707718
-314,Classc,Occupied,Dirty,Dirty,,Jesse Rowles,CyndiC,1767707718
-313,Classc,Vacant,Dirty,Dirty,,Jesse Rowles,CyndiC,1767707718
-311,Classc,Vacant,Dirty,Dirty,,Jesse Rowles,CyndiC,1767707718
-307,Classc,Vacant,Dirty,Dirty,,Jesse Rowles,CyndiC,1767707718
-306,Classc,Occupied,Dirty,Dirty,,Rylee Call,CyndiC,1767707718
-514,Deluxe,Vacant,Clean/Vacant,Clean/Vacant,Dixie Collins,,Administrator,1767693784
-411,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee Thomsen,,Administrator,1767693784
-513,Deluxe,Vacant,Clean/Vacant,Clean/Vacant,Dixie Collins,,Administrator,1767693784
-515,Deluxe,Vacant,Clean/Vacant,Clean/Vacant,Dixie Collins,,Administrator,1767693784
-407,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee Thomsen,,Administrator,1767693784
-410,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee Thomsen,,Administrator,1767693784
-409,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee Thomsen,,Administrator,1767693784
-306,Classc,Occupied,Dirty,Dirty,Dixie Collins,,Administrator,1767693784
+313,Classc,Occupied,Clean/Vacant,Clean/Occupied,Jesse R.,Jesse R.,BethanyP,1767742854
+318,Classc,Vacant,inspect,Clean/Vacant,Rylee C.,Rylee C.,CyndiC,1767735349
+306,Classc,Vacant,inspect,Clean/Vacant,Rylee C.,Rylee C.,CyndiC,1767735349
+318,Classc,Vacant,Dirty,inspect,Rylee C.,Rylee C.,RyleeC,1767734653
+306,Classc,Vacant,Dirty,inspect,Rylee C.,Rylee C.,RyleeC,1767734646
+317,Classc,Occupied,Dirty,Clean/Occupied,Kyra C.,Kyra C.,KyraC,1767727844
+320,Classc,Vacant,inspect,Clean/Vacant,Kyra C.,Kyra C.,CyndiC,1767727638
+313,Classc,Vacant,inspect,Clean/Vacant,Jesse R.,Jesse R.,CyndiC,1767727638
+311,Classc,Vacant,inspect,Clean/Vacant,Jesse R.,Jesse R.,CyndiC,1767727638
+320,Classc,Vacant,Dirty,inspect,Kyra C.,Kyra C.,KyraC,1767727380
+314,Classc,Occupied,Dirty,Clean/Occupied,Jesse R.,Jesse R.,JesseR,1767727241
+311,Classc,Vacant,Dirty,inspect,Jesse R.,Jesse R.,JesseR,1767726814
+313,Classc,Vacant,Dirty,inspect,Jesse R.,Jesse R.,JesseR,1767726811
+417,Classc,Vacant,inspect,Clean/Vacant,Kyra C.,Kyra C.,CyndiC,1767725644
+413,Classc,Vacant,inspect,Clean/Vacant,Kyra C.,Kyra C.,CyndiC,1767725644
+413,Classc,Vacant,Dirty,inspect,Kyra C.,Kyra C.,KyraC,1767724897
+417,Classc,Vacant,Dirty,inspect,Kyra C.,Kyra C.,KyraC,1767724044
+307,Classc,Vacant,inspect,Clean/Vacant,Jesse R.,Jesse R.,CyndiC,1767723571
+318,Classc,Vacant,Dirty,Dirty,Rylee C.,Rylee C.,BethanyP,1767723380
+307,Classc,Vacant,Dirty,inspect,Jesse R.,Jesse R.,JesseR,1767721566
+306,Classc,Vacant,Dirty,Dirty,Rylee C.,Rylee C.,BethanyP,1767711145
+417,Classc,Vacant,Dirty,Dirty,,Kyra C.,CyndiC,1767707718
+413,Classc,Vacant,Dirty,Dirty,,Kyra C.,CyndiC,1767707718
+320,Classc,Vacant,Dirty,Dirty,,Kyra C.,CyndiC,1767707718
+318,Classc,Occupied,Dirty,Dirty,,Rylee C.,CyndiC,1767707718
+317,Classc,Occupied,Dirty,Dirty,,Kyra C.,CyndiC,1767707718
+314,Classc,Occupied,Dirty,Dirty,,Jesse R.,CyndiC,1767707718
+313,Classc,Vacant,Dirty,Dirty,,Jesse R.,CyndiC,1767707718
+311,Classc,Vacant,Dirty,Dirty,,Jesse R.,CyndiC,1767707718
+307,Classc,Vacant,Dirty,Dirty,,Jesse R.,CyndiC,1767707718
+306,Classc,Occupied,Dirty,Dirty,,Rylee C.,CyndiC,1767707718
+514,Deluxe,Vacant,Clean/Vacant,Clean/Vacant,Dixie C.,,Administrator,1767693784
+411,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee T.,,Administrator,1767693784
+513,Deluxe,Vacant,Clean/Vacant,Clean/Vacant,Dixie C.,,Administrator,1767693784
+515,Deluxe,Vacant,Clean/Vacant,Clean/Vacant,Dixie C.,,Administrator,1767693784
+407,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee T.,,Administrator,1767693784
+410,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee T.,,Administrator,1767693784
+409,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee T.,,Administrator,1767693784
+306,Classc,Occupied,Dirty,Dirty,Dixie C.,,Administrator,1767693784
 318,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767693768
 317,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767693768
 314,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767693768
-306,Classc,Occupied,Clean/Occupied,Dirty,Dixie Collins,Dixie Collins,ChorumPMS,1767693768
+306,Classc,Occupied,Clean/Occupied,Dirty,Dixie C.,Dixie C.,ChorumPMS,1767693768
 314,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,HelerP,1767685495
 318,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,HelerP,1767681885
 317,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CameronS,1767669178
-515,Deluxe,Vacant,inspect,Clean/Vacant,Dixie Collins,Dixie Collins,CyndiC,1767649660
-514,Deluxe,Vacant,inspect,Clean/Vacant,Dixie Collins,Dixie Collins,CyndiC,1767649660
-513,Deluxe,Vacant,inspect,Clean/Vacant,Dixie Collins,Dixie Collins,CyndiC,1767649660
-514,Deluxe,Vacant,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1767649107
-515,Deluxe,Vacant,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1767649094
-513,Deluxe,Vacant,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1767649088
-306,Classc,Occupied,inspect,Clean/Occupied,Dixie Collins,Dixie Collins,CyndiC,1767641738
-411,Classc,Vacant,inspect,Clean/Vacant,Kaylee Thomsen,Kaylee Thomsen,CyndiC,1767641732
-410,Classc,Vacant,inspect,Clean/Vacant,Kaylee Thomsen,Kaylee Thomsen,CyndiC,1767641732
-409,Classc,Vacant,inspect,Clean/Vacant,Kaylee Thomsen,Kaylee Thomsen,CyndiC,1767641731
-407,Classc,Vacant,inspect,Clean/Vacant,Kaylee Thomsen,Kaylee Thomsen,CyndiC,1767641731
-306,Classc,Occupied,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1767641261
-407,Classc,Vacant,Dirty,inspect,Kaylee Thomsen,Kaylee Thomsen,KayleeT,1767639957
-409,Classc,Vacant,Dirty,inspect,Kaylee Thomsen,Kaylee Thomsen,KayleeT,1767639016
-410,Classc,Vacant,Dirty,inspect,Kaylee Thomsen,Kaylee Thomsen,KayleeT,1767638118
-411,Classc,Vacant,Dirty,inspect,Kaylee Thomsen,Kaylee Thomsen,KayleeT,1767636960
+515,Deluxe,Vacant,inspect,Clean/Vacant,Dixie C.,Dixie C.,CyndiC,1767649660
+514,Deluxe,Vacant,inspect,Clean/Vacant,Dixie C.,Dixie C.,CyndiC,1767649660
+513,Deluxe,Vacant,inspect,Clean/Vacant,Dixie C.,Dixie C.,CyndiC,1767649660
+514,Deluxe,Vacant,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1767649107
+515,Deluxe,Vacant,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1767649094
+513,Deluxe,Vacant,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1767649088
+306,Classc,Occupied,inspect,Clean/Occupied,Dixie C.,Dixie C.,CyndiC,1767641738
+411,Classc,Vacant,inspect,Clean/Vacant,Kaylee T.,Kaylee T.,CyndiC,1767641732
+410,Classc,Vacant,inspect,Clean/Vacant,Kaylee T.,Kaylee T.,CyndiC,1767641732
+409,Classc,Vacant,inspect,Clean/Vacant,Kaylee T.,Kaylee T.,CyndiC,1767641731
+407,Classc,Vacant,inspect,Clean/Vacant,Kaylee T.,Kaylee T.,CyndiC,1767641731
+306,Classc,Occupied,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1767641261
+407,Classc,Vacant,Dirty,inspect,Kaylee T.,Kaylee T.,KayleeT,1767639957
+409,Classc,Vacant,Dirty,inspect,Kaylee T.,Kaylee T.,KayleeT,1767639016
+410,Classc,Vacant,Dirty,inspect,Kaylee T.,Kaylee T.,KayleeT,1767638118
+411,Classc,Vacant,Dirty,inspect,Kaylee T.,Kaylee T.,KayleeT,1767636960
 313,Classc,Vacant,Dirty,Dirty,,,JustinM,1767632075
-515,Deluxe,Vacant,Dirty,Dirty,,Dixie Collins,CyndiC,1767621592
-514,Deluxe,Vacant,Dirty,Dirty,,Dixie Collins,CyndiC,1767621592
-513,Deluxe,Vacant,Dirty,Dirty,,Dixie Collins,CyndiC,1767621592
-411,Classc,Vacant,Dirty,Dirty,,Kaylee Thomsen,CyndiC,1767621592
-410,Classc,Vacant,Dirty,Dirty,,Kaylee Thomsen,CyndiC,1767621592
-409,Classc,Vacant,Dirty,Dirty,,Kaylee Thomsen,CyndiC,1767621592
-407,Classc,Vacant,Dirty,Dirty,,Kaylee Thomsen,CyndiC,1767621592
-306,Classc,Occupied,Dirty,Dirty,,Dixie Collins,CyndiC,1767621592
+515,Deluxe,Vacant,Dirty,Dirty,,Dixie C.,CyndiC,1767621592
+514,Deluxe,Vacant,Dirty,Dirty,,Dixie C.,CyndiC,1767621592
+513,Deluxe,Vacant,Dirty,Dirty,,Dixie C.,CyndiC,1767621592
+411,Classc,Vacant,Dirty,Dirty,,Kaylee T.,CyndiC,1767621592
+410,Classc,Vacant,Dirty,Dirty,,Kaylee T.,CyndiC,1767621592
+409,Classc,Vacant,Dirty,Dirty,,Kaylee T.,CyndiC,1767621592
+407,Classc,Vacant,Dirty,Dirty,,Kaylee T.,CyndiC,1767621592
+306,Classc,Occupied,Dirty,Dirty,,Dixie C.,CyndiC,1767621592
 313,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767607227
 306,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767607227
 313,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CameronS,1767588786
@@ -348,12 +348,12 @@ Room Number,Room Type,FD Status,HSK Status Before,HSK Status After,Housekeeper B
 407,Classc,Vacant,Dirty,Dirty,,,TammyW,1767540057
 311,Classc,Vacant,Dirty,Dirty,,,TammyW,1767538058
 413,Classc,Vacant,Dirty,Dirty,,,TammyW,1767537484
-513,Deluxe,Occupied,Dirty,Dirty,Felicity Arnold,,Administrator,1767521021
-308,Classc,Vacant,Clean/Vacant,Clean/Vacant,Felicity Arnold,,Administrator,1767521021
-313,Classc,Vacant,Clean/Vacant,Clean/Vacant,Felicity Arnold,,Administrator,1767521021
-311,Classc,Occupied,Dirty,Dirty,Felicity Arnold,,Administrator,1767521021
-306,Classc,Occupied,Dirty,Dirty,Felicity Arnold,,Administrator,1767521021
-513,Deluxe,Occupied,Clean/Occupied,Dirty,Felicity Arnold,Felicity Arnold,ChorumPMS,1767521004
+513,Deluxe,Occupied,Dirty,Dirty,Felicity A.,,Administrator,1767521021
+308,Classc,Vacant,Clean/Vacant,Clean/Vacant,Felicity A.,,Administrator,1767521021
+313,Classc,Vacant,Clean/Vacant,Clean/Vacant,Felicity A.,,Administrator,1767521021
+311,Classc,Occupied,Dirty,Dirty,Felicity A.,,Administrator,1767521021
+306,Classc,Occupied,Dirty,Dirty,Felicity A.,,Administrator,1767521021
+513,Deluxe,Occupied,Clean/Occupied,Dirty,Felicity A.,Felicity A.,ChorumPMS,1767521004
 410,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767521004
 413,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767521004
 411,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767521004
@@ -362,45 +362,45 @@ Room Number,Room Type,FD Status,HSK Status Before,HSK Status After,Housekeeper B
 409,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767521004
 407,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767521004
 515,Deluxe,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767521004
-306,Classc,Occupied,Clean/Occupied,Dirty,Felicity Arnold,Felicity Arnold,ChorumPMS,1767521004
-311,Classc,Occupied,Clean/Occupied,Dirty,Felicity Arnold,Felicity Arnold,ChorumPMS,1767521004
+306,Classc,Occupied,Clean/Occupied,Dirty,Felicity A.,Felicity A.,ChorumPMS,1767521004
+311,Classc,Occupied,Clean/Occupied,Dirty,Felicity A.,Felicity A.,ChorumPMS,1767521004
 410,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CameronS,1767505135
 413,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CameronS,1767496245
 409,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CameronS,1767495163
 417,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,TammyW,1767484681
 411,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,TammyW,1767484306
 407,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,TammyW,1767483643
-513,Deluxe,Occupied,Clean/Vacant,Clean/Occupied,Felicity Arnold,Felicity Arnold,TammyW,1767481196
+513,Deluxe,Occupied,Clean/Vacant,Clean/Occupied,Felicity A.,Felicity A.,TammyW,1767481196
 515,Deluxe,Occupied,Clean/Vacant,Clean/Occupied,,,TammyW,1767479256
 514,Deluxe,Occupied,Clean/Vacant,Clean/Occupied,,,TammyW,1767477969
 307,Classc,Vacant,Dirty,Dirty,,,TammyW,1767475470
-513,Deluxe,Vacant,inspect,Clean/Vacant,Felicity Arnold,Felicity Arnold,NachelleW,1767469790
-313,Classc,Vacant,inspect,Clean/Vacant,Felicity Arnold,Felicity Arnold,NachelleW,1767469665
-308,Classc,Vacant,inspect,Clean/Vacant,Felicity Arnold,Felicity Arnold,NachelleW,1767469597
-313,Classc,Vacant,Dirty,inspect,Felicity Arnold,Felicity Arnold,FelicityA,1767469214
-308,Classc,Vacant,Dirty,inspect,Felicity Arnold,Felicity Arnold,FelicityA,1767469211
-513,Deluxe,Vacant,Dirty,inspect,Felicity Arnold,Felicity Arnold,FelicityA,1767465206
-306,Classc,Occupied,Dirty,Clean/Occupied,Felicity Arnold,Felicity Arnold,NachelleW,1767463340
-311,Classc,Occupied,Dirty,Clean/Occupied,Felicity Arnold,Felicity Arnold,NachelleW,1767463332
-308,Classc,Vacant,Dirty,Dirty,Felicity Arnold,Felicity Arnold,MasonR,1767463325
-313,Classc,Vacant,Dirty,Dirty,Felicity Arnold,Felicity Arnold,MasonR,1767462933
-307,Classc,Occupied,Dirty,Dirty,Felicity Arnold,,NachelleW,1767461969
-513,Deluxe,Vacant,Dirty,Dirty,,Felicity Arnold,NachelleW,1767459785
-313,Classc,Occupied,Dirty,Dirty,,Felicity Arnold,NachelleW,1767459785
-311,Classc,Occupied,Dirty,Dirty,,Felicity Arnold,NachelleW,1767459785
-308,Classc,Occupied,Dirty,Dirty,,Felicity Arnold,NachelleW,1767459785
-307,Classc,Occupied,Dirty,Dirty,,Felicity Arnold,NachelleW,1767459785
-306,Classc,Occupied,Dirty,Dirty,,Felicity Arnold,NachelleW,1767459784
+513,Deluxe,Vacant,inspect,Clean/Vacant,Felicity A.,Felicity A.,NachelleW,1767469790
+313,Classc,Vacant,inspect,Clean/Vacant,Felicity A.,Felicity A.,NachelleW,1767469665
+308,Classc,Vacant,inspect,Clean/Vacant,Felicity A.,Felicity A.,NachelleW,1767469597
+313,Classc,Vacant,Dirty,inspect,Felicity A.,Felicity A.,FelicityA,1767469214
+308,Classc,Vacant,Dirty,inspect,Felicity A.,Felicity A.,FelicityA,1767469211
+513,Deluxe,Vacant,Dirty,inspect,Felicity A.,Felicity A.,FelicityA,1767465206
+306,Classc,Occupied,Dirty,Clean/Occupied,Felicity A.,Felicity A.,NachelleW,1767463340
+311,Classc,Occupied,Dirty,Clean/Occupied,Felicity A.,Felicity A.,NachelleW,1767463332
+308,Classc,Vacant,Dirty,Dirty,Felicity A.,Felicity A.,MasonR,1767463325
+313,Classc,Vacant,Dirty,Dirty,Felicity A.,Felicity A.,MasonR,1767462933
+307,Classc,Occupied,Dirty,Dirty,Felicity A.,,NachelleW,1767461969
+513,Deluxe,Vacant,Dirty,Dirty,,Felicity A.,NachelleW,1767459785
+313,Classc,Occupied,Dirty,Dirty,,Felicity A.,NachelleW,1767459785
+311,Classc,Occupied,Dirty,Dirty,,Felicity A.,NachelleW,1767459785
+308,Classc,Occupied,Dirty,Dirty,,Felicity A.,NachelleW,1767459785
+307,Classc,Occupied,Dirty,Dirty,,Felicity A.,NachelleW,1767459785
+306,Classc,Occupied,Dirty,Dirty,,Felicity A.,NachelleW,1767459784
 513,Deluxe,Vacant,Dirty,Dirty,,,SydneyA,1767444784
-316,Classc,Vacant,Clean/Vacant,Clean/Vacant,Felicity Arnold,,Administrator,1767434728
-302,Suite,Vacant,Clean/Vacant,Clean/Vacant,Felicity Arnold,,Administrator,1767434728
-313,Classc,Occupied,Dirty,Dirty,Felicity Arnold,,Administrator,1767434728
+316,Classc,Vacant,Clean/Vacant,Clean/Vacant,Felicity A.,,Administrator,1767434728
+302,Suite,Vacant,Clean/Vacant,Clean/Vacant,Felicity A.,,Administrator,1767434728
+313,Classc,Occupied,Dirty,Dirty,Felicity A.,,Administrator,1767434728
 513,Deluxe,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767434710
 307,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767434710
 308,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767434710
 306,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767434710
 311,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767434710
-313,Classc,Occupied,Clean/Occupied,Dirty,Felicity Arnold,Felicity Arnold,ChorumPMS,1767434710
+313,Classc,Occupied,Clean/Occupied,Dirty,Felicity A.,Felicity A.,ChorumPMS,1767434710
 307,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CameronS,1767412697
 306,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CameronS,1767410841
 309,Classc,Vacant,inspect,Clean/Vacant,,,CameronS,1767405221
@@ -409,15 +409,15 @@ Room Number,Room Type,FD Status,HSK Status Before,HSK Status After,Housekeeper B
 309,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CameronS,1767404351
 308,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CameronS,1767399660
 513,Deluxe,Occupied,Clean/Vacant,Clean/Occupied,,,MasonR,1767386956
-316,Classc,Vacant,Dirty,Clean/Vacant,Felicity Arnold,Felicity Arnold,CyndiC,1767381657
-313,Classc,Occupied,Dirty,Clean/Occupied,Felicity Arnold,Felicity Arnold,FelicityA,1767377948
-302,Suite,Vacant,inspect,Clean/Vacant,Felicity Arnold,Felicity Arnold,CyndiC,1767377021
-302,Suite,Vacant,Dirty,inspect,Felicity Arnold,Felicity Arnold,FelicityA,1767376836
-316,Classc,Vacant,Dirty,Dirty,Felicity Arnold,Felicity Arnold,BethanyP,1767375592
+316,Classc,Vacant,Dirty,Clean/Vacant,Felicity A.,Felicity A.,CyndiC,1767381657
+313,Classc,Occupied,Dirty,Clean/Occupied,Felicity A.,Felicity A.,FelicityA,1767377948
+302,Suite,Vacant,inspect,Clean/Vacant,Felicity A.,Felicity A.,CyndiC,1767377021
+302,Suite,Vacant,Dirty,inspect,Felicity A.,Felicity A.,FelicityA,1767376836
+316,Classc,Vacant,Dirty,Dirty,Felicity A.,Felicity A.,BethanyP,1767375592
 305,Classc,Vacant,Dirty,Clean/Vacant,,,CyndiC,1767364633
-316,Classc,Occupied,Dirty,Dirty,,Felicity Arnold,CyndiC,1767362151
-313,Classc,Occupied,Dirty,Dirty,,Felicity Arnold,CyndiC,1767362151
-302,Suite,Vacant,Dirty,Dirty,,Felicity Arnold,CyndiC,1767362151
+316,Classc,Occupied,Dirty,Dirty,,Felicity A.,CyndiC,1767362151
+313,Classc,Occupied,Dirty,Dirty,,Felicity A.,CyndiC,1767362151
+302,Suite,Vacant,Dirty,Dirty,,Felicity A.,CyndiC,1767362151
 302,Suite,Vacant,Dirty,Dirty,,,SydneyA,1767360801
 302,Suite,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767348112
 316,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767348112
@@ -426,36 +426,36 @@ Room Number,Room Type,FD Status,HSK Status Before,HSK Status After,Housekeeper B
 302,Suite,Occupied,Clean/Vacant,Clean/Occupied,,,BethanyP,1767310452
 316,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,BethanyP,1767303447
 305,Classc,Vacant,Dirty,Dirty,,,BethanyP,1767193634
-304,Classc,Vacant,Clean/Vacant,Clean/Vacant,Ben Weaver,,Administrator,1767175335
-305,Classc,Occupied,Dirty,Dirty,Ben Weaver,,Administrator,1767175335
-303,Classc,Vacant,Clean/Vacant,Clean/Vacant,Ben Weaver,,Administrator,1767175335
-305,Classc,Occupied,Clean/Occupied,Dirty,Ben Weaver,Ben Weaver,ChorumPMS,1767175318
-305,Classc,Occupied,Clean/Vacant,Clean/Occupied,Ben Weaver,Ben Weaver,CameronS,1767147480
-305,Classc,Vacant,inspect,Clean/Vacant,Ben Weaver,Ben Weaver,NachelleW,1767132470
-304,Classc,Vacant,inspect,Clean/Vacant,Ben Weaver,Ben Weaver,NachelleW,1767132414
-303,Classc,Vacant,inspect,Clean/Vacant,Ben Weaver,Ben Weaver,NachelleW,1767132341
-305,Classc,Vacant,Dirty,inspect,Ben Weaver,Ben Weaver,BenW,1767131557
-304,Classc,Vacant,Dirty,inspect,Ben Weaver,Ben Weaver,BenW,1767131552
-303,Classc,Vacant,Dirty,inspect,Ben Weaver,Ben Weaver,BenW,1767124666
-305,Classc,Vacant,Dirty,Dirty,,Ben Weaver,NachelleW,1767111151
-304,Classc,Vacant,Dirty,Dirty,,Ben Weaver,NachelleW,1767111137
-303,Classc,Vacant,Dirty,Dirty,,Ben Weaver,NachelleW,1767111122
-419,Classc,Vacant,Clean/Vacant,Clean/Vacant,Ben Weaver,,Administrator,1767089059
-415,Classc,Vacant,Clean/Vacant,Clean/Vacant,Ben Weaver,,Administrator,1767089059
-306,Classc,Vacant,Clean/Vacant,Clean/Vacant,Ben Weaver,,Administrator,1767089059
-419,Classc,Vacant,inspect,Clean/Vacant,Ben Weaver,Ben Weaver,NachelleW,1767045381
-415,Classc,Vacant,inspect,Clean/Vacant,Ben Weaver,Ben Weaver,NachelleW,1767045294
-306,Classc,Vacant,inspect,Clean/Vacant,Ben Weaver,Ben Weaver,NachelleW,1767045170
-306,Classc,Vacant,Dirty,inspect,Ben Weaver,Ben Weaver,BenW,1767044784
-415,Classc,Vacant,Dirty,inspect,Ben Weaver,Ben Weaver,BenW,1767040469
-419,Classc,Vacant,Dirty,inspect,Ben Weaver,Ben Weaver,BenW,1767033657
+304,Classc,Vacant,Clean/Vacant,Clean/Vacant,Ben W.,,Administrator,1767175335
+305,Classc,Occupied,Dirty,Dirty,Ben W.,,Administrator,1767175335
+303,Classc,Vacant,Clean/Vacant,Clean/Vacant,Ben W.,,Administrator,1767175335
+305,Classc,Occupied,Clean/Occupied,Dirty,Ben W.,Ben W.,ChorumPMS,1767175318
+305,Classc,Occupied,Clean/Vacant,Clean/Occupied,Ben W.,Ben W.,CameronS,1767147480
+305,Classc,Vacant,inspect,Clean/Vacant,Ben W.,Ben W.,NachelleW,1767132470
+304,Classc,Vacant,inspect,Clean/Vacant,Ben W.,Ben W.,NachelleW,1767132414
+303,Classc,Vacant,inspect,Clean/Vacant,Ben W.,Ben W.,NachelleW,1767132341
+305,Classc,Vacant,Dirty,inspect,Ben W.,Ben W.,BenW,1767131557
+304,Classc,Vacant,Dirty,inspect,Ben W.,Ben W.,BenW,1767131552
+303,Classc,Vacant,Dirty,inspect,Ben W.,Ben W.,BenW,1767124666
+305,Classc,Vacant,Dirty,Dirty,,Ben W.,NachelleW,1767111151
+304,Classc,Vacant,Dirty,Dirty,,Ben W.,NachelleW,1767111137
+303,Classc,Vacant,Dirty,Dirty,,Ben W.,NachelleW,1767111122
+419,Classc,Vacant,Clean/Vacant,Clean/Vacant,Ben W.,,Administrator,1767089059
+415,Classc,Vacant,Clean/Vacant,Clean/Vacant,Ben W.,,Administrator,1767089059
+306,Classc,Vacant,Clean/Vacant,Clean/Vacant,Ben W.,,Administrator,1767089059
+419,Classc,Vacant,inspect,Clean/Vacant,Ben W.,Ben W.,NachelleW,1767045381
+415,Classc,Vacant,inspect,Clean/Vacant,Ben W.,Ben W.,NachelleW,1767045294
+306,Classc,Vacant,inspect,Clean/Vacant,Ben W.,Ben W.,NachelleW,1767045170
+306,Classc,Vacant,Dirty,inspect,Ben W.,Ben W.,BenW,1767044784
+415,Classc,Vacant,Dirty,inspect,Ben W.,Ben W.,BenW,1767040469
+419,Classc,Vacant,Dirty,inspect,Ben W.,Ben W.,BenW,1767033657
 304,Classc,Vacant,Dirty,Dirty,,,BethanyP,1767032315
-306,Classc,Vacant,Dirty,Dirty,Ben Weaver,Ben Weaver,BethanyP,1767032308
+306,Classc,Vacant,Dirty,Dirty,Ben W.,Ben W.,BethanyP,1767032308
 305,Classc,Vacant,Dirty,Dirty,,,BethanyP,1767032304
 303,Classc,Vacant,Dirty,Dirty,,,BethanyP,1767032297
-419,Classc,Vacant,Dirty,Dirty,,Ben Weaver,NachelleW,1767028295
-415,Classc,Vacant,Dirty,Dirty,,Ben Weaver,NachelleW,1767028295
-306,Classc,Occupied,Dirty,Dirty,,Ben Weaver,NachelleW,1767028295
+419,Classc,Vacant,Dirty,Dirty,,Ben W.,NachelleW,1767028295
+415,Classc,Vacant,Dirty,Dirty,,Ben W.,NachelleW,1767028295
+306,Classc,Occupied,Dirty,Dirty,,Ben W.,NachelleW,1767028295
 306,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767002435
 304,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767002435
 303,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1767002435
@@ -466,22 +466,22 @@ Room Number,Room Type,FD Status,HSK Status Before,HSK Status After,Housekeeper B
 303,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,BethanyP,1766960498
 419,Classc,Vacant,Dirty,Dirty,,,BethanyP,1766942669
 415,Classc,Vacant,Dirty,Dirty,,,BethanyP,1766933267
-415,Classc,Occupied,Dirty,Dirty,Felicity Arnold,,Administrator,1766916186
-404,Classc,Vacant,Clean/Vacant,Clean/Vacant,Felicity Arnold,,Administrator,1766916186
-402,Suite,Vacant,Clean/Vacant,Clean/Vacant,Felicity Arnold,,Administrator,1766916186
+415,Classc,Occupied,Dirty,Dirty,Felicity A.,,Administrator,1766916186
+404,Classc,Vacant,Clean/Vacant,Clean/Vacant,Felicity A.,,Administrator,1766916186
+402,Suite,Vacant,Clean/Vacant,Clean/Vacant,Felicity A.,,Administrator,1766916186
 419,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1766916172
-415,Classc,Occupied,Clean/Occupied,Dirty,Felicity Arnold,Felicity Arnold,ChorumPMS,1766916172
+415,Classc,Occupied,Clean/Occupied,Dirty,Felicity A.,Felicity A.,ChorumPMS,1766916172
 419,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,TammyW,1766876255
-404,Classc,Vacant,inspect,Clean/Vacant,Felicity Arnold,Felicity Arnold,NachelleW,1766864986
-402,Suite,Vacant,inspect,Clean/Vacant,Felicity Arnold,Felicity Arnold,NachelleW,1766864914
-404,Classc,Vacant,Dirty,inspect,Felicity Arnold,Felicity Arnold,FelicityA,1766863667
-402,Suite,Vacant,Dirty,inspect,Felicity Arnold,Felicity Arnold,FelicityA,1766863663
-415,Classc,Occupied,Dirty,Clean/Occupied,Felicity Arnold,Felicity Arnold,NachelleW,1766858115
+404,Classc,Vacant,inspect,Clean/Vacant,Felicity A.,Felicity A.,NachelleW,1766864986
+402,Suite,Vacant,inspect,Clean/Vacant,Felicity A.,Felicity A.,NachelleW,1766864914
+404,Classc,Vacant,Dirty,inspect,Felicity A.,Felicity A.,FelicityA,1766863667
+402,Suite,Vacant,Dirty,inspect,Felicity A.,Felicity A.,FelicityA,1766863663
+415,Classc,Occupied,Dirty,Clean/Occupied,Felicity A.,Felicity A.,NachelleW,1766858115
 513,Deluxe,Vacant,Dirty,Clean/Vacant,,,NachelleW,1766855870
 405,Classc,Vacant,Dirty,Clean/Vacant,,,NachelleW,1766855729
-404,Classc,Vacant,Dirty,Dirty,,Felicity Arnold,NachelleW,1766855334
-402,Suite,Vacant,Dirty,Dirty,,Felicity Arnold,NachelleW,1766855315
-415,Classc,Occupied,Dirty,Dirty,,Felicity Arnold,NachelleW,1766855288
+404,Classc,Vacant,Dirty,Dirty,,Felicity A.,NachelleW,1766855334
+402,Suite,Vacant,Dirty,Dirty,,Felicity A.,NachelleW,1766855315
+415,Classc,Occupied,Dirty,Dirty,,Felicity A.,NachelleW,1766855288
 404,Classc,Vacant,Dirty,Dirty,,,BethanyP,1766852141
 402,Suite,Vacant,Dirty,Dirty,,,BethanyP,1766851248
 404,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1766743242
@@ -500,194 +500,194 @@ Room Number,Room Type,FD Status,HSK Status Before,HSK Status After,Housekeeper B
 415,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1766397817
 405,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CarterJ,1766379135
 415,Classc,Occupied,Dirty,Clean/Occupied,,,NachelleW,1766349150
-420,Classc,Vacant,Clean/Vacant,Clean/Vacant,Felicity Arnold,,Administrator,1766311547
-408,Classc,Vacant,Clean/Vacant,Clean/Vacant,Felicity Arnold,,Administrator,1766311547
-513,Deluxe,Vacant,Clean/Vacant,Clean/Vacant,Felicity Arnold,,Administrator,1766311547
-415,Classc,Occupied,Dirty,Dirty,Felicity Arnold,,Administrator,1766311547
-415,Classc,Occupied,Clean/Occupied,Dirty,Felicity Arnold,Felicity Arnold,ChorumPMS,1766311534
-513,Deluxe,Vacant,inspect,Clean/Vacant,Felicity Arnold,Felicity Arnold,NachelleW,1766261100
-420,Classc,Vacant,inspect,Clean/Vacant,Felicity Arnold,Felicity Arnold,NachelleW,1766260781
-408,Classc,Vacant,inspect,Clean/Vacant,Felicity Arnold,Felicity Arnold,NachelleW,1766260673
-415,Classc,Occupied,Dirty,Clean/Occupied,Felicity Arnold,Felicity Arnold,NachelleW,1766260317
-513,Deluxe,Vacant,Dirty,inspect,Felicity Arnold,Felicity Arnold,FelicityA,1766260234
-420,Classc,Vacant,Dirty,inspect,Felicity Arnold,Felicity Arnold,FelicityA,1766257391
-408,Classc,Vacant,Dirty,inspect,Felicity Arnold,Felicity Arnold,FelicityA,1766257387
-513,Deluxe,Vacant,Dirty,Dirty,,Felicity Arnold,NachelleW,1766250538
-420,Classc,Vacant,Dirty,Dirty,,Felicity Arnold,NachelleW,1766250538
-415,Classc,Occupied,Dirty,Dirty,,Felicity Arnold,NachelleW,1766250538
-408,Classc,Vacant,Dirty,Dirty,,Felicity Arnold,NachelleW,1766250538
+420,Classc,Vacant,Clean/Vacant,Clean/Vacant,Felicity A.,,Administrator,1766311547
+408,Classc,Vacant,Clean/Vacant,Clean/Vacant,Felicity A.,,Administrator,1766311547
+513,Deluxe,Vacant,Clean/Vacant,Clean/Vacant,Felicity A.,,Administrator,1766311547
+415,Classc,Occupied,Dirty,Dirty,Felicity A.,,Administrator,1766311547
+415,Classc,Occupied,Clean/Occupied,Dirty,Felicity A.,Felicity A.,ChorumPMS,1766311534
+513,Deluxe,Vacant,inspect,Clean/Vacant,Felicity A.,Felicity A.,NachelleW,1766261100
+420,Classc,Vacant,inspect,Clean/Vacant,Felicity A.,Felicity A.,NachelleW,1766260781
+408,Classc,Vacant,inspect,Clean/Vacant,Felicity A.,Felicity A.,NachelleW,1766260673
+415,Classc,Occupied,Dirty,Clean/Occupied,Felicity A.,Felicity A.,NachelleW,1766260317
+513,Deluxe,Vacant,Dirty,inspect,Felicity A.,Felicity A.,FelicityA,1766260234
+420,Classc,Vacant,Dirty,inspect,Felicity A.,Felicity A.,FelicityA,1766257391
+408,Classc,Vacant,Dirty,inspect,Felicity A.,Felicity A.,FelicityA,1766257387
+513,Deluxe,Vacant,Dirty,Dirty,,Felicity A.,NachelleW,1766250538
+420,Classc,Vacant,Dirty,Dirty,,Felicity A.,NachelleW,1766250538
+415,Classc,Occupied,Dirty,Dirty,,Felicity A.,NachelleW,1766250538
+408,Classc,Vacant,Dirty,Dirty,,Felicity A.,NachelleW,1766250538
 513,Deluxe,Vacant,Dirty,Dirty,,,TammyW,1766250307
 420,Classc,Vacant,Dirty,Dirty,,,TammyW,1766244599
 408,Classc,Vacant,Dirty,Dirty,,,TammyW,1766242770
-420,Classc,Occupied,Dirty,Dirty,Felicity Arnold,,Administrator,1766224979
-412,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee Thomsen,,Administrator,1766224979
-411,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee Thomsen,,Administrator,1766224979
-415,Classc,Occupied,Dirty,Dirty,Felicity Arnold,,Administrator,1766224979
-414,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee Thomsen,,Administrator,1766224979
+420,Classc,Occupied,Dirty,Dirty,Felicity A.,,Administrator,1766224979
+412,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee T.,,Administrator,1766224979
+411,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee T.,,Administrator,1766224979
+415,Classc,Occupied,Dirty,Dirty,Felicity A.,,Administrator,1766224979
+414,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee T.,,Administrator,1766224979
 513,Deluxe,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1766224950
 408,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1766224950
-420,Classc,Occupied,Clean/Occupied,Dirty,Felicity Arnold,Felicity Arnold,ChorumPMS,1766224950
-415,Classc,Occupied,Clean/Occupied,Dirty,Felicity Arnold,Felicity Arnold,ChorumPMS,1766224949
+420,Classc,Occupied,Clean/Occupied,Dirty,Felicity A.,Felicity A.,ChorumPMS,1766224950
+415,Classc,Occupied,Clean/Occupied,Dirty,Felicity A.,Felicity A.,ChorumPMS,1766224949
 513,Deluxe,Occupied,Clean/Vacant,Clean/Occupied,,,MasonR,1766189186
 408,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,MasonR,1766182879
-411,Classc,Vacant,inspect,Clean/Vacant,Kaylee Thomsen,Kaylee Thomsen,CyndiC,1766173199
-411,Classc,Vacant,Dirty,inspect,Kaylee Thomsen,Kaylee Thomsen,KayleeT,1766172511
-412,Classc,Vacant,inspect,Clean/Vacant,Kaylee Thomsen,Kaylee Thomsen,CyndiC,1766170219
-412,Classc,Vacant,Dirty,inspect,Kaylee Thomsen,Kaylee Thomsen,KayleeT,1766169521
-411,Classc,Vacant,Dirty,Dirty,Kaylee Thomsen,Kaylee Thomsen,MasonR,1766167004
-420,Classc,Occupied,Dirty,Clean/Occupied,Felicity Arnold,Felicity Arnold,CyndiC,1766166839
-415,Classc,Occupied,Dirty,Clean/Occupied,Felicity Arnold,Felicity Arnold,CyndiC,1766166839
-414,Classc,Vacant,inspect,Clean/Vacant,Kaylee Thomsen,Kaylee Thomsen,CyndiC,1766166823
-414,Classc,Vacant,Dirty,inspect,Kaylee Thomsen,Kaylee Thomsen,KayleeT,1766165878
-412,Classc,Vacant,Dirty,Dirty,Kaylee Thomsen,Kaylee Thomsen,MasonR,1766165481
-414,Classc,Vacant,Dirty,Dirty,Kaylee Thomsen,Kaylee Thomsen,MasonR,1766154723
-420,Classc,Occupied,Dirty,Dirty,,Felicity Arnold,CyndiC,1766152452
-415,Classc,Occupied,Dirty,Dirty,,Felicity Arnold,CyndiC,1766152452
-414,Classc,Occupied,Dirty,Dirty,,Kaylee Thomsen,CyndiC,1766152452
-412,Classc,Occupied,Dirty,Dirty,,Kaylee Thomsen,CyndiC,1766152452
-411,Classc,Occupied,Dirty,Dirty,,Kaylee Thomsen,CyndiC,1766152452
-412,Classc,Occupied,Dirty,Dirty,Jesse Rowles,,Administrator,1766138656
-415,Classc,Occupied,Dirty,Dirty,Jesse Rowles,,Administrator,1766138656
-406,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee Thomsen,,Administrator,1766138656
-416,Classc,Vacant,Clean/Vacant,Clean/Vacant,Jesse Rowles,,Administrator,1766138656
-404,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee Thomsen,,Administrator,1766138656
-407,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee Thomsen,,Administrator,1766138656
-409,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee Thomsen,,Administrator,1766138656
+411,Classc,Vacant,inspect,Clean/Vacant,Kaylee T.,Kaylee T.,CyndiC,1766173199
+411,Classc,Vacant,Dirty,inspect,Kaylee T.,Kaylee T.,KayleeT,1766172511
+412,Classc,Vacant,inspect,Clean/Vacant,Kaylee T.,Kaylee T.,CyndiC,1766170219
+412,Classc,Vacant,Dirty,inspect,Kaylee T.,Kaylee T.,KayleeT,1766169521
+411,Classc,Vacant,Dirty,Dirty,Kaylee T.,Kaylee T.,MasonR,1766167004
+420,Classc,Occupied,Dirty,Clean/Occupied,Felicity A.,Felicity A.,CyndiC,1766166839
+415,Classc,Occupied,Dirty,Clean/Occupied,Felicity A.,Felicity A.,CyndiC,1766166839
+414,Classc,Vacant,inspect,Clean/Vacant,Kaylee T.,Kaylee T.,CyndiC,1766166823
+414,Classc,Vacant,Dirty,inspect,Kaylee T.,Kaylee T.,KayleeT,1766165878
+412,Classc,Vacant,Dirty,Dirty,Kaylee T.,Kaylee T.,MasonR,1766165481
+414,Classc,Vacant,Dirty,Dirty,Kaylee T.,Kaylee T.,MasonR,1766154723
+420,Classc,Occupied,Dirty,Dirty,,Felicity A.,CyndiC,1766152452
+415,Classc,Occupied,Dirty,Dirty,,Felicity A.,CyndiC,1766152452
+414,Classc,Occupied,Dirty,Dirty,,Kaylee T.,CyndiC,1766152452
+412,Classc,Occupied,Dirty,Dirty,,Kaylee T.,CyndiC,1766152452
+411,Classc,Occupied,Dirty,Dirty,,Kaylee T.,CyndiC,1766152452
+412,Classc,Occupied,Dirty,Dirty,Jesse R.,,Administrator,1766138656
+415,Classc,Occupied,Dirty,Dirty,Jesse R.,,Administrator,1766138656
+406,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee T.,,Administrator,1766138656
+416,Classc,Vacant,Clean/Vacant,Clean/Vacant,Jesse R.,,Administrator,1766138656
+404,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee T.,,Administrator,1766138656
+407,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee T.,,Administrator,1766138656
+409,Classc,Vacant,Clean/Vacant,Clean/Vacant,Kaylee T.,,Administrator,1766138656
 414,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1766138639
 420,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1766138639
 411,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1766138639
-415,Classc,Occupied,Clean/Occupied,Dirty,Jesse Rowles,Jesse Rowles,ChorumPMS,1766138639
+415,Classc,Occupied,Clean/Occupied,Dirty,Jesse R.,Jesse R.,ChorumPMS,1766138639
 420,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CarterJ,1766116449
 411,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CarterJ,1766114597
 414,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CarterJ,1766101732
-409,Classc,Vacant,inspect,Clean/Vacant,Kaylee Thomsen,Kaylee Thomsen,CyndiC,1766087990
-409,Classc,Vacant,Dirty,inspect,Kaylee Thomsen,Kaylee Thomsen,KayleeT,1766087937
-407,Classc,Vacant,inspect,Clean/Vacant,Kaylee Thomsen,Kaylee Thomsen,CyndiC,1766086597
-407,Classc,Vacant,Dirty,inspect,Kaylee Thomsen,Kaylee Thomsen,KayleeT,1766085902
-406,Classc,Vacant,inspect,Clean/Vacant,Kaylee Thomsen,Kaylee Thomsen,CyndiC,1766084344
-406,Classc,Vacant,Dirty,inspect,Kaylee Thomsen,Kaylee Thomsen,KayleeT,1766083915
-412,Classc,Occupied,Dirty,Dirty,Jesse Rowles,Jesse Rowles,MasonR,1766081399
-412,Classc,Vacant,Dirty,Dirty,Jesse Rowles,Jesse Rowles,MasonR,1766081287
-416,Classc,Vacant,inspect,Clean/Vacant,Jesse Rowles,Jesse Rowles,CyndiC,1766081122
-416,Classc,Vacant,Dirty,inspect,Jesse Rowles,Jesse Rowles,JesseR,1766081103
-407,Classc,Vacant,Dirty,Dirty,Kaylee Thomsen,Kaylee Thomsen,MasonR,1766081067
-409,Classc,Vacant,Dirty,Dirty,Kaylee Thomsen,Kaylee Thomsen,MasonR,1766081060
-406,Classc,Vacant,Dirty,Dirty,Kaylee Thomsen,Kaylee Thomsen,MasonR,1766081051
-404,Classc,Vacant,inspect,Clean/Vacant,Kaylee Thomsen,Kaylee Thomsen,CyndiC,1766080328
-404,Classc,Vacant,Dirty,inspect,Kaylee Thomsen,Kaylee Thomsen,KayleeT,1766079635
-415,Classc,Occupied,Dirty,Clean/Occupied,Jesse Rowles,Jesse Rowles,JesseR,1766078325
-404,Classc,Vacant,Dirty,Dirty,Kaylee Thomsen,Kaylee Thomsen,MasonR,1766071839
-416,Classc,Vacant,Dirty,Dirty,Jesse Rowles,Jesse Rowles,MasonR,1766071345
-416,Classc,Occupied,Dirty,Dirty,,Jesse Rowles,CyndiC,1766066484
-415,Classc,Occupied,Dirty,Dirty,,Jesse Rowles,CyndiC,1766066484
-412,Classc,Occupied,Dirty,Dirty,,Jesse Rowles,CyndiC,1766066484
-409,Classc,Occupied,Dirty,Dirty,,Kaylee Thomsen,CyndiC,1766066484
-407,Classc,Occupied,Dirty,Dirty,,Kaylee Thomsen,CyndiC,1766066484
-406,Classc,Occupied,Dirty,Dirty,,Kaylee Thomsen,CyndiC,1766066483
-404,Classc,Occupied,Dirty,Dirty,,Kaylee Thomsen,CyndiC,1766066483
-412,Classc,Occupied,Dirty,Dirty,Dixie Collins,,Administrator,1766052102
-415,Classc,Occupied,Dirty,Dirty,Dixie Collins,,Administrator,1766052102
-406,Classc,Occupied,Dirty,Dirty,Dixie Collins,,Administrator,1766052102
-404,Classc,Occupied,Dirty,Dirty,Dixie Collins,,Administrator,1766052102
-407,Classc,Occupied,Dirty,Dirty,Dixie Collins,,Administrator,1766052102
-410,Classc,Vacant,Clean/Vacant,Clean/Vacant,Dixie Collins,,Administrator,1766052102
+409,Classc,Vacant,inspect,Clean/Vacant,Kaylee T.,Kaylee T.,CyndiC,1766087990
+409,Classc,Vacant,Dirty,inspect,Kaylee T.,Kaylee T.,KayleeT,1766087937
+407,Classc,Vacant,inspect,Clean/Vacant,Kaylee T.,Kaylee T.,CyndiC,1766086597
+407,Classc,Vacant,Dirty,inspect,Kaylee T.,Kaylee T.,KayleeT,1766085902
+406,Classc,Vacant,inspect,Clean/Vacant,Kaylee T.,Kaylee T.,CyndiC,1766084344
+406,Classc,Vacant,Dirty,inspect,Kaylee T.,Kaylee T.,KayleeT,1766083915
+412,Classc,Occupied,Dirty,Dirty,Jesse R.,Jesse R.,MasonR,1766081399
+412,Classc,Vacant,Dirty,Dirty,Jesse R.,Jesse R.,MasonR,1766081287
+416,Classc,Vacant,inspect,Clean/Vacant,Jesse R.,Jesse R.,CyndiC,1766081122
+416,Classc,Vacant,Dirty,inspect,Jesse R.,Jesse R.,JesseR,1766081103
+407,Classc,Vacant,Dirty,Dirty,Kaylee T.,Kaylee T.,MasonR,1766081067
+409,Classc,Vacant,Dirty,Dirty,Kaylee T.,Kaylee T.,MasonR,1766081060
+406,Classc,Vacant,Dirty,Dirty,Kaylee T.,Kaylee T.,MasonR,1766081051
+404,Classc,Vacant,inspect,Clean/Vacant,Kaylee T.,Kaylee T.,CyndiC,1766080328
+404,Classc,Vacant,Dirty,inspect,Kaylee T.,Kaylee T.,KayleeT,1766079635
+415,Classc,Occupied,Dirty,Clean/Occupied,Jesse R.,Jesse R.,JesseR,1766078325
+404,Classc,Vacant,Dirty,Dirty,Kaylee T.,Kaylee T.,MasonR,1766071839
+416,Classc,Vacant,Dirty,Dirty,Jesse R.,Jesse R.,MasonR,1766071345
+416,Classc,Occupied,Dirty,Dirty,,Jesse R.,CyndiC,1766066484
+415,Classc,Occupied,Dirty,Dirty,,Jesse R.,CyndiC,1766066484
+412,Classc,Occupied,Dirty,Dirty,,Jesse R.,CyndiC,1766066484
+409,Classc,Occupied,Dirty,Dirty,,Kaylee T.,CyndiC,1766066484
+407,Classc,Occupied,Dirty,Dirty,,Kaylee T.,CyndiC,1766066484
+406,Classc,Occupied,Dirty,Dirty,,Kaylee T.,CyndiC,1766066483
+404,Classc,Occupied,Dirty,Dirty,,Kaylee T.,CyndiC,1766066483
+412,Classc,Occupied,Dirty,Dirty,Dixie C.,,Administrator,1766052102
+415,Classc,Occupied,Dirty,Dirty,Dixie C.,,Administrator,1766052102
+406,Classc,Occupied,Dirty,Dirty,Dixie C.,,Administrator,1766052102
+404,Classc,Occupied,Dirty,Dirty,Dixie C.,,Administrator,1766052102
+407,Classc,Occupied,Dirty,Dirty,Dixie C.,,Administrator,1766052102
+410,Classc,Vacant,Clean/Vacant,Clean/Vacant,Dixie C.,,Administrator,1766052102
 409,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1766052089
 416,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1766052089
-412,Classc,Occupied,Clean/Occupied,Dirty,Dixie Collins,Dixie Collins,ChorumPMS,1766052089
-406,Classc,Occupied,Clean/Occupied,Dirty,Dixie Collins,Dixie Collins,ChorumPMS,1766052089
-407,Classc,Occupied,Clean/Occupied,Dirty,Dixie Collins,Dixie Collins,ChorumPMS,1766052088
-404,Classc,Occupied,Clean/Occupied,Dirty,Dixie Collins,Dixie Collins,ChorumPMS,1766052088
-415,Classc,Occupied,Clean/Occupied,Dirty,Dixie Collins,Dixie Collins,ChorumPMS,1766052088
+412,Classc,Occupied,Clean/Occupied,Dirty,Dixie C.,Dixie C.,ChorumPMS,1766052089
+406,Classc,Occupied,Clean/Occupied,Dirty,Dixie C.,Dixie C.,ChorumPMS,1766052089
+407,Classc,Occupied,Clean/Occupied,Dirty,Dixie C.,Dixie C.,ChorumPMS,1766052088
+404,Classc,Occupied,Clean/Occupied,Dirty,Dixie C.,Dixie C.,ChorumPMS,1766052088
+415,Classc,Occupied,Clean/Occupied,Dirty,Dixie C.,Dixie C.,ChorumPMS,1766052088
 409,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CameronS,1766022452
 416,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CameronS,1766014479
-415,Classc,Occupied,inspect,Clean/Occupied,Dixie Collins,Dixie Collins,CyndiC,1765999194
-410,Classc,Vacant,inspect,Clean/Vacant,Dixie Collins,Dixie Collins,CyndiC,1765999188
-415,Classc,Occupied,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1765999009
-410,Classc,Vacant,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1765997813
-404,Classc,Occupied,inspect,Clean/Occupied,Dixie Collins,Dixie Collins,CyndiC,1765993146
-404,Classc,Occupied,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1765992640
-407,Classc,Occupied,inspect,Clean/Occupied,Dixie Collins,Dixie Collins,CyndiC,1765992517
-407,Classc,Occupied,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1765991871
-412,Classc,Occupied,inspect,Clean/Occupied,Dixie Collins,Dixie Collins,CyndiC,1765991739
-406,Classc,Occupied,inspect,Clean/Occupied,Dixie Collins,Dixie Collins,CyndiC,1765991739
-406,Classc,Occupied,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1765990733
-412,Classc,Occupied,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1765990709
-410,Classc,Vacant,Dirty,Dirty,Dixie Collins,Dixie Collins,MasonR,1765990489
-415,Classc,Occupied,Dirty,Dirty,,Dixie Collins,CyndiC,1765979781
-412,Classc,Occupied,Dirty,Dirty,,Dixie Collins,CyndiC,1765979780
-410,Classc,Occupied,Dirty,Dirty,,Dixie Collins,CyndiC,1765979780
-407,Classc,Occupied,Dirty,Dirty,,Dixie Collins,CyndiC,1765979780
-406,Classc,Occupied,Dirty,Dirty,,Dixie Collins,CyndiC,1765979780
-404,Classc,Occupied,Dirty,Dirty,,Dixie Collins,CyndiC,1765979780
-415,Classc,Occupied,Dirty,Dirty,Felicity Arnold,,Administrator,1765965819
-406,Classc,Occupied,Dirty,Dirty,Felicity Arnold,,Administrator,1765965819
-404,Classc,Occupied,Dirty,Dirty,Felicity Arnold,,Administrator,1765965819
-407,Classc,Occupied,Dirty,Dirty,Felicity Arnold,,Administrator,1765965819
+415,Classc,Occupied,inspect,Clean/Occupied,Dixie C.,Dixie C.,CyndiC,1765999194
+410,Classc,Vacant,inspect,Clean/Vacant,Dixie C.,Dixie C.,CyndiC,1765999188
+415,Classc,Occupied,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1765999009
+410,Classc,Vacant,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1765997813
+404,Classc,Occupied,inspect,Clean/Occupied,Dixie C.,Dixie C.,CyndiC,1765993146
+404,Classc,Occupied,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1765992640
+407,Classc,Occupied,inspect,Clean/Occupied,Dixie C.,Dixie C.,CyndiC,1765992517
+407,Classc,Occupied,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1765991871
+412,Classc,Occupied,inspect,Clean/Occupied,Dixie C.,Dixie C.,CyndiC,1765991739
+406,Classc,Occupied,inspect,Clean/Occupied,Dixie C.,Dixie C.,CyndiC,1765991739
+406,Classc,Occupied,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1765990733
+412,Classc,Occupied,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1765990709
+410,Classc,Vacant,Dirty,Dirty,Dixie C.,Dixie C.,MasonR,1765990489
+415,Classc,Occupied,Dirty,Dirty,,Dixie C.,CyndiC,1765979781
+412,Classc,Occupied,Dirty,Dirty,,Dixie C.,CyndiC,1765979780
+410,Classc,Occupied,Dirty,Dirty,,Dixie C.,CyndiC,1765979780
+407,Classc,Occupied,Dirty,Dirty,,Dixie C.,CyndiC,1765979780
+406,Classc,Occupied,Dirty,Dirty,,Dixie C.,CyndiC,1765979780
+404,Classc,Occupied,Dirty,Dirty,,Dixie C.,CyndiC,1765979780
+415,Classc,Occupied,Dirty,Dirty,Felicity A.,,Administrator,1765965819
+406,Classc,Occupied,Dirty,Dirty,Felicity A.,,Administrator,1765965819
+404,Classc,Occupied,Dirty,Dirty,Felicity A.,,Administrator,1765965819
+407,Classc,Occupied,Dirty,Dirty,Felicity A.,,Administrator,1765965819
 410,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1765965802
 412,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1765965802
-406,Classc,Occupied,Clean/Occupied,Dirty,Felicity Arnold,Felicity Arnold,ChorumPMS,1765965802
-407,Classc,Occupied,Clean/Occupied,Dirty,Felicity Arnold,Felicity Arnold,ChorumPMS,1765965802
-404,Classc,Occupied,Clean/Occupied,Dirty,Felicity Arnold,Felicity Arnold,ChorumPMS,1765965802
-415,Classc,Occupied,Clean/Occupied,Dirty,Felicity Arnold,Felicity Arnold,ChorumPMS,1765965802
+406,Classc,Occupied,Clean/Occupied,Dirty,Felicity A.,Felicity A.,ChorumPMS,1765965802
+407,Classc,Occupied,Clean/Occupied,Dirty,Felicity A.,Felicity A.,ChorumPMS,1765965802
+404,Classc,Occupied,Clean/Occupied,Dirty,Felicity A.,Felicity A.,ChorumPMS,1765965802
+415,Classc,Occupied,Clean/Occupied,Dirty,Felicity A.,Felicity A.,ChorumPMS,1765965802
 412,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CarterJ,1765926698
 410,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CarterJ,1765921935
-404,Classc,Occupied,Dirty,Clean/Occupied,Felicity Arnold,Felicity Arnold,FelicityA,1765909868
-407,Classc,Occupied,Dirty,Clean/Occupied,Felicity Arnold,Felicity Arnold,FelicityA,1765909010
-415,Classc,Occupied,Dirty,Clean/Occupied,Felicity Arnold,Felicity Arnold,FelicityA,1765907077
-406,Classc,Occupied,Dirty,Clean/Occupied,Felicity Arnold,Felicity Arnold,CyndiC,1765907075
-415,Classc,Occupied,Dirty,Dirty,,Felicity Arnold,CyndiC,1765893457
-407,Classc,Occupied,Dirty,Dirty,,Felicity Arnold,CyndiC,1765893457
-406,Classc,Occupied,Dirty,Dirty,,Felicity Arnold,CyndiC,1765893457
-404,Classc,Occupied,Dirty,Dirty,,Felicity Arnold,CyndiC,1765893457
-408,Classc,Vacant,Clean/Vacant,Clean/Vacant,Ben Weaver,,Administrator,1765879532
-415,Classc,Occupied,Dirty,Dirty,Ben Weaver,,Administrator,1765879532
+404,Classc,Occupied,Dirty,Clean/Occupied,Felicity A.,Felicity A.,FelicityA,1765909868
+407,Classc,Occupied,Dirty,Clean/Occupied,Felicity A.,Felicity A.,FelicityA,1765909010
+415,Classc,Occupied,Dirty,Clean/Occupied,Felicity A.,Felicity A.,FelicityA,1765907077
+406,Classc,Occupied,Dirty,Clean/Occupied,Felicity A.,Felicity A.,CyndiC,1765907075
+415,Classc,Occupied,Dirty,Dirty,,Felicity A.,CyndiC,1765893457
+407,Classc,Occupied,Dirty,Dirty,,Felicity A.,CyndiC,1765893457
+406,Classc,Occupied,Dirty,Dirty,,Felicity A.,CyndiC,1765893457
+404,Classc,Occupied,Dirty,Dirty,,Felicity A.,CyndiC,1765893457
+408,Classc,Vacant,Clean/Vacant,Clean/Vacant,Ben W.,,Administrator,1765879532
+415,Classc,Occupied,Dirty,Dirty,Ben W.,,Administrator,1765879532
 406,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1765879518
 407,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1765879518
 404,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1765879518
-415,Classc,Occupied,Clean/Occupied,Dirty,Ben Weaver,Ben Weaver,ChorumPMS,1765879518
+415,Classc,Occupied,Clean/Occupied,Dirty,Ben W.,Ben W.,ChorumPMS,1765879518
 407,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CameronS,1765841731
 406,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CameronS,1765841615
 404,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CameronS,1765839926
-408,Classc,Vacant,inspect,Clean/Vacant,Ben Weaver,Ben Weaver,CyndiC,1765824607
-408,Classc,Vacant,Dirty,inspect,Ben Weaver,Ben Weaver,BenW,1765824045
-415,Classc,Occupied,Dirty,Clean/Occupied,Ben Weaver,Ben Weaver,CyndiC,1765818816
-415,Classc,Occupied,Dirty,Dirty,,Ben Weaver,CyndiC,1765806708
-408,Classc,Vacant,Dirty,Dirty,,Ben Weaver,CyndiC,1765806708
-412,Classc,Vacant,Clean/Vacant,Clean/Vacant,Dixie Collins,,Administrator,1765792992
-408,Classc,Vacant,Dirty,Dirty,Dixie Collins,,Administrator,1765792992
-513,Deluxe,Vacant,Clean/Vacant,Clean/Vacant,Dixie Collins,,Administrator,1765792992
-413,Classc,Vacant,Clean/Vacant,Clean/Vacant,Dixie Collins,,Administrator,1765792992
-402,Suite,Vacant,Clean/Vacant,Clean/Vacant,Dixie Collins,,Administrator,1765792992
+408,Classc,Vacant,inspect,Clean/Vacant,Ben W.,Ben W.,CyndiC,1765824607
+408,Classc,Vacant,Dirty,inspect,Ben W.,Ben W.,BenW,1765824045
+415,Classc,Occupied,Dirty,Clean/Occupied,Ben W.,Ben W.,CyndiC,1765818816
+415,Classc,Occupied,Dirty,Dirty,,Ben W.,CyndiC,1765806708
+408,Classc,Vacant,Dirty,Dirty,,Ben W.,CyndiC,1765806708
+412,Classc,Vacant,Clean/Vacant,Clean/Vacant,Dixie C.,,Administrator,1765792992
+408,Classc,Vacant,Dirty,Dirty,Dixie C.,,Administrator,1765792992
+513,Deluxe,Vacant,Clean/Vacant,Clean/Vacant,Dixie C.,,Administrator,1765792992
+413,Classc,Vacant,Clean/Vacant,Clean/Vacant,Dixie C.,,Administrator,1765792992
+402,Suite,Vacant,Clean/Vacant,Clean/Vacant,Dixie C.,,Administrator,1765792992
 415,Classc,Occupied,Clean/Occupied,Dirty,,,ChorumPMS,1765792976
-408,Classc,Vacant,Clean/Occupied,Dirty,Dixie Collins,Dixie Collins,CameronS,1765763466
-513,Deluxe,Vacant,inspect,Clean/Vacant,Dixie Collins,Dixie Collins,NachelleW,1765754437
-513,Deluxe,Vacant,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1765754068
-413,Classc,Vacant,inspect,Clean/Vacant,Dixie Collins,Dixie Collins,NachelleW,1765751569
-402,Suite,Vacant,inspect,Clean/Vacant,Dixie Collins,Dixie Collins,NachelleW,1765751464
-402,Suite,Vacant,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1765751095
-413,Classc,Vacant,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1765747035
-412,Classc,Vacant,inspect,Clean/Vacant,Dixie Collins,Dixie Collins,NachelleW,1765746257
-413,Classc,Vacant,Dirty,Dirty,,Dixie Collins,NachelleW,1765746226
-413,Classc,Vacant,Dirty,Dirty,Dixie Collins,,NachelleW,1765743699
-412,Classc,Vacant,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1765743549
+408,Classc,Vacant,Clean/Occupied,Dirty,Dixie C.,Dixie C.,CameronS,1765763466
+513,Deluxe,Vacant,inspect,Clean/Vacant,Dixie C.,Dixie C.,NachelleW,1765754437
+513,Deluxe,Vacant,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1765754068
+413,Classc,Vacant,inspect,Clean/Vacant,Dixie C.,Dixie C.,NachelleW,1765751569
+402,Suite,Vacant,inspect,Clean/Vacant,Dixie C.,Dixie C.,NachelleW,1765751464
+402,Suite,Vacant,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1765751095
+413,Classc,Vacant,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1765747035
+412,Classc,Vacant,inspect,Clean/Vacant,Dixie C.,Dixie C.,NachelleW,1765746257
+413,Classc,Vacant,Dirty,Dirty,,Dixie C.,NachelleW,1765746226
+413,Classc,Vacant,Dirty,Dirty,Dixie C.,,NachelleW,1765743699
+412,Classc,Vacant,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1765743549
 415,Classc,Occupied,Clean/Vacant,Clean/Occupied,,,CarterJ,1765742905
-413,Classc,Vacant,Dirty,Dirty,Dixie Collins,Dixie Collins,CarterJ,1765742905
-408,Classc,Occupied,inspect,Clean/Occupied,Dixie Collins,Dixie Collins,NachelleW,1765740315
-408,Classc,Occupied,Dirty,inspect,Dixie Collins,Dixie Collins,DixieC,1765738785
-513,Deluxe,Vacant,Dirty,Dirty,,Dixie Collins,NachelleW,1765736185
-413,Classc,Occupied,Dirty,Dirty,,Dixie Collins,NachelleW,1765736184
-412,Classc,Vacant,Dirty,Dirty,,Dixie Collins,NachelleW,1765736184
-408,Classc,Occupied,Dirty,Dirty,,Dixie Collins,NachelleW,1765736184
-402,Suite,Vacant,Dirty,Dirty,,Dixie Collins,NachelleW,1765736184
+413,Classc,Vacant,Dirty,Dirty,Dixie C.,Dixie C.,CarterJ,1765742905
+408,Classc,Occupied,inspect,Clean/Occupied,Dixie C.,Dixie C.,NachelleW,1765740315
+408,Classc,Occupied,Dirty,inspect,Dixie C.,Dixie C.,DixieC,1765738785
+513,Deluxe,Vacant,Dirty,Dirty,,Dixie C.,NachelleW,1765736185
+413,Classc,Occupied,Dirty,Dirty,,Dixie C.,NachelleW,1765736184
+412,Classc,Vacant,Dirty,Dirty,,Dixie C.,NachelleW,1765736184
+408,Classc,Occupied,Dirty,Dirty,,Dixie C.,NachelleW,1765736184
+402,Suite,Vacant,Dirty,Dirty,,Dixie C.,NachelleW,1765736184
 412,Classc,Vacant,Dirty,Dirty,,,TammyW,1765732668
 513,Deluxe,Vacant,Dirty,Dirty,,,TammyW,1765732331
 402,Suite,Vacant,Dirty,Dirty,,,TammyW,1765730379
-412,Classc,Occupied,Dirty,Dirty,Emery Rowles,,Administrator,1765706743
-408,Classc,Occupied,Dirty,Dirty,Jesse Rowles,,Administrator,1765706743
-521,Classc,Vacant,Clean/Vacant,Clean/Vacant,Jesse Rowles,,Administrator,1765706743
-523,Classc,Vacant,Clean/Vacant,Clean/Vacant,Jesse Rowles,,Administrator,1765706743
-406,Classc,Vacant,Clean/Vacant,Clean/Vacant,Emery Rowles,,Administrator,1765706743
-317,Classc,Vacant,Clean/Vacant,Clean/Vacant,Emery Rowles,,Administrator,1765706743
-413,Classc,Occupied,Dirty,Dirty,Emery Rowles,,Administrator,1765706743
-512,Deluxe,Vacant,Clean/Vacant,Clean/Vacant,Jesse Rowles,,Administrator,1765706743
-409,Classc,Vacant,Clean/Vacant,Clean/Vacant,Emery Rowles,,Administrator,1765706743
+412,Classc,Occupied,Dirty,Dirty,Emery R.,,Administrator,1765706743
+408,Classc,Occupied,Dirty,Dirty,Jesse R.,,Administrator,1765706743
+521,Classc,Vacant,Clean/Vacant,Clean/Vacant,Jesse R.,,Administrator,1765706743
+523,Classc,Vacant,Clean/Vacant,Clean/Vacant,Jesse R.,,Administrator,1765706743
+406,Classc,Vacant,Clean/Vacant,Clean/Vacant,Emery R.,,Administrator,1765706743
+317,Classc,Vacant,Clean/Vacant,Clean/Vacant,Emery R.,,Administrator,1765706743
+413,Classc,Occupied,Dirty,Dirty,Emery R.,,Administrator,1765706743
+512,Deluxe,Vacant,Clean/Vacant,Clean/Vacant,Jesse R.,,Administrator,1765706743
+409,Classc,Vacant,Clean/Vacant,Clean/Vacant,Emery R.,,Administrator,1765706743
