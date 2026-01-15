@@ -261,6 +261,32 @@ def main():
           .sort_values(["rows", "changed"], ascending=[False, False])
     )
     by_user["change_rate"] = (by_user["changed"] / by_user["rows"]).round(4)
+
+    room_distribution = (
+        df.groupby(["Username", "Room Number"], dropna=False)
+          .size()
+          .reset_index(name="room_actions")
+    )
+    room_totals = (
+        room_distribution.groupby("Username", dropna=False)["room_actions"]
+        .sum()
+        .reset_index(name="total_actions")
+    )
+    room_distribution = room_distribution.merge(room_totals, on="Username", how="left")
+    room_distribution["room_share"] = (
+        room_distribution["room_actions"] / room_distribution["total_actions"].replace(0, pd.NA)
+    )
+    room_randomness = (
+        room_distribution.assign(room_share_sq=room_distribution["room_share"] ** 2)
+        .groupby("Username", dropna=False)["room_share_sq"]
+        .sum()
+        .reset_index(name="room_hhi")
+    )
+    room_randomness["room_randomness"] = 1 - room_randomness["room_hhi"]
+    room_randomness = room_randomness.drop(columns=["room_hhi"])
+
+    by_user = by_user.merge(room_randomness, on="Username", how="left")
+    by_user["room_randomness"] = by_user["room_randomness"].fillna(0.0).round(3)
     save_df(by_user, out_dir / "summary_by_username.csv")
 
     # Room uniqueness by user (rotation quality)
@@ -273,15 +299,21 @@ def main():
           )
           .reset_index()
     )
+    uniqueness_by_user = uniqueness_by_user.merge(room_randomness, on="Username", how="left")
     uniqueness_by_user["room_uniqueness_rate"] = (
         uniqueness_by_user["unique_rooms"] / uniqueness_by_user["total_actions"].replace(0, pd.NA)
     ).fillna(0.0)
+    uniqueness_by_user["room_randomness"] = uniqueness_by_user["room_randomness"].fillna(0.0)
+    uniqueness_by_user["room_randomness_rank"] = (
+        uniqueness_by_user["room_randomness"].rank(method="dense", ascending=False).astype(int)
+    )
     uniqueness_by_user["rotation_quality"] = uniqueness_by_user["room_uniqueness_rate"].map(rotation_quality_label)
     uniqueness_by_user = uniqueness_by_user.sort_values(
         ["room_uniqueness_rate", "total_actions"],
         ascending=[True, False],
     )
     uniqueness_by_user["room_uniqueness_rate"] = uniqueness_by_user["room_uniqueness_rate"].round(3)
+    uniqueness_by_user["room_randomness"] = uniqueness_by_user["room_randomness"].round(3)
     save_df(uniqueness_by_user, out_dir / "username_room_rotation_uniqueness.csv")
 
     # Transition matrix (Before -> After)
