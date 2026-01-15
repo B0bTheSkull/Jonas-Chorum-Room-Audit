@@ -1,3 +1,6 @@
+import re
+
+
 def build_html_report(out_dir: Path, title: str, housekeeping: dict, room_usage: dict):
   css = """
   /* CSS content remains unchanged */
@@ -88,6 +91,23 @@ def build_html_report(out_dir: Path, title: str, housekeeping: dict, room_usage:
   )
   rotation_callouts_html = rotation_callouts(uniqueness_by_user)
   rotation_table_html = df_to_html_table(uniqueness_by_user, max_rows=50)
+
+  def inject_rotation_placeholders(html_doc: str) -> str:
+    replacements = {
+      "{UNI_CHART_HTML}": uni_chart_html,
+      "{ROTATION_CALLOUTS_HTML}": rotation_callouts_html,
+      "{uni_chart_html}": uni_chart_html,
+      "{rotation_callouts_html}": rotation_callouts_html,
+      "{rotation_table_html}": rotation_table_html,
+    }
+    for token, value in replacements.items():
+      html_doc = html_doc.replace(token, value)
+    html_doc = re.sub(
+      r'(<div class="caption">Rotation table \(all users\)</div>\s*)\{\}',
+      lambda match: f"{match.group(1)}{rotation_table_html}",
+      html_doc,
+    )
+    return html_doc
 
   html = f"""
   <!doctype html>
@@ -196,4 +216,5 @@ def build_html_report(out_dir: Path, title: str, housekeeping: dict, room_usage:
   </html>
   """
 
+  html = inject_rotation_placeholders(html)
   (out_dir / "report.html").write_text(html, encoding="utf-8")
