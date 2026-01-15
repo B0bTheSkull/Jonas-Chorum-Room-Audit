@@ -1,9 +1,11 @@
 import argparse
-from pathlib import Path
+import html as htmllib
+import shutil
 from datetime import datetime
+from pathlib import Path
 
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
 
 
 def safe_title(s: str) -> str:
@@ -45,6 +47,91 @@ def plot_and_save(fig, out_path: Path):
     fig.tight_layout()
     fig.savefig(out_path, dpi=200)
     plt.close(fig)
+
+
+def df_to_html_table(df: pd.DataFrame | None, max_rows: int = 20) -> str:
+    if df is None or df.empty:
+        return '<div class="muted">No data available.</div>'
+    display_df = df.head(max_rows).copy()
+    return display_df.to_html(
+        index=False,
+        classes="table",
+        border=0,
+        escape=True,
+    )
+
+
+def charts_grid(charts: list[dict]) -> str:
+    if not charts:
+        return '<div class="muted">No charts available.</div>'
+    cards = []
+    for chart in charts:
+        title = htmllib.escape(chart.get("title", "Chart"))
+        filename = htmllib.escape(chart.get("filename", ""))
+        caption = chart.get("caption")
+        caption_html = f'<div class="muted">{htmllib.escape(caption)}</div>' if caption else ""
+        cards.append(
+            f"""
+            <div class="card span-6">
+              <div class="caption">{title}</div>
+              <img src="{filename}" alt="{title}">
+              {caption_html}
+            </div>
+            """
+        )
+    return f'<div class="grid">{"".join(cards)}</div>'
+
+
+def kpi_cards(kpis: list[dict] | None) -> str:
+    if not kpis:
+        return '<div class="muted">No KPIs available.</div>'
+    cards = []
+    for kpi in kpis:
+        label = htmllib.escape(str(kpi.get("label", "")))
+        value = htmllib.escape(str(kpi.get("value", "")))
+        cards.append(
+            f"""
+            <div class="card span-3">
+              <div class="caption">{label}</div>
+              <div class="kpi">{value}</div>
+            </div>
+            """
+        )
+    return f'<div class="grid">{"".join(cards)}</div>'
+
+
+def exec_notes(notes: list[str]) -> str:
+    if not notes:
+        return '<div class="muted">No notes available.</div>'
+    items = "".join(f"<li>{htmllib.escape(note)}</li>" for note in notes)
+    return f"<ul>{items}</ul>"
+
+
+def render_html_report(
+    template_path: Path,
+    output_path: Path,
+    *,
+    title: str,
+    now: str,
+    out_dir: Path,
+    housekeeping: dict,
+    room_usage: dict,
+):
+    template_text = template_path.read_text(encoding="utf-8")
+    context = {
+        "htmllib": htmllib,
+        "title": title,
+        "now": now,
+        "out_dir": out_dir,
+        "housekeeping": housekeeping,
+        "room_usage": room_usage,
+        "df_to_html_table": df_to_html_table,
+        "charts_grid": charts_grid,
+        "kpi_cards": kpi_cards,
+        "exec_notes": exec_notes,
+    }
+    html_content = eval(f"f'''{template_text}'''", {"__builtins__": {}}, context)
+    output_path.write_text(html_content, encoding="utf-8")
 
 
 def main():
@@ -210,6 +297,7 @@ def main():
     )
 
     # ---- Charts ----
+    charts = []
 
     # 1) Daily volume
     if by_day is not None and len(by_day) > 0:
@@ -219,7 +307,12 @@ def main():
         plt.xlabel("Day")
         plt.ylabel("Rows")
         plt.xticks(rotation=45, ha="right")
-        plot_and_save(fig, out_dir / "daily_volume.png")
+        daily_volume_path = out_dir / "daily_volume.png"
+        plot_and_save(fig, daily_volume_path)
+        charts.append({
+            "title": "Daily volume (rows logged)",
+            "filename": daily_volume_path.name,
+        })
 
         # 2) Daily changes
         fig = plt.figure()
@@ -228,7 +321,12 @@ def main():
         plt.xlabel("Day")
         plt.ylabel("Changed rows")
         plt.xticks(rotation=45, ha="right")
-        plot_and_save(fig, out_dir / "daily_changes.png")
+        daily_changes_path = out_dir / "daily_changes.png"
+        plot_and_save(fig, daily_changes_path)
+        charts.append({
+            "title": "Daily HSK status changes (Before ≠ After)",
+            "filename": daily_changes_path.name,
+        })
 
         # 3) HSK After distribution by day (stacked bar)
         # Keep top statuses for readability
@@ -251,7 +349,12 @@ def main():
         plt.ylabel("Count")
         plt.xticks(rotation=45, ha="right")
         plt.legend(title="HSK After", bbox_to_anchor=(1.02, 1), loc="upper left")
-        plot_and_save(fig, out_dir / "hsk_after_by_day.png")
+        hsk_after_by_day_path = out_dir / "hsk_after_by_day.png"
+        plot_and_save(fig, hsk_after_by_day_path)
+        charts.append({
+            "title": "HSK Status After by day (top statuses)",
+            "filename": hsk_after_by_day_path.name,
+        })
 
     # 4) Top housekeepers (After)
     top_n = max(1, int(args.top))
@@ -262,7 +365,12 @@ def main():
     plt.xlabel("Changed rows")
     plt.ylabel("Housekeeper After")
     plt.gca().invert_yaxis()
-    plot_and_save(fig, out_dir / "top_housekeepers_after.png")
+    top_housekeepers_path = out_dir / "top_housekeepers_after.png"
+    plot_and_save(fig, top_housekeepers_path)
+    charts.append({
+        "title": f"Top {top_n} Housekeepers (by HSK changes, After)",
+        "filename": top_housekeepers_path.name,
+    })
 
     # 5) Transition heatmap (Before -> After) using imshow (no seaborn)
     fig = plt.figure()
@@ -282,7 +390,69 @@ def main():
                 if val != 0:
                     plt.text(j, i, str(val), ha="center", va="center")
 
-    plot_and_save(fig, out_dir / "hsk_transition_heatmap.png")
+    hsk_transition_heatmap_path = out_dir / "hsk_transition_heatmap.png"
+    plot_and_save(fig, hsk_transition_heatmap_path)
+    charts.append({
+        "title": "HSK Status Transition Matrix (Before → After)",
+        "filename": hsk_transition_heatmap_path.name,
+    })
+
+    transition.to_csv(out_dir / "summary_transition_matrix.csv")
+
+    housekeeping_kpis = [
+        {"label": "Total rows", "value": total_rows},
+        {"label": "Unique rooms", "value": total_rooms_unique},
+        {"label": "HSK changes", "value": changed_count},
+        {"label": "Change rate", "value": f"{change_rate:.1%}"},
+        {"label": "Date parse success", "value": f"{df['DateTime'].notna().mean():.1%}"},
+    ]
+
+    top_housekeeper = None
+    if not by_hk_after.empty:
+        top_housekeeper = by_hk_after.iloc[0]["Housekeeper After"]
+
+    exec_note_items = [
+        f"{changed_count} housekeeping status changes across {total_rows} records.",
+        f"Change rate of {change_rate:.1%} indicates the share of records with updates.",
+    ]
+    if top_housekeeper:
+        exec_note_items.append(f"Most frequent closer: {top_housekeeper}.")
+
+    housekeeping_payload = {
+        "kpis": housekeeping_kpis,
+        "exec_notes": exec_note_items,
+        "charts": charts,
+        "by_day": by_day,
+        "by_room_type": by_room_type,
+        "by_hk_after": by_hk_after,
+        "by_user": by_user,
+        "transition_matrix": transition.reset_index(),
+    }
+
+    room_usage_payload = {
+        "kpis": [],
+        "exec_notes": [],
+        "charts": [],
+        "by_room_type": None,
+        "top_rooms": None,
+        "by_feature": None,
+    }
+
+    template_path = Path(__file__).resolve().parent / "Fixing up layout.html"
+    if template_path.exists():
+        report_path = out_dir / "report.html"
+        render_html_report(
+            template_path,
+            report_path,
+            title="Housekeeping Change Log Report",
+            now=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            out_dir=out_dir,
+            housekeeping=housekeeping_payload,
+            room_usage=room_usage_payload,
+        )
+        css_path = Path(__file__).resolve().parent / "Report.css"
+        if css_path.exists():
+            shutil.copy2(css_path, out_dir / css_path.name)
 
     # ---- Final message ----
     print(f"\n✅ Done. Report generated at:\n{out_dir.resolve()}\n")
