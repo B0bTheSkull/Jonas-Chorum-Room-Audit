@@ -53,3 +53,29 @@
       .span-6,.span-4,.span-8 { grid-column: span 12; }
       body { padding: 14px; }
     }
+    .chart.zoomable,
+    .zoomable {
+      cursor: zoom-in;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .overlay .zoom-content {
+      max-width: 95vw;
+      max-height: 95vh;
+      overflow: auto;
+      background: #111;
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      cursor: zoom-out;
+    }
+  

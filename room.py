@@ -27,7 +27,7 @@ def coerce_datetime(series: pd.Series) -> pd.Series:
     Tries common date parsing patterns robustly.
     If your CSV has messy dates, this will still usually behave.
     """
-    dt = pd.to_datetime(series, errors="coerce", infer_datetime_format=True)
+    dt = pd.to_datetime(series, unit="s")
     return dt
 
 
@@ -71,7 +71,7 @@ def charts_grid(charts: list[dict]) -> str:
         caption_html = f'<div class="muted">{htmllib.escape(caption)}</div>' if caption else ""
         cards.append(
             f"""
-            <div class="card span-6">
+            <div class="card span-6 zoomable">
               <div class="caption">{title}</div>
               <img src="{filename}" alt="{title}">
               {caption_html}
@@ -153,8 +153,9 @@ def main():
     parser.add_argument(
         "--top",
         type=int,
-        default=10,
+        default=25,
         help="Top N for housekeepers/user charts (default: 10)")
+    
     args = parser.parse_args()
 
     housekeeping_csv_path = Path(args.housekeeping_csv)
@@ -398,7 +399,7 @@ def main():
         plt.title("HSK Status After by day (top statuses)")
         plt.xlabel("Day")
         plt.ylabel("Count")
-        plt.xticks(rotation=45, ha="right")
+        plt.xticks(rotation=45, ha="right", fontsize=6)
         plt.legend(title="HSK After", bbox_to_anchor=(1.02, 1), loc="upper left")
         hsk_after_by_day_path = out_dir / "hsk_after_by_day.png"
         plot_and_save(fig, hsk_after_by_day_path)
@@ -564,7 +565,7 @@ def main():
         room_type_nights_path = out_dir / "room_usage_room_type_nights.png"
         plot_and_save(fig, room_type_nights_path)
         usage_charts.append({
-            "title": "Total nights by room type",
+            "title": "",
             "filename": room_type_nights_path.name,
         })
 
@@ -578,11 +579,12 @@ def main():
         plt.title(f"Top {top_n} rooms by nights")
         plt.xlabel("Number of nights")
         plt.ylabel("Room")
+        plt.yticks(fontsize=6)
         plt.gca().invert_yaxis()
         top_rooms_path = out_dir / "room_usage_top_rooms.png"
         plot_and_save(fig, top_rooms_path)
         usage_charts.append({
-            "title": f"Top {top_n} rooms by nights",
+            "title": "",
             "filename": top_rooms_path.name,
         })
 
@@ -597,7 +599,7 @@ def main():
         feature_nights_path = out_dir / "room_usage_feature_nights.png"
         plot_and_save(fig, feature_nights_path)
         usage_charts.append({
-            "title": f"Top {top_n} features by nights",
+            "title": "",
             "filename": feature_nights_path.name,
         })
 
@@ -616,11 +618,11 @@ def main():
         usage_notes.append(
             f"Top room: {top_room['Room Number']} ({top_room['Room Type']}) with {int(top_room['Number of Nights'])} nights."
         )
-    if not nights_by_room_type.empty:
-        top_type = nights_by_room_type.iloc[0]
-        usage_notes.append(
-            f"Top room type: {top_type['Room Type']} with {int(top_type['total_nights'])} nights."
-        )
+    # if not nights_by_room_type.empty:
+    #     top_type = nights_by_room_type.iloc[0]
+    #     usage_notes.append(
+    #         f"Top room type: {top_type['Room Type']} with {int(top_type['total_nights'])} nights."
+    #     )
 
     room_usage_payload = {
         "kpis": usage_kpis,
