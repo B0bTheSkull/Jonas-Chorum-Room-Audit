@@ -71,15 +71,23 @@ def build_html_report(out_dir: Path, title: str, housekeeping: dict, room_usage:
     """
 
   now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-  uni_chart = housekeeping.get("uniqueness_chart")
+  rotation_sources = [housekeeping, room_usage]
+  uni_chart = next(
+    (source.get("uniqueness_chart") for source in rotation_sources if source),
+    None,
+  )
   uni_chart_html = (
     img_tag(uni_chart[0], uni_chart[1])
     if uni_chart and uni_chart[0]
     else "<p class='muted'>No rotation chart generated.</p>"
   )
 
-  rotation_callouts_html = rotation_callouts(housekeeping.get("uniqueness_by_user"))
-  rotation_table_html = df_to_html_table(housekeeping.get("uniqueness_by_user"), max_rows=50)
+  uniqueness_by_user = next(
+    (source.get("uniqueness_by_user") for source in rotation_sources if source),
+    None,
+  )
+  rotation_callouts_html = rotation_callouts(uniqueness_by_user)
+  rotation_table_html = df_to_html_table(uniqueness_by_user, max_rows=50)
 
   html = f"""
   <!doctype html>
