@@ -1,0 +1,1095 @@
+// SINGLE AVAILABLE VALUES EDITOR
+
+function SingleAvailableValuesEditor(dropDownID)
+{
+    this.dropDownID = dropDownID;
+}
+
+SingleAvailableValuesEditor.prototype.ValidateInput = function ()
+{
+    return (this.hasSelectAValue) ? this.NoValueText : "";
+}
+
+SingleAvailableValuesEditor.prototype.ToggleEnable = function ()
+{
+    var dropDown = document.getElementById(this.dropDownID);
+    if (dropDown)
+    {
+        dropDown.disabled = (dropDown.disabled) ? false : true;
+    }
+}
+
+SingleAvailableValuesEditor.prototype.Init = function ()
+{
+    var dropDown = document.getElementById(this.dropDownID);
+    if (dropDown)
+    {
+        var editor = this;
+        dropDown.onchange = function ()
+        {
+            editor.ValueChanged();
+        };
+        if (dropDown.options.length > 0)
+        {
+            var reportViewer = GetReportViewer();
+            if (reportViewer)
+            {
+                dropDown.options[0].text = reportViewer.GetString("ReportParametersSelectAValueText");
+                this.hasSelectAValue = true;
+                this.RemoveSelectAValue();
+            }
+        }
+    }
+}
+
+// Removes the SelectAValue item if it is not in use
+SingleAvailableValuesEditor.prototype.RemoveSelectAValue = function ()
+{
+    if (this.hasSelectAValue)
+    {
+        var dropDown = document.getElementById(this.dropDownID);
+        if (dropDown && dropDown.selectedIndex != 0)
+        {
+            dropDown.remove(0);
+            this.hasSelectAValue = false;
+        }
+    }
+}
+
+SingleAvailableValuesEditor.prototype.GetValue = function ()
+{
+    var dropDown = document.getElementById(this.dropDownID);
+    return dropDown.options[dropDown.selectedIndex].text;
+}
+
+SingleAvailableValuesEditor.prototype.ValueChanged = function ()
+{
+    this.RemoveSelectAValue();
+
+    if (this.OnValueChanged)
+    {
+        this.OnValueChanged();
+    }
+}
+
+// TEXTBOX EDITOR (Float, Int, String)
+function TextboxEditor(textBoxID, valueType, allowBlank)
+{
+    this.textBoxID = textBoxID;
+    this.valueType = valueType;
+    this.allowBlank = allowBlank;
+}
+
+TextboxEditor.prototype.Init = function ()
+{
+    var textBox = document.getElementById(this.textBoxID);
+    if (textBox)
+    {
+        var editor = this;
+        textBox.onchange = function ()
+        {
+            editor.ValueChanged();
+        };
+    }
+}
+
+TextboxEditor.prototype.GetValue = function ()
+{
+    return document.getElementById(this.textBoxID).value;
+}
+
+TextboxEditor.prototype.ValueChanged = function ()
+{
+    if (this.OnValueChanged)
+    {
+        this.OnValueChanged();
+    }
+}
+
+TextboxEditor.prototype.ValidateInput = function ()
+{
+    var textBox = document.getElementById(this.textBoxID);
+    if (textBox)
+    {
+        return ValidateValueType(textBox.value, this.valueType, this.allowBlank, this.NoValueText);
+    }
+    return "";
+}
+
+TextboxEditor.prototype.ToggleEnable = function ()
+{
+    var textBox = document.getElementById(this.textBoxID);
+    if (textBox)
+    {
+        textBox.disabled = (textBox.disabled) ? false : true;
+    }
+}
+
+// PARAMETERS
+function ParametersPage(editors,
+                        initMode,
+                        validOnServer,
+                        navigateBackEnabled,
+                        navigateForwardEnabled,
+                        viewReportButtonID,
+                        errorMessage)
+{
+    this.editors = editors;
+    this.InitMode = initMode;
+    this.validOnServer = validOnServer
+    this.hasParameters = false;
+    if ((editors) && (editors.length > 0))
+    {
+        this.hasParameters = true;
+    }
+    this.navigateBackEnabled = navigateBackEnabled;
+    this.navigateForwardEnabled = navigateForwardEnabled;
+    this.viewReportButtonID = viewReportButtonID;
+    this.errorMessage = errorMessage;
+    this.NoValueText = "";
+    window.ErrorMessage = errorMessage;
+}
+
+ParametersPage.prototype.Validate = function ()
+{
+    CloseEditorPopup();
+
+    var allHaveValues = true;
+    var valid = true;
+    for (var i = 0; i < this.editors.length; i++)
+    {
+        var editor = eval(this.editors[i]);
+        if (editor)
+        {
+            var errorMsg = editor.Validate();
+            if ("" != errorMsg)
+            {
+                valid = false;
+                if (allHaveValues && (errorMsg == this.NoValueText))
+                {
+                    allHaveValues = false;
+                }
+            }
+        }
+    }
+
+    if (!allHaveValues)
+    {
+        var viewer = GetReportViewer();
+        viewer.DisplayError("<br /><br />" + viewer.GetString("ReportParametersInputDataError"));
+    }
+
+    return valid;
+}
+
+ParametersPage.prototype.Init = function ()
+{
+    var viewer = GetReportViewer();
+
+    if (this.hasParameters)
+    {
+        for (var i = 0; i < this.editors.length; i++)
+        {
+            var editor = eval(this.editors[i]);
+            if ((editor) && (editor.Init))
+            {
+                editor.Init();
+            }
+        }
+    }
+
+    if (viewer)
+    {
+        viewer.set_HasParameters(this.hasParameters);
+        viewer.set_NavigateBackEnabled(this.navigateBackEnabled);
+        viewer.set_NavigateForwardEnabled(this.navigateForwardEnabled);
+        this.NoValueText = viewer.GetString("ReportParametersNoValueText");
+
+        var previewButton = document.getElementById(this.viewReportButtonID);
+        if (previewButton)
+        {
+            previewButton.value = viewer.GetString("ReportParametersPreviewButtonText");
+        }
+    }
+}
+
+ParametersPage.prototype.InitOnError = function ()
+{
+    var viewer = GetReportViewer();
+    if (viewer)
+    {
+        viewer.set_NavigateBackEnabled(this.navigateBackEnabled);
+        viewer.set_NavigateForwardEnabled(this.navigateForwardEnabled);
+    }
+}
+
+ParametersPage.prototype.ValidateInitially = function ()
+{
+    var validOnClient = this.Validate();
+    return this.validOnServer && validOnClient;
+}
+
+ParametersPage.prototype.ResizeFrame = function ()
+{
+    var form = document.forms[0];
+    if (form)
+    {
+        var iframe = GetFrameElement();
+        if (iframe)
+        {
+            if (iframe.style.display == "none")
+            {
+                alert("Resize impossible - The iframe is not visible");
+            }
+
+            iframe.style.height = form.offsetHeight + "px";
+        }
+    }
+}
+
+// PARAMETER EDITORS
+function ParameterEditor(valueEditorID, nullSelectID, notValidImageID)
+{
+    this.valueEditorID = valueEditorID;
+    this.nullSelectID = nullSelectID;
+    this.notValidImageID = notValidImageID;
+}
+
+ParameterEditor.prototype.Init = function ()
+{
+    var reportViewer = GetReportViewer();
+    var invalidValueImage = document.getElementById(this.notValidImageID);
+    if ((reportViewer) && (invalidValueImage))
+    {
+        invalidValueImage.title = reportViewer.GetString("ReportParametersInvalidValueText");
+    }
+
+    var valueEditor = eval(this.valueEditorID);
+    var paramEditor = this;
+    var valueChangedCallback = function ()
+    {
+        paramEditor.ValueChanged();
+    };
+    var noValueText = reportViewer.GetString("ReportParametersNoValueText");
+    this.NoValueText = noValueText;
+    if (valueEditor)
+    {
+        if (valueEditor.Init)
+        {
+            valueEditor.Init();
+        }
+        valueEditor.OnValueChanged = valueChangedCallback;
+        valueEditor.NoValueText = noValueText;
+    }
+
+    var nullSelect = document.getElementById(this.nullSelectID);
+    if (nullSelect)
+    {
+        var nullInput = nullSelect.getElementsByTagName("SPAN")[0];
+        if (nullInput)
+        {
+            var oldClickHandler = nullInput.onclick;
+            nullInput.onclick = function ()
+            {
+                if ((typeof (oldClickHandler) != 'undefined') && (null != oldClickHandler))
+                {
+                    oldClickHandler();
+                }
+                valueChangedCallback();
+            };
+            if (nullInput.childNodes.length > 1)
+            {
+                if (IsChecked(nullSelect))
+                {
+                    valueEditor.ToggleEnable();
+                }
+                var label = nullInput.getElementsByTagName("LABEL")[0];
+                if ((label) && (reportViewer))
+                {
+                    label.firstChild.nodeValue = reportViewer.GetString("ReportParametersNullText");
+                }
+            }
+        }
+    }
+    this.currentValue = this.GetValue();
+}
+
+ParameterEditor.prototype.ValidateInput = function ()
+{
+    var nullSelect = document.getElementById(this.nullSelectID);
+    if (IsChecked(nullSelect))
+    {
+        return "";
+    }
+
+    var valueEditor = eval(this.valueEditorID);
+    if ((valueEditor) && (valueEditor.ValidateInput))
+    {
+        return valueEditor.ValidateInput();
+    }
+
+    return "";
+}
+
+ParameterEditor.prototype.Validate = function ()
+{
+    var result = this.ValidateInput();
+    var image = document.getElementById(this.notValidImageID);
+    if (image)
+    {
+        if ("" == result)
+        {
+            image.style.visibility = "hidden";
+        }
+        else
+        {
+            image.style.visibility = "visible";
+        }
+    }
+    return result;
+}
+
+ParameterEditor.prototype.OnValueChanged = function ()
+{
+    if (this.DoPostback)
+    {
+        document.pendingPostback = true;
+        setTimeout(this.DoPostback, 0);
+    }
+    this.Validate();
+}
+
+ParameterEditor.prototype.IsNewValue = function ()
+{
+    var value = this.GetValue();
+    if (value != this.currentValue)
+    {
+        this.currentValue = value;
+        return true;
+    }
+    return false;
+}
+
+ParameterEditor.prototype.GetValue = function ()
+{
+    var nullSelect = document.getElementById(this.nullSelectID);
+    if (typeof (nullSelect) != 'undefined' && IsChecked(nullSelect))
+    {
+        return null;
+    }
+
+    return eval(this.valueEditorID).GetValue();
+}
+
+ParameterEditor.prototype.ValueChanged = function ()
+{
+    if (this.IsNewValue())
+    {
+        this.OnValueChanged();
+    }
+}
+
+// BOOLEAN EDITOR
+function BooleanEditor(radioButtonID)
+{
+    this.radioButtonID = radioButtonID;
+}
+
+BooleanEditor.prototype.ToggleEnable = function ()
+{
+    var radioButtonList = document.getElementById(this.radioButtonID);
+    if (radioButtonList)
+    {
+        radioButtonList.disabled = (radioButtonList.disabled) ? false : true;
+    }
+}
+
+BooleanEditor.prototype.Init = function ()
+{
+    var radioButtonList = document.getElementById(this.radioButtonID);
+    if (radioButtonList)
+    {
+        var inputs = radioButtonList.getElementsByTagName("INPUT");
+        if (inputs)
+        {
+            var editor = this;
+            for (var i = 0; i < inputs.length; i++)
+            {
+                var input = inputs[i];
+                input.onclick = function ()
+                {
+                    editor.ValueChanged();
+                };
+
+                var label = input.nextSibling;
+                var text = "";
+                var reportViewer = GetReportViewer();
+                switch (i)
+                {
+                    case 0:
+                        text = reportViewer.GetString("ReportParametersTrueValueLabel");
+                        break;
+                    case 1:
+                        text = reportViewer.GetString("ReportParametersFalseValueLabel");
+                        break;
+                }
+                label.firstChild.nodeValue = text;
+            }
+        }
+    }
+    return false;
+}
+
+BooleanEditor.prototype.GetValue = function ()
+{
+    var radioButtonList = document.getElementById(this.radioButtonID);
+    var inputs = radioButtonList.getElementsByTagName("INPUT");
+    var trueValue = inputs[0].checked;
+    var falseValue = inputs[1].checked;
+    if (trueValue == falseValue)
+    {
+        return "UndefinedEditorValue";
+    }
+    return trueValue;
+}
+
+BooleanEditor.prototype.ValueChanged = function ()
+{
+    if (this.OnValueChanged)
+    {
+        this.OnValueChanged();
+    }
+}
+
+BooleanEditor.prototype.ValidateInput = function ()
+{
+    var radioButtonList = document.getElementById(this.radioButtonID);
+    var inputs = radioButtonList.getElementsByTagName("INPUT");
+    if (inputs)
+    {
+        for (var i = 0; i < inputs.length; i++)
+        {
+            if (inputs[i].checked) return "";
+        }
+    }
+    return this.NoValueText;
+}
+// CALENDAR EDITOR
+function DateTimeEditor(textBoxID, enabledImageID, disabledImageID)
+{
+    this.textBoxID = textBoxID;
+    this.enabledImageID = enabledImageID;
+    this.disabledImageID = disabledImageID;
+}
+
+DateTimeEditor.prototype.Show = function ()
+{
+    var reportViewer = GetReportViewer();
+    if ((reportViewer) && (reportViewer.ShowCalendar))
+    {
+        var textBox = document.getElementById(this.textBoxID);
+        textBoxLocation = GetAbsolutePosition(textBox);
+        var left = textBoxLocation.Left;
+        var top = textBoxLocation.Top + textBox.offsetHeight;
+        reportViewer.ShowCalendar(this, { Left: left, Top: top });
+    }
+}
+
+DateTimeEditor.prototype.onblur = function () {
+    this.UpdateDate(this.GetValue());
+    this.ValidateInput()
+}
+
+DateTimeEditor.prototype.UpdateDate = function (selectedDate)
+{
+    var textBox = document.getElementById(this.textBoxID);
+    textBox.value = selectedDate;
+    this.ValueChanged();
+}
+
+DateTimeEditor.prototype.GetValue = function ()
+{
+    return document.getElementById(this.textBoxID).value;
+}
+
+DateTimeEditor.prototype.ValueChanged = function ()
+{
+    if (this.OnValueChanged)
+    {
+        this.OnValueChanged();
+    }
+}
+
+DateTimeEditor.prototype.ToggleEnable = function ()
+{
+    var textBox = document.getElementById(this.textBoxID);
+    if (textBox)
+    {
+        textBox.disabled = (textBox.disabled) ? false : true;
+    }
+    ToggleDisplay(document.getElementById(this.enabledImageID));
+    ToggleDisplay(document.getElementById(this.disabledImageID));
+}
+
+DateTimeEditor.prototype.ValidateInput = function ()
+{
+    var textBox = document.getElementById(this.textBoxID);
+    var validValue = ((textBox) && (textBox.value) && (textBox.value.length > 0));
+    return (validValue) ? "" : this.NoValueText;
+}
+
+//---------------------------
+// MULTILINE VALUE EDITOR
+function MultilineValueEditor(textBoxID, editorID, allowBlank, valueType)
+{
+    this.textBoxID = textBoxID;
+    this.editorID = editorID;
+    this.valueType = valueType;
+    this.allowBlank = allowBlank && (valueType == "String");
+}
+
+MultilineValueEditor.prototype.GetTextArea = function (popupPlaceholder)
+{
+    var textAreas = popupPlaceholder.getElementsByTagName("TEXTAREA");
+    var textArea = null;
+    if (textAreas && textAreas.length > 0)
+    {
+        textArea = textAreas[0];
+    }
+    return textArea;
+}
+
+MultilineValueEditor.prototype.GetPopupEditorValue = function (popupPlaceholder)
+{
+    var textBox = document.getElementById(this.textBoxID);
+    var editor = document.getElementById(this.editorID);
+    var textArea = this.GetTextArea(popupPlaceholder);
+
+    if (textBox && editor && textArea)
+    {
+        var newline = "\r\n";
+
+        if (textArea.value.indexOf("\r\n") == -1)
+        {
+            if (textArea.value.indexOf("\n") > -1)
+            {
+                newline = "\n";
+            }
+            else if (textArea.value.indexOf("\r") > -1)
+            {
+                newline = "\r";
+            }
+        }
+
+        var values = textArea.value.split(newline);
+        var result = "";
+        for (var i = 0; i < values.length; i++)
+        {
+            var stringValue = values[i];
+            if (!this.allowBlank)
+            {
+                stringValue = stringValue.replace(/^\s*/, "").replace(/\s*$/, "");
+            }
+
+            if (((!this.allowBlank) && (stringValue.length > 0)) || (this.allowBlank))
+            {
+                if ((i > 0) && (result.length > 0))
+                {
+                    result += "; " + stringValue;
+                }
+                else
+                {
+                    result = stringValue;
+                }
+            }
+        }
+        textBox.value = result;
+        this.ValueChanged();
+
+    }
+}
+
+MultilineValueEditor.prototype.UpdateState = function (editorPopup)
+{
+    var textArea = this.GetTextArea(editorPopup);
+    var textBox = document.getElementById(this.textBoxID);
+    if (textArea && textBox)
+    {
+        textArea.value = textBox.value.replace(/; /g, "\r\n");
+    }
+}
+
+MultilineValueEditor.prototype.GetValue = function ()
+{
+    return document.getElementById(this.textBoxID).value;
+}
+
+MultilineValueEditor.prototype.ValueChanged = function ()
+{
+    if (this.OnValueChanged)
+    {
+        this.OnValueChanged();
+    }
+}
+
+MultilineValueEditor.prototype.Show = function ()
+{
+    if (document.activeEditor != this)
+    {
+        var textBox = document.getElementById(this.textBoxID);
+        if (!textBox.disabled)
+        {
+            var textArea = document.getElementById(this.editorID).childNodes[0];
+            textArea.value = textBox.value.replace(/; /g, "\r\n").replace(/;/g, "\r\n");
+            ShowMultiValuePopup(this);
+        }
+    }
+    else
+    {
+        CloseEditorPopup();
+    }
+}
+
+MultilineValueEditor.prototype.ToggleEnable = function ()
+{
+    ToggleTextBoxEnable(this.textBoxID);
+}
+
+MultilineValueEditor.prototype.ValidateInput = function ()
+{
+    var textBox = document.getElementById(this.textBoxID);
+    if (textBox)
+    {
+        var values = textBox.value.split("; ");
+        for (var i = 0; i < values.length; i++)
+        {
+            var result = ValidateValueType(values[i], this.valueType, this.allowBlank, this.NoValueText);
+            if (result != "")
+                return result;
+        }
+    }
+    return "";
+}
+
+MultilineValueEditor.prototype.GetPopupEditor = function ()
+{
+    return document.getElementById(this.editorID);
+}
+
+// --------------------------
+// MULTICHECKBOX VALUE EDITOR
+function MultiCheckBoxValueEditor(textBoxID, editorID, allowBlank)
+{
+    this.textBoxID = textBoxID;
+    this.editorID = editorID;
+    this.allowBlank = allowBlank;
+    this.allowBlank = false;
+    this.currentValues = null;
+}
+
+MultiCheckBoxValueEditor.prototype.Init = function ()
+{
+    var reportViewer = GetReportViewer();
+    var editor = this.GetPopupEditor();
+    if ((reportViewer) && (editor))
+    {
+        var table = GetTableElement(editor);
+        SetCheckBoxLabel(table, 0, reportViewer.GetString("ReportParametersSelectAllText"));
+    }
+}
+
+MultiCheckBoxValueEditor.prototype.GetPopupEditorValue = function (editorPopup)
+{
+    if (editorPopup)
+    {
+        var table = GetTableElement(editorPopup);
+        if (table)
+        {
+            var value = '';
+
+            for (var i = 1; i < table.rows.length; i++)
+            {
+                var checkBox = GetCheckBox(table, i);
+                if ((checkBox) && (checkBox.checked))
+                {
+                    if (value.length > 0)
+                    {
+                        value += "; ";
+                    }
+                    value += checkBox.Label;
+                }
+            }
+
+            var textBox = document.getElementById(this.textBoxID);
+            if (textBox)
+            {
+                textBox.value = value;
+            }
+        }
+        this.ValueChanged();
+    }
+}
+
+function GetTableElement(container)
+{
+    var tables = container.getElementsByTagName("TABLE");
+    var table = null;
+    if ((tables) && (tables.length > 0))
+    {
+        return tables[0];
+    }
+}
+
+MultiCheckBoxValueEditor.prototype.GetValue = function ()
+{
+    return document.getElementById(this.textBoxID).value;
+}
+
+MultiCheckBoxValueEditor.prototype.ValueChanged = function ()
+{
+    if (this.OnValueChanged)
+    {
+        this.OnValueChanged();
+    }
+}
+
+MultiCheckBoxValueEditor.prototype.Show = function ()
+{
+    if (document.activeEditor != this)
+    {
+        var textBox = document.getElementById(this.textBoxID);
+        if (!textBox.disabled)
+        {
+            ShowMultiValuePopup(this);
+        }
+    }
+    else
+    {
+        CloseEditorPopup();
+    }
+}
+
+MultiCheckBoxValueEditor.prototype.ToggleEnable = function ()
+{
+    ToggleTextBoxEnable(this.textBoxID);
+}
+
+MultiCheckBoxValueEditor.prototype.ValidateInput = function ()
+{
+    var textBox = document.getElementById(this.textBoxID);
+    if (textBox)
+    {
+        if (this.allowBlank) return "";
+        if ((textBox.value) && (textBox.value.length > 0)) return "";
+        return this.NoValueText;
+    }
+}
+
+MultiCheckBoxValueEditor.prototype.GetPopupEditor = function ()
+{
+    return document.getElementById(this.editorID);
+}
+
+MultiCheckBoxValueEditor.prototype.UpdateState = function (editorPopup)
+{
+    var table = GetTableElement(editorPopup);
+    var textBox = document.getElementById(this.textBoxID);
+    var values = textBox.value.split("; ");
+    for (var i = 1; i < table.rows.length; i++)
+    {
+        var checkBox = GetCheckBox(table, i);
+        if (checkBox)
+        {
+            checkBox.checked = false;
+            for (var j = 0; j < values.length; j++)
+            {
+                if (checkBox.Label == values[j])
+                {
+                    checkBox.checked = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    var selectAll = true;
+    for (var i = 1; i < table.rows.length; i++)
+    {
+        var checkBox = GetCheckBox(table, i);
+        if ((checkBox) && (!checkBox.checked))
+        {
+            selectAll = false;
+        }
+    }
+    if (selectAll)
+    {
+        var checkBox = GetCheckBox(table, 0);
+        if (checkBox)
+        {
+            checkBox.checked = true;
+        }
+    }
+}
+
+// GLOBAL
+function IsChecked(inputContainer)
+{
+    if ((typeof (inputContainer) != "undefined")
+        && (inputContainer))
+    {
+        var inputElements = inputContainer.getElementsByTagName("INPUT");
+        return inputElements[0].checked;
+    }
+    return null;
+}
+
+function ShowMultiValuePopup(multiValueEditor)
+{
+    CloseEditorPopup();
+
+    if (!document.pendingPostback)
+    {
+        var textBox = document.getElementById(multiValueEditor.textBoxID);
+        var editorPopup = document.getElementById(multiValueEditor.editorID);
+        if ((textBox) && (editorPopup))
+        {
+            var absolutePosition = GetAbsolutePosition(textBox);
+            var top = absolutePosition.Top + textBox.offsetHeight;
+            var left = absolutePosition.Left;
+            var width = textBox.offsetWidth;
+            var editorHeight = editorPopup.style.height;
+
+            var reportViewer = GetReportViewer();
+            if ((reportViewer) && (reportViewer.ShowEditorPopup))
+            {
+                reportViewer.ShowEditorPopup(multiValueEditor, { Top: top, Left: left, Width: width, Height: editorHeight });
+            }
+            document.activeEditor = multiValueEditor;
+        }
+    }
+}
+
+function GetAbsolutePosition(element)
+{
+    var x = element.offsetLeft;
+    var y = element.offsetTop;
+    element = element.offsetParent;
+    while (null != element)
+    {
+        x += element.offsetLeft + element.clientLeft;
+        y += element.offsetTop + element.clientTop;
+
+        element = element.offsetParent;
+    }
+
+    return { Left: x, Top: y };
+}
+
+function ShowCalendar(calendarID, src, textBoxID)
+{
+    var cal = document.getElementById(calendarID);
+    if (cal)
+    {
+        if (cal.style.display == 'none')
+        {
+            var textBox = document.getElementById(textBoxID);
+            if (textBox)
+            {
+                var absolutePosition = GetAbsolutePosition(textBox);
+                cal.style.top = absolutePosition.Top + textBox.offsetHeight;
+                cal.style.left = absolutePosition.Left;
+            }
+            cal.style.display = '';
+            cal.src = src
+        }
+        else
+            cal.style.display = 'none';
+    }
+}
+
+function FormClick()
+{
+    CloseEditorPopup();
+}
+
+function CloseEditorPopup()
+{
+    var reportViewer = GetReportViewer();
+    if ((reportViewer) && (reportViewer.HideEditorPopup))
+    {
+        reportViewer.HideEditorPopup();
+    }
+    document.activeEditor = null;
+}
+
+function GetFrameElement()
+{
+    var window = document.parentWindow;
+    if (!window) window = document.contentWindow;
+    if (!window) window = document.defaultView;
+    return (window) ? window.frameElement : null;
+}
+
+function GetReportViewer()
+{
+    var frameElement = GetFrameElement();
+    if (frameElement)
+    {
+        var reportViewer = frameElement.ReportViewer;
+        if (reportViewer)
+        {
+            return reportViewer;
+        }
+    }
+    return null;
+}
+
+function SetCheckBoxLabel(table, rowIndex, labelText)
+{
+    if ((table) && (table.rows) && (table.rows.length > 0))
+    {
+        var firstCell = table.rows[rowIndex].cells[0];
+        if (firstCell)
+        {
+            var inputs = firstCell.getElementsByTagName("INPUT");
+            var checkBox = null;
+            if ((inputs) && (inputs.length > 0))
+            {
+                checkBox = inputs[0];
+            }
+
+            if (checkBox)
+            {
+                var label = checkBox.nextSibling;
+                if ((label != null) && (label.firstChild != null))
+                {
+                    label.firstChild.nodeValue = labelText;
+                }
+            }
+        }
+    }
+}
+
+function GetCheckBox(table, rowIndex)
+{
+    if ((table) && (table.rows) && (table.rows.length > 0))
+    {
+        var firstCell = table.rows[rowIndex].cells[0];
+        if (firstCell)
+        {
+            var inputs = firstCell.getElementsByTagName("INPUT");
+            var checkBox = null;
+            if ((inputs) && (inputs.length > 0))
+            {
+                checkBox = inputs[0];
+            }
+
+            if (checkBox)
+            {
+                var label = checkBox.nextSibling;
+
+                var labelStr = " ";
+
+                if (label != null && label.firstChild != null)
+                    labelStr = label.firstChild.nodeValue;
+                if (labelStr == "")
+                    labelStr = " ";
+
+                checkBox.Label = labelStr;
+
+                return checkBox;
+            }
+        }
+    }
+    return null;
+}
+
+function OnClickSelectAllCheckBox(tableID)
+{
+    var table = document.getElementById(tableID);
+    if (table)
+    {
+        var checked = GetCheckBox(table, 0).checked;
+        for (var i = 0; i < table.rows.length; i++)
+        {
+            var checkBox = GetCheckBox(table, i);
+            checkBox.checked = checked;
+        }
+    }
+}
+
+function OnClickCheckBox(tableID)
+{
+    var table = document.getElementById(tableID);
+    if (table)
+    {
+        var checked = true;
+        for (var i = 1; i < table.rows.length; i++)
+        {
+            var checkBox = GetCheckBox(table, i);
+            if (!checkBox.checked)
+            {
+                checked = false;
+                break;
+            }
+        }
+        var checkBox = GetCheckBox(table, 0);
+        checkBox.checked = checked;
+    }
+}
+
+function DisableControl(controlID)
+{
+    var ctrl = document.getElementById(controlID);
+    if (ctrl)
+        ctrl.disabled = !ctrl.disabled;
+};
+
+function ToggleDisplay(el)
+{
+    if (el)
+    {
+        el.style.display = (el.style.display == "none") ? "" : "none";
+    }
+}
+
+function ToggleTextBoxEnable(textBoxID)
+{
+    var textBox = document.getElementById(textBoxID);
+    if (textBox)
+    {
+        textBox.disabled = (textBox.disabled) ? false : true;
+        textBox.className = (textBox.disabled) ? "DisabledTextInput" : "ParameterEditor";
+    }
+}
+
+function ValidateValueType(value, type, allowBlank, noValueText)
+{
+    var valid = true;
+    value = value.replace(/^\s*/, "").replace(/\s*$/, "");
+    if ((!allowBlank) && (value.length == 0)) return noValueText;
+    switch (type)
+    {
+        case "Double":
+            var floatValue = parseFloat(value);
+            valid = !isNaN(floatValue);
+            break;
+        case "Integer":
+            valid = false;
+            if ((value.indexOf(".") == -1) && (value.indexOf(",") == -1))
+            {
+                var value = parseInt(value);
+                valid = !isNaN(value);
+            }
+            break;
+    }
+    return (valid) ? "" : "Invalid " + type + " value";
+}
+
+document.CloseEditorPopup = CloseEditorPopup;
+
+if ((typeof (Sys) != "undefined") &&
+    (typeof (Sys.Application) != "undefined"))
+{
+    Sys.Application.notifyScriptLoaded();
+}

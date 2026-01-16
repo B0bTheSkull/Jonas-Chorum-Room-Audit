@@ -1,0 +1,2490 @@
+/*********************************
+*
+*	ReportViewer
+*
+********************************/
+function ReportViewer(clientID
+    , toolbarID
+    , waitControlID
+    , reportCellID
+    , previewFrameID
+    , paramsCellID
+    , errorControlID
+    , errorLabelID
+    , currentPageID
+    , baseUrl
+    , instanceID
+    , zoomMode
+    , zoomPercent
+    , backgroundColor
+    , popupPlaceholderID
+    , calendarFrameID
+    , documentMapCellID
+    , resources
+    , reportAreaID
+    , splitterBarID
+    , splitterTargetID
+    , documentMapVisible
+    , parametersAreaVisible
+    , defaultPrintFormat
+    , renderingSessionIDField
+    , interactiveLayout)
+{
+    this.clientID = clientID;
+    this.toolbarID = toolbarID;
+    this.waitControlID = waitControlID;
+    this.reportCellID = reportCellID;
+    this.reportFrameID = null;
+    this.previewFrameID = previewFrameID;
+    this.paramsCellID = paramsCellID;
+    this.paramsFrameID = null;
+    this.errorControlID = errorControlID;
+    this.errorLabelID = errorLabelID;
+    this.currentPageID = currentPageID;
+    this.pageCount = 0;
+    this.actionUrl = this.CreateUrl(baseUrl, instanceID, "Action");
+    this.historyUrl = this.CreateUrl(baseUrl, instanceID, "History");
+    this.reportPageUrl = this.CreateUrl(baseUrl, instanceID, "Report");
+    this.exportUrl = this.CreateUrl(baseUrl, instanceID, "Export");
+    this.basePrintUrl = this.CreateUrl(baseUrl, instanceID, "Print");
+    this.printFallbackUrl = this.CreateUrl(baseUrl, instanceID, "PrintFallback");
+    this.baseParamsUrl = this.CreateUrl(baseUrl, instanceID, "Parameters");
+    this.zoomMode = zoomMode;
+    this.zoomPercent = zoomPercent;
+    this.backgroundColor = backgroundColor;
+    this.printFormat = "";
+    this.isPDFPluginEnabled = null;
+    this.popupPlaceholderID = popupPlaceholderID;
+    this.oldEditor = null;
+    this.calendarFrameID = calendarFrameID;
+    this.calendarFrameSrc = this.CreateUrl(baseUrl, instanceID, "Calendar");
+    this.resources = resources;
+    this.reportTableId = this.clientID + "_ReportTable";
+    this.documentMapUrl = this.CreateUrl(baseUrl, instanceID, "DocumentMap");
+    this.documentMapCellID = documentMapCellID;
+    this.documentMapID = null;
+    this.reportAreaID = reportAreaID;
+    this.splitter = new ReportViewer.Splitter(splitterBarID, splitterTargetID);
+    this.documentMapVisible = documentMapVisible;
+    this.documentMapAvailable = false;
+    this.defaultPrintFormat = defaultPrintFormat;
+    this.parametersAreaVisible = parametersAreaVisible;
+    this.hasParameters = false;
+    this.navigateBackEnabled = false;
+    this.navigateForwardEnabled = false;
+    this.instanceID = instanceID;
+    this.onParamsLoadHandler = null;
+    this.onReportLoadHandler = null;
+    this.refreshDocumentMap = true;
+    this.bookmarksOnPage = null;
+    this.currentReportFramePath = "";
+    this.renderingSessionIDField = renderingSessionIDField;
+    this.interactiveLayout = interactiveLayout;
+
+    this.Init();
+
+    if (instanceID != "")
+    {
+        // Initial request for the report       
+        this.NavigateParametersFrame(this.baseParamsUrl);
+    }
+}
+
+ReportViewer.prototype = ReportViewer;
+
+ReportViewer.prototype.EnsureRenderingSessionID = function ()
+{
+    var renderingSessionID = this.GetRenderingSessionID();
+    if (typeof (renderingSessionID) == 'undefined' || renderingSessionID == "")
+    {
+        this.CreateNewRenderingSessionID();
+    }
+}
+
+ReportViewer.prototype.set_HasParameters = function (value)
+{
+    this.hasParameters = value;
+}
+
+ReportViewer.prototype.set_NavigateBackEnabled = function (value)
+{
+    this.navigateBackEnabled = value;
+}
+
+ReportViewer.prototype.set_NavigateForwardEnabled = function (value)
+{
+    this.navigateForwardEnabled = value;
+}
+
+ReportViewer.prototype.set_DocumentMapAvailable = function (value)
+{
+    this.documentMapAvailable = value;
+}
+
+ReportViewer.prototype.CreateUrl = function (baseUrl, instanceID, opType)
+{
+    if (instanceID != "")
+    {
+        return baseUrl + "?instanceID=" + instanceID + "&optype=" + opType;
+    }
+    return "";
+};
+
+ReportViewer.prototype.Init = function ()
+{
+    this.AttachOnClickEventHandler();
+    this.AttachOnResizeEventHandler();
+    this.InitPreviewFrame();
+    this.InitToolbar();
+
+};
+
+ReportViewer.prototype.AttachOnResizeEventHandler = function ()
+{
+    var viewer2 = this;
+    var onresizeEventHandler = function ()
+    {
+        viewer2.AdjustReportAreaHeight();
+    }
+
+    if (window.attachEvent)
+    {
+        window.attachEvent("onresize", onresizeEventHandler);
+    }
+    else if (window.addEventListener)
+    {
+        window.addEventListener("resize", onresizeEventHandler, false);
+    }
+};
+
+ReportViewer.prototype.AttachOnClickEventHandler = function ()
+{
+    var body = document.body;
+    if (body)
+    {
+        var viewer = this;
+        var onclickEventHandler = function ()
+        {
+            viewer.HideEditorPopup();
+        }
+
+        if (body.attachEvent)
+        {
+            body.attachEvent("onclick", onclickEventHandler);
+        }
+        else if (body.addEventListener)
+        {
+            body.addEventListener("click", onclickEventHandler, false);
+        }
+    }
+}
+
+ReportViewer.prototype.GetRenderingFormat = function ()
+{
+    return (this.interactiveLayout)
+         ? "HTML5Interactive"
+         : "HTML5";
+}
+
+ReportViewer.prototype.NavigateReportFrame = function (src, anchor)
+{
+    this.BeginWait();
+    var cell = document.getElementById(this.reportCellID);
+    if (!this.reportFrameID)
+    {
+        this.reportFrameID = this.clientID + "ReportFrame";
+
+        var viewer = this;
+        this.onReportLoadHandler = function ()
+        {
+            viewer.OnReportLoaded();
+        };
+    }
+    else
+    {
+        var oldFrame = document.getElementById(this.reportFrameID);
+        this.DetachOnLoadEventHandler(oldFrame, this.onReportLoadHandler);
+        cell.removeChild(oldFrame);
+    }
+
+    src += "&RenderID=" + this.GetRenderingSessionID() + "&RenderingFormat=" + this.GetRenderingFormat();
+    this.currentReportFramePath = src;
+    if (anchor)
+    {
+        src += "#" + anchor;
+    }
+
+    var newFrame = document.createElement("iframe");
+    newFrame.id = this.reportFrameID;
+    newFrame.frameBorder = 0;
+    newFrame.width = "0px";
+    newFrame.height = "0px";
+    newFrame.src = src;
+    newFrame.Viewer = this;
+    this.AttachOnLoadEventHandler(newFrame, this.onReportLoadHandler);
+
+    cell.appendChild(newFrame);
+}
+
+ReportViewer.prototype.AddBackgroundColorValue = function (src)
+{
+    if (this.backgroundColor)
+    {
+        src += ("&bgColor=" + this.backgroundColor.replace("#", "_"));
+    }
+    return src;
+}
+
+ReportViewer.prototype.NavigateDocumentMap = function (src)
+{
+    var cell = document.getElementById(this.documentMapCellID);
+
+    if (!this.documentMapID)
+    {
+        this.documentMapID = this.clientID + "DocumentMapFrame";
+    }
+    else
+    {
+        var oldFrame = document.getElementById(this.documentMapID);
+        cell.removeChild(oldFrame);
+    }
+
+    var newFrame = document.createElement("iframe");
+    newFrame.id = this.documentMapID;
+    newFrame.frameBorder = 0;
+    newFrame.width = "100%";
+    newFrame.height = "100%";
+    newFrame.src = this.AddBackgroundColorValue(src);
+    newFrame.ReportViewer = this;
+
+    cell.appendChild(newFrame);
+}
+
+ReportViewer.prototype.DisplayError = function (errorMessage)
+{
+    this.EndWait();
+
+    if (errorMessage)
+    {
+        this.Hide(this.reportFrameID);
+        this.Show(this.errorControlID);
+        var errorLabel = document.getElementById(this.errorLabelID);
+        errorLabel.innerHTML = errorMessage;
+    }
+    else
+    {
+        this.Hide(this.errorControlID);
+        this.Show(this.reportFrameID);
+    }
+}
+
+ReportViewer.prototype.Hide = function (elementId)
+{
+    var element = document.getElementById(elementId);
+    if (element)
+    {
+        element.style.display = "none";
+    }
+}
+
+ReportViewer.prototype.Show = function (elementId)
+{
+    var element = document.getElementById(elementId);
+    if (element)
+    {
+        element.style.display = "";
+    }
+}
+
+ReportViewer.prototype.GetError = function () 
+{
+    var paramsArea = document.getElementById(this.paramsFrameID);
+    var msg = "";
+    if (paramsArea && paramsArea.contentWindow) 
+    {
+        msg = paramsArea.contentWindow.ErrorMessage;
+    }
+    if (!msg) 
+    {
+        var reportFrame = document.getElementById(this.reportFrameID);
+        if (reportFrame && reportFrame.contentWindow) 
+        {
+            msg = reportFrame.contentWindow.ErrorMessage;
+        }
+    }
+    return this.LocalizeMessage(msg);
+}
+
+
+ReportViewer.prototype.LocalizeMessage = function (msg)
+{
+    if (null == msg || typeof (msg) == 'undefined')
+    {
+        return msg;
+    }
+    var regex = new RegExp(/##.*?##/g);
+    var keys = msg.match(regex);
+    if (null != keys)
+    {
+        for (var i = 0; i < keys.length; i++)
+        {
+            var key = keys[i].replace(/##/g, "");
+            msg = msg.replace(keys[i], this.GetString(key));
+        }
+    }
+    return msg;
+}
+
+ReportViewer.prototype.NavigateParametersFrame = function (src)
+{
+    this.BeginWait();
+    var cell = document.getElementById(this.paramsCellID);
+    if (!this.paramsFrameID)
+    {
+        this.paramsFrameID = this.clientID + "ParametersArea";
+
+        var viewer = this;
+        this.onParamsLoadHandler = function ()
+        {
+            viewer.OnParametersLoaded();
+        };
+    }
+    else
+    {
+        var oldFrame = document.getElementById(this.paramsFrameID);
+        this.DetachOnLoadEventHandler(oldFrame, this.onParamsLoadHandler);
+        cell.removeChild(oldFrame);
+    }
+
+    var newFrame = document.createElement("iframe");
+    newFrame.id = this.paramsFrameID;
+    newFrame.align = "left";
+    newFrame.scrolling = "auto";
+    newFrame.frameBorder = 0;
+    newFrame.width = "100%";
+    newFrame.height = "0px";
+    newFrame.src = this.AddBackgroundColorValue(src);
+
+    newFrame.ReportViewer = this;
+    this.AttachOnLoadEventHandler(newFrame, this.onParamsLoadHandler);
+
+    cell.appendChild(newFrame);
+}
+
+ReportViewer.prototype.AttachOnLoadEventHandler = function (element, handler)
+{
+    if (element.attachEvent)
+    {
+        element.attachEvent("onload", handler);
+    }
+    else if (element.addEventListener)
+    {
+        element.addEventListener("load", handler, false);
+    }
+}
+
+ReportViewer.prototype.DetachOnLoadEventHandler = function (element, handler)
+{
+    if (element.detachEvent)
+    {
+        element.detachEvent("onload", handler);
+    }
+    else if (element.removeEventListener)
+    {
+        element.removeEventListener("load", handler, false);
+    }
+}
+
+ReportViewer.prototype.InitPreviewFrame = function ()
+{
+    var previewFrame = document.getElementById(this.previewFrameID);
+    var viewer = this;
+    var onPrintLoadHandler = function ()
+    {
+        viewer.OnPrintReportLoaded();
+    };
+
+    if (previewFrame.attachEvent)
+    {
+        previewFrame.attachEvent("onreadystatechange", onPrintLoadHandler);
+    }
+    else if (previewFrame.addEventListener)
+    {
+        previewFrame.addEventListener("load", onPrintLoadHandler, false);
+    }
+}
+
+ReportViewer.prototype.InitToolbar = function ()
+{
+    var toolbar = document.getElementById(this.toolbarID);
+    var viewer = this;
+    if (toolbar)
+    {
+        toolbar.OnCommand = function (toolbarBtn)
+        {
+            viewer.OnToolbarCmd(toolbarBtn);
+        };
+
+        toolbar.OnUpdateCommandState = function (toolbarBtn)
+        {
+            return viewer.OnToolbarUpdateCmdState(toolbarBtn);
+        };
+
+        // Making the table cells unselectable. 
+        // This is done with javascript code because of the xHtml compliance.
+        var cells = toolbar.getElementsByTagName("td");
+        for (var i = 0; i < cells.length; i++)
+        {
+            if (cells[i].setAttribute)
+            {
+                cells[i].setAttribute("unselectable", "on");
+            }
+        }
+    }
+}
+
+ReportViewer.prototype.OnPrintReportLoaded = function ()
+{
+    if (this.printFormat != "")
+    {
+        var previewFrame = document.getElementById(this.previewFrameID);
+
+        if (previewFrame)
+        {
+            if (document.all)
+            {
+                if (previewFrame.readyState != "complete") return;
+            }
+
+            this.EnablePrintButton(true);
+
+            if (/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)) // In FF PDF plug-in does not work correctly and reloads the print document.
+            {
+                window.setTimeout(function ()
+                {
+                    if (previewFrame.src != "about:blank")
+                    {
+                        previewFrame.src = "about:blank";
+                    }
+                }, 2000);
+            }
+        }
+    }
+}
+
+ReportViewer.prototype.EnableRefreshButton = function (enabled)
+{
+    var toolbar = document.getElementById(this.toolbarID);
+    if (typeof (toolbar) != 'undefined' && toolbar)
+    {
+        var refreshBtn = toolbar.GetButtonByName("Refresh");
+        if (typeof (refreshBtn) != 'undefined' && refreshBtn)
+        {
+            refreshBtn.Enable(enabled);
+        }
+    }
+}
+
+ReportViewer.prototype.GetParametersPage = function ()
+{
+
+    var paramsFrame = document.getElementById(this.paramsFrameID);
+    if (paramsFrame)
+    {
+        return paramsFrame.contentWindow.ParametersPage;
+    }
+    return null;
+}
+
+ReportViewer.prototype.OnParametersLoaded = function ()
+{
+    this.pageCount = 0;
+
+    var paramsPage = this.GetParametersPage();
+
+    var msg = this.GetError();
+    if (msg)
+    {
+        this.DisplayError(msg);
+        if (paramsPage)
+        {
+            paramsPage.InitOnError();
+        }
+
+        var toolbar = document.getElementById(this.toolbarID);
+        if (typeof (toolbar) != 'undefined' && toolbar)
+        {
+            toolbar.Enable(true);
+        }
+    }
+    else
+    {
+        if (paramsPage)
+        {
+            paramsPage.Init();
+            this.UpdateParametersUI();
+
+            var error = "";
+            if (paramsPage.ValidateInitially())
+            {
+                if ("init" == paramsPage.InitMode || "preview" == paramsPage.InitMode)
+                {
+                    var refresh = ("preview" == paramsPage.InitMode);
+                    this.RefreshReportArea(refresh);
+                }
+            }
+            else
+            {
+                error = "<br /><br />" + this.GetString("ReportParametersInputDataError");
+            }
+            if (error != "")
+            {
+                this.DisplayError(error);
+            }
+        }
+    }
+}
+
+ReportViewer.prototype.OnReportLoaded = function ()
+{
+    this.pageCount = 0;
+
+    var msg = this.GetError();
+    if (msg)
+    {
+        this.DisplayError(msg);
+
+        this.EnableRefreshButton(true);
+    }
+    else
+    {
+        var reportFrame = document.getElementById(this.reportFrameID);
+
+        var hash = reportFrame.contentWindow.document.location.hash;
+        if (hash)
+        {
+            reportFrame.contentWindow.document.location.hash = hash;
+        }
+
+        if (this.refreshDocumentMap)
+        {
+            this.refreshDocumentMap = false;
+            var url = this.documentMapUrl + "&rnd=" + new Date();
+            this.NavigateDocumentMap(url);
+        }
+
+        var toolbar = document.getElementById(this.toolbarID);
+        var pageNumberButton = null;
+
+        var pageInfo = reportFrame.contentWindow.PageInfo;
+        if ((typeof (pageInfo) != "undefined") && (pageInfo.length > 0))
+        {
+            this.pageCount = pageInfo[1];
+            if (toolbar)
+            {
+                pageNumberButton = toolbar.GetButtonByName("PageNumber");
+
+                if (pageNumberButton)
+                {
+                    pageNumberButton.value = 1 + pageInfo[0];
+                    pageNumberButton.SetPageCount(this.pageCount);
+                }
+            }
+            this.StoreCurrentPageIndex(pageInfo[0]);
+        }
+
+        this.bookmarksOnPage = reportFrame.contentWindow.BookmarksOnPage;
+
+        this.EndWait();
+
+        if (toolbar)
+        {
+            var paramsAreaBtn = toolbar.GetButtonByName("ParametersArea");
+            if (paramsAreaBtn)
+            {
+                if (paramsAreaBtn.Pressed != this.parametersAreaVisible)
+                {
+                    paramsAreaBtn.ToggleState();
+                }
+            }
+        }
+
+        if (pageNumberButton)
+        {
+            pageNumberButton.Enable(this.pageCount > 1);
+        }
+
+        if (this.backgroundColor)
+        {
+            var reportBody = reportFrame.contentWindow.document.getElementById('ReportBody');
+            if (reportBody)
+            {
+                reportBody.style.backgroundColor = this.backgroundColor;
+            }
+        }
+
+        this.SetZoomInternal(toolbar);
+    }
+
+    if (hash)
+    {
+        reportFrame = document.getElementById(this.reportFrameID);
+        reportFrame.contentWindow.document.location.hash = hash;
+    }
+}
+
+ReportViewer.prototype.get_Height = function ()
+{
+    var reportTable = document.getElementById(this.reportTableId);
+    var lastRow = reportTable.rows[reportTable.rows.length - 1];
+    var oldDisplay = lastRow.style.display;
+    lastRow.style.display = "none";
+
+    var viewer = document.getElementById(this.clientID);
+    var clientHeight = viewer.clientHeight;
+    lastRow.style.display = oldDisplay;
+    return clientHeight;
+}
+
+ReportViewer.prototype.AdjustReportAreaHeightInternal = function ()
+{
+
+    var reportTable = document.getElementById(this.reportTableId);
+    if (!reportTable) return;
+
+    var viewerHeight = this.get_Height();
+    var lastRow = reportTable.rows[reportTable.rows.length - 1];
+
+    var totalHeight = 0;
+    for (var i = 0; i < reportTable.rows.length - 1; i++)
+    {
+        var row = reportTable.rows[i];
+        if (row.style.display != "none")
+        {
+            var preferredHeight = 0;
+            var tableCell = row.cells[0];
+
+            if (tableCell.childNodes.length > 0) // has content            
+            {
+                preferredHeight = tableCell.childNodes[0].offsetHeight;
+            }
+
+            totalHeight += preferredHeight;
+            row.style.height = preferredHeight + "px";
+        }
+    }
+    var newHeight = (viewerHeight - totalHeight) + "px";
+    lastRow.style.height = newHeight;
+    lastRow.cells[0].style.height = newHeight;
+    var errorControl = document.getElementById(this.errorControlID);
+    errorControl.style.height = newHeight;
+};
+
+ReportViewer.prototype.AdjustReportAreaHeight = function ()
+{
+    var viewer = this;
+    window.setTimeout(function ()
+    {
+        viewer.AdjustReportAreaHeightInternal();
+    }
+                     , 0);
+}
+
+ReportViewer.prototype.SetZoomInternal = function (toolbar)
+{
+    var zoomValue = this.zoomPercent;
+    var zoomMode = this.zoomMode;
+
+    if ((typeof (toolbar) != "undefined") && (toolbar))
+    {
+        var zoomControl = toolbar.GetButtonByName("Zoom");
+        if (zoomControl)
+        {
+            if (isNaN(zoomControl.value))
+            {
+                zoomValue = 100;
+                zoomMode = zoomControl.value;
+            }
+            else
+            {
+                zoomValue = parseInt(zoomControl.value);
+                zoomMode = ZoomMode.Percent;
+            }
+        }
+    }
+
+    this.SetZoom(zoomMode, zoomValue);
+}
+
+ReportViewer.prototype.SetZoom = function (zoomMode, zoomPercent)
+{
+    var reportFrame = document.getElementById(this.reportFrameID);
+    if (!reportFrame) return;
+
+    var reportDiv = reportFrame.contentWindow.document.getElementById('ReportDiv');
+    if (!reportDiv) return;
+
+    var reportTable = reportDiv.getElementsByTagName("TABLE")[0];
+    if (!reportTable) return;
+
+    if (zoomMode == ZoomMode.Percent)
+    {
+        reportTable.style.zoom = zoomPercent + "%";
+    }
+    else
+    {
+        reportTable.style.zoom = 1;
+        var zoomValue = 1;
+        if (zoomMode == ZoomMode.PageWidth)
+        {
+            var zoomHor1 = reportDiv.offsetWidth / reportTable.offsetWidth;
+            var zoomHor2 = reportDiv.clientWidth / reportTable.offsetWidth;
+            var zoomVer = reportDiv.offsetHeight / reportTable.offsetHeight;
+
+            zoomValue = zoomHor1;
+            if ((zoomHor2 < zoomVer) && (zoomVer < zoomHor1))
+            {
+                zoomValue = zoomVer;
+            }
+            else
+            {
+                reportTable.style.zoom = zoomValue;
+                if (reportTable.offsetHeight * zoomValue > reportDiv.offsetHeight)
+                {
+                    zoomValue = reportDiv.clientWidth / reportTable.offsetWidth;
+                }
+            }
+        }
+        else if (zoomMode == ZoomMode.FullPage)
+        {
+            var zoomHor = reportFrame.offsetWidth / reportTable.offsetWidth;
+            var zoomVer = reportFrame.offsetHeight / reportTable.offsetHeight;
+            zoomValue = (zoomHor < zoomVer) ? zoomHor : zoomVer;
+        }
+
+        // If the viewer is initially hidden and 
+        // the zoom mode is FullPage or PageWidth then zoomValue is NaN.
+        if (!isNaN(zoomValue))
+        {
+            // reportFrame.style.zoom = zoomValue;
+            reportTable.style.zoom = zoomValue;
+        }
+    }
+
+    this.UpdateZoomUI(zoomMode, zoomPercent);
+}
+
+ReportViewer.prototype.UpdateZoomUI = function (zoomMode, zoomPercent)
+{
+    var toolbar = document.getElementById(this.toolbarID);
+    if (!toolbar) return; //toolbar is hidden
+
+    var zoomControl = toolbar.GetButtonByName("Zoom");
+    if (!zoomControl) return; //zoomControl is hidden
+
+    var itemIndex = this.GetOptionIndex(zoomControl, zoomMode, zoomPercent);
+
+    if (-1 == itemIndex)
+    {
+        var item = document.createElement('option');
+        item.text = zoomPercent + "%";
+        item.value = zoomPercent;
+        try
+        {
+            zoomControl.add(item, null); // standards compliant
+        }
+        catch (ex)
+        {
+            zoomControl.add(item); // IE only
+        }
+
+        itemIndex = zoomControl.length - 1;
+    }
+
+    if (zoomControl.selectedIndex != itemIndex)
+    {
+        zoomControl.selectedIndex = itemIndex;
+    }
+}
+
+ReportViewer.prototype.GetOptionIndex = function (zoomControl, zoomMode, zoomPercent)
+{
+    var searchValue = zoomPercent;
+    if (ZoomMode.FullPage == zoomMode || ZoomMode.PageWidth == zoomMode)
+    {
+        searchValue = zoomMode;
+    }
+    for (i = 0; i < zoomControl.length; i++)
+    {
+        if (searchValue == zoomControl.options[i].value)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+
+// Return false to disable the command; otherwise the command is enabled
+ReportViewer.prototype.OnToolbarUpdateCmdState = function (toolbarBtn)
+{
+    switch (toolbarBtn.CommandName)
+    {
+        case "NavigateBack":
+            return this.navigateBackEnabled;
+        case "NavigateForward":
+            return this.navigateForwardEnabled;
+        case "Print":
+            return this.OnUpdatePrintState();
+        case "FirstPage":
+            return this.CanNavigateToPage(0);
+        case "PrevPage":
+            return this.CanNavigateToPage(this.GetCurrentPageIndex() - 1);
+        case "NextPage":
+            return this.CanNavigateToPage(this.GetCurrentPageIndex() + 1);
+        case "LastPage":
+            return this.CanNavigateToPage(this.pageCount - 1);
+        case "PageNumber":
+        case "TogglePrintPreview":
+        case "FormatList":
+            return (this.pageCount > 0);
+        case "Export":
+            var formatList = toolbarBtn.Toolbar.GetButtonByName("FormatList");
+            return (this.pageCount > 0 && null != formatList && formatList.selectedIndex != 0);
+    }
+};
+
+ReportViewer.prototype.OnToolbarCmd = function (toolbarBtn)
+{
+    switch (toolbarBtn.CommandName)
+    {
+        case "NavigateBack":
+            this.NavigateToHistory(-1);
+            break;
+
+        case "NavigateForward":
+            this.NavigateToHistory(1);
+            break;
+
+        case "Refresh":
+            this.RefreshReport();
+            break;
+
+        case "Print":
+            this.OnPrint();
+            break;
+
+        case "FirstPage":
+            this.SetCurrentPageIndex(0);
+            break;
+
+        case "PrevPage":
+            this.SetCurrentPageIndex(this.GetCurrentPageIndex() - 1);
+            break;
+
+        case "NextPage":
+            this.SetCurrentPageIndex(this.GetCurrentPageIndex() + 1);
+            break;
+
+        case "LastPage":
+            this.SetCurrentPageIndex(this.pageCount - 1);
+            break;
+
+        case "PageNumber":
+            var pageIndex = parseInt(toolbarBtn.value) - 1;
+            if (isNaN(pageIndex) || (pageIndex < 0 || pageIndex >= this.pageCount))
+            {
+                alert("Please select page between 1-" + this.pageCount); //TODO: localize
+                toolbarBtn.focus();
+                toolbarBtn.select();
+            }
+            else
+            {
+                this.SetCurrentPageIndex(pageIndex);
+            }
+            break;
+        case "Export":
+            var formatList = toolbarBtn.Toolbar.GetButtonByName("FormatList");
+            var exportFormat = formatList.value;
+            this.ExportInternal(exportFormat, this.GetCurrentPageIndex());
+            break;
+        case "Zoom":
+            this.SetZoomInternal(toolbarBtn.Toolbar);
+            break;
+        case "ParametersArea":
+            this.parametersAreaVisible = !this.parametersAreaVisible;
+            this.UpdateParametersUI(toolbarBtn);
+            break;
+        case "DocumentMap":
+            this.splitter.toggleVisibility();
+            break;
+        case "TogglePrintPreview":
+            this.interactiveLayout = !this.interactiveLayout;
+            this.RefreshReportArea(true);
+            break;
+    }
+};
+
+ReportViewer.prototype.SetCurrentPageIndex = function (pageIndex, anchor)
+{
+    if (this.reportPageUrl)
+    {
+        var currentPageIndex = this.GetCurrentPageIndex();
+
+        if ((this.reportFrameID) && currentPageIndex == pageIndex)
+        {
+            var reportFrame = document.getElementById(this.reportFrameID);
+            if (anchor)
+            {
+                reportFrame.src = this.currentReportFramePath + "#" + anchor;
+            }
+        }
+        else
+        {
+            this.NavigateReportFrame(this.reportPageUrl + "&PageIndex=" + pageIndex, anchor);
+        }
+    }
+}
+
+ReportViewer.prototype.StoreCurrentPageIndex = function (pageIndex)
+{
+    var input = document.getElementById(this.currentPageID);
+    if (input)
+    {
+        input.value = pageIndex;
+    }
+}
+
+ReportViewer.prototype.GetCurrentPageIndex = function ()
+{
+    var index = -1;
+    var input = document.getElementById(this.currentPageID);
+    if (input)
+    {
+        index = parseInt(input.value);
+        if (isNaN(index))
+        {
+            index = -1;
+        }
+    }
+    return index; // page index is 0-base; -1 - invalid page index
+};
+
+ReportViewer.prototype.SetRenderingSessionID = function (renderingSessionID)
+{
+    var input = document.getElementById(this.renderingSessionIDField);
+    if (input)
+    {
+        input.value = renderingSessionID;
+    }
+}
+
+ReportViewer.prototype.GetRenderingSessionID = function ()
+{
+    var input = document.getElementById(this.renderingSessionIDField);
+    if (input)
+    {
+        return input.value;
+    }
+    return "";
+};
+
+ReportViewer.prototype.get_CurrentPage = function ()
+{
+    return this.GetCurrentPageIndex() + 1;
+}
+
+ReportViewer.prototype.set_CurrentPage = function (pageNumber)
+{
+    this.SetCurrentPageIndex(pageNumber - 1);
+}
+
+ReportViewer.prototype.get_TotalPages = function ()
+{
+    return this.pageCount;
+}
+
+ReportViewer.prototype.CanMoveToPage = function (pageNumber)
+{
+    return this.CanNavigateToPage(pageNumber - 1);
+}
+
+ReportViewer.prototype.CanNavigateToPage = function (pageIndex)
+{
+    var currentPageIndex = this.GetCurrentPageIndex(pageIndex);
+    return (0 <= pageIndex && pageIndex < this.pageCount
+            && pageIndex != currentPageIndex);
+};
+
+ReportViewer.prototype.ExportReport = function (format)
+{
+    this.ExportInternal(format);
+};
+
+ReportViewer.prototype.ExportInternal = function (format)
+{
+    if (this.exportUrl)
+    {
+        window.open(this.exportUrl + "&ExportFormat=" + format, "_self");
+    }
+};
+
+ReportViewer.prototype.PrintFallback = function (format) {
+    if (this.printFallbackUrl) {
+        window.open(this.printFallbackUrl + "&ExportFormat=" + format, "_blank");
+    }
+};
+
+ReportViewer.prototype.RefreshReport = function ()
+{
+    this.NavigateParametersFrame(this.baseParamsUrl + "&Refresh=true");
+}
+
+ReportViewer.prototype.CreateNewRenderingSessionID = function ()
+{
+    this.SetRenderingSessionID(GenerateGUID());
+}
+
+ReportViewer.prototype.OnUpdatePrintState = function ()
+{
+    return (this.pageCount > 0);
+
+    /*
+    var reportFrame = document.getElementById(this.reportFrameID);
+    if (!reportFrame)
+    return false;
+
+    var wnd = reportFrame.contentWindow;
+    try
+    {
+    return wnd.document.queryCommandSupported("print");
+    }
+    catch (ex)
+    {
+    if (!document.all && wnd.print)
+    {
+    return true;
+    }
+    }
+    return false;
+    */
+};
+
+ReportViewer.prototype.CanEnablePrintButton = function ()
+{
+    // Under IE11, Opera and Safari the print button cannot be enabled.
+    var agent = navigator.userAgent;
+
+    // Check explicitly for Chrome because the 
+    // Chrome userAgent includes 'Safari' keyword
+    if (agent.indexOf("Chrome") != -1)
+        return true;
+
+    if (agent.indexOf("Opera") != -1)
+        return false;
+
+    if (agent.indexOf("Safari") != -1)
+        return true;
+
+    if (agent.indexOf("Mozilla") != -1 && agent.indexOf("Trident") != -1)
+        return false;
+
+    return true;
+};
+
+ReportViewer.prototype.PrintAs = function (pf)
+{
+    try
+    {
+        this.printFormat = pf;
+
+        switch (this.printFormat)
+        {
+            case "PDF":
+            case "HTML":
+                {
+                    var previewFrame = document.getElementById(this.previewFrameID);
+                    if (previewFrame && this.IsPdfPluginPrintEnabled())
+                    {
+                        var printUrl = this.CreatePrintReportUrl(this.printFormat);
+                        if (this.CanEnablePrintButton())
+                        {
+                            this.EnablePrintButton(false);
+                        }
+                        previewFrame.src = printUrl;
+                    }
+                    else
+                    {
+                        this.PrintFallback("PDF");
+                    }
+                    break;
+                }
+            case "Default":
+                {
+                    if (this.CanEnablePrintButton())
+                    {
+                        var reportFrame = document.getElementById(this.reportFrameID);
+                        if (reportFrame)
+                        {
+                            var wnd = reportFrame.contentWindow;
+
+                            if (document.all)
+                            {
+                                wnd.document.execCommand("print", true, null);
+                            }
+                            else if (wnd.print)
+                            {
+                                wnd.print();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        alert("Unable to perform the Print operation.");
+                    }
+                }
+        }
+    }
+    catch (ex)
+    {
+        alert("Error printing the report:\n\n" + ex);
+    }
+}
+
+ReportViewer.prototype.EnablePrintButton = function (enable)
+{
+    var toolbar = document.getElementById(this.toolbarID);
+    if (toolbar)
+    {
+        var btn = toolbar.GetButtonByName("Print");
+        if (btn)
+        {
+            btn.Enable(enable);
+        }
+    }
+}
+
+ReportViewer.prototype.DefaultPrint = function ()
+{
+    this.PrintAs("Default");
+}
+
+ReportViewer.prototype.CreatePrintReportUrl = function (printFormat) 
+{
+    var date = new Date().getTime();
+
+    var pageIndex = (this.interactiveLayout)
+                  ? 0 
+                  : this.GetCurrentPageIndex();
+    
+    return this.basePrintUrl +
+        "&format=" + printFormat +
+        "&pageIndex=" + pageIndex +
+        "&rand=" + date;
+}
+
+function IEBrowserHelper()
+{
+}
+IEBrowserHelper.prototype.GetIEPlugin = function (classid)
+{
+    var result = null;
+    try
+    {
+        result = new ActiveXObject(classid);
+    }
+    catch (ex)
+    {
+    }
+
+    return result;
+}
+IEBrowserHelper.prototype.PDFPluginPrintEnabled = function ()
+{
+    return this.GetIEPlugin("PDF.PdfCtrl.5") ||
+           this.GetIEPlugin("PDF.PdfCtrl.6") ||
+           this.GetIEPlugin("AcroPDF.PDF.1");
+}
+
+function FireFoxHelper()
+{
+}
+
+FireFoxHelper.prototype.PDFPluginPrintEnabled = function ()
+{
+    var matches = /Firefox[\/\s](\d+\.\d+)/.exec(navigator.userAgent);
+
+    if (matches && matches.length > 1)
+    {
+        var version = parseFloat(matches[1]);
+        if (version >= 19.0) // Firefox version 19.0 starts using its native pdf viewer which does not support the 'print' JavaScript.
+        {
+            // fallback to simple PDF export.
+            return false;
+        }
+    }
+
+    var pdfPlugins = navigator.mimeTypes["application/pdf"];
+    var pdfPlugin = pdfPlugins != null ? pdfPlugins.enabledPlugin : null;
+
+    var isEnabled = false;
+    if (pdfPlugin)
+    {
+        var description = pdfPlugin.description;
+
+        isEnabled = (description.indexOf("Adobe") != -1 &&
+                    (description.indexOf("Version") == -1 || parseFloat(description.split("Version")[1]) >= 6));
+    }
+    
+    return isEnabled;
+}
+
+function ChromeHelper()
+{
+}
+ChromeHelper.prototype.PDFPluginPrintEnabled = function ()
+{
+    var navPlugins = navigator.plugins;
+    for (key in navPlugins)
+    {
+        if (navPlugins[key].name == "Chrome PDF Viewer" || navPlugins[key].name == "Adobe Acrobat")
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+function SafariHelper() {
+}
+SafariHelper.prototype.PDFPluginPrintEnabled = function () {
+    var navPlugins = navigator.plugins;
+    for (key in navPlugins) {
+        if (navPlugins[key].name == "WebKit built-in PDF" || navPlugins[key].name == "Adobe Acrobat") {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+// NS3+, Opera3+, IE5+ Mac, Safari (support plugin array):  check for Acrobat plugin in plugin array
+function OtherBrowsersHelper()
+{
+}
+OtherBrowsersHelper.prototype.PDFPluginPrintEnabled = function ()
+{
+    if (navigator.plugins != null)
+    {
+        var acrobat = navigator.plugins['Adobe Acrobat'];
+        if (acrobat != null)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+function GetBrowserHelper()
+{
+    if (window.navigator)
+    {
+        var userAgent = window.navigator.userAgent.toLowerCase();
+        if (userAgent.indexOf("msie") > -1
+            || (userAgent.indexOf("mozilla")>-1 && userAgent.indexOf("trident") > -1))
+            return new IEBrowserHelper();
+        else if (userAgent.indexOf("firefox") > -1)
+            return new FireFoxHelper();
+        else if (userAgent.indexOf("chrome") > -1)
+            return new ChromeHelper();
+        else if (userAgent.indexOf("safari") > -1)
+            return new SafariHelper();
+        else
+            return new OtherBrowsersHelper();
+    }
+    return null;
+}
+
+ReportViewer.prototype.DetectBrowser = function ()
+{
+    if (!this.browserHelper)
+    {
+        this.browserHelper = GetBrowserHelper();
+    }
+    return this.browserHelper;
+};
+
+ReportViewer.prototype.IsPdfPluginPrintEnabled = function ()
+{
+    if (this.isPDFPluginEnabled == null)
+    {
+        var browser = this.DetectBrowser();
+        this.isPDFPluginEnabled = browser.PDFPluginPrintEnabled();
+    }
+
+    return this.isPDFPluginEnabled;
+};
+
+ReportViewer.prototype.PrintReport = function ()
+{
+    switch (this.defaultPrintFormat)
+    {
+        case "Default":
+            this.DefaultPrint();
+            break;
+        case "PDF":
+            this.PrintAs("PDF");
+            previewFrame = document.getElementById(this.previewFrameID);
+            previewFrame.onload = function () { previewFrame.contentDocument.execCommand("print", true, null); };
+            break;
+    }
+};
+
+ReportViewer.prototype.OnPrint = function ()
+{
+    this.PrintReport();
+};
+
+ReportViewer.prototype.BeginWait = function ()
+{
+    this.Wait(true);
+};
+
+ReportViewer.prototype.EndWait = function ()
+{
+    this.Wait(false);
+};
+
+ReportViewer.prototype.Wait = function (wait)
+{
+    var waitControl = document.getElementById(this.waitControlID);
+    if (waitControl)
+    {
+        waitControl.style.display = (wait && this.instanceID != "") ? "" : "none";
+    }
+
+    var reportFrame = document.getElementById(this.reportFrameID);
+    if (reportFrame)
+    {
+        // reportFrame.style.display = wait ? "none" : "";
+        reportFrame.style.width = wait ? "0px" : "100%";
+        reportFrame.style.height = wait ? "0px" : "100%";
+    }
+
+    var errorControl = document.getElementById(this.errorControlID);
+    if (errorControl && wait)
+    {
+        errorControl.style.display = "none";
+    }
+
+    var toolbar = document.getElementById(this.toolbarID);
+    if (toolbar)
+    {
+        toolbar.Enable((!wait) && (this.instanceID != ""));
+    }
+};
+
+ReportViewer.prototype.RefreshReportArea = function (refresh)
+{
+    var pageIndex = this.GetCurrentPageIndex();
+    var url = this.reportPageUrl + "&PageIndex=";
+    if (refresh || pageIndex < 0)
+    {
+        this.documentMapAvailable = false;
+        this.UpdateDocumentMapUI();
+        this.refreshDocumentMap = true;
+        this.CreateNewRenderingSessionID();
+        pageIndex = 0;
+    }
+    else
+    {
+        this.EnsureRenderingSessionID();
+    }
+    this.NavigateReportFrame(url + pageIndex, null);
+}
+
+//toolbarButton is an optional parameter
+ReportViewer.prototype.UpdateParametersUI = function (toolbarButton)
+{
+    var showButton = this.hasParameters;
+    var showArea = this.parametersAreaVisible && this.hasParameters;
+
+    var paramsFrame = document.getElementById(this.paramsFrameID);
+    if (!paramsFrame)
+    {
+        return;
+    }
+
+    this.ShowParametersArea(paramsFrame, showArea);
+    this.ShowParametersButton(toolbarButton, showButton, showArea)
+
+    this.AdjustReportAreaHeight();
+}
+
+ReportViewer.prototype.ShowParametersArea = function (paramsFrame, showArea)
+{
+    if (!paramsFrame)
+    {
+        paramsFrame = document.getElementById(this.paramsFrameID);
+        if (!paramsFrame)
+        {
+            return;
+        }
+    }
+
+    var display = this.VisibilityToDisplayStyle(showArea);
+    paramsFrame.style.display = display;
+    var parent = paramsFrame.parentNode;
+    while (null != parent)
+    {
+        if (parent.tagName.toUpperCase() == "TD")
+        {
+            parent.style.display = "";
+            parent.style.height = "26px";
+            parent.style.display = display;
+        }
+        else if (parent.tagName.toUpperCase() == "TR")
+        {
+            parent.style.display = "";
+            parent.style.height = "26px";
+            parent.style.display = display;
+            break;
+        }
+
+        parent = parent.parentNode;
+    }
+
+    if (showArea)
+    {
+        var paramsPage = paramsFrame.contentWindow.ParametersPage;
+        if (paramsPage)
+        {
+            paramsPage.ResizeFrame();
+        }
+    }
+}
+
+ReportViewer.prototype.ShowParametersButton = function (toolbarButton, showButton, showArea)
+{
+    //if toolbarButton is not passed, resolve it
+    if (!toolbarButton)
+    {
+        var toolbar = document.getElementById(this.toolbarID);
+        if (toolbar)
+        {
+            toolbarButton = toolbar.GetButtonByName("ParametersArea");
+        }
+        if (!toolbarButton)
+        {
+            return;
+        }
+    }
+
+    var display = this.VisibilityToDisplayStyle(showButton);
+    if (toolbarButton.style.display != display)
+    {
+        toolbarButton.style.display = display;
+
+        toolbarButton.Pressed = showArea;
+        toolbarButton.onmouseout(); //refresh the Pressed state;
+
+        var inputs = toolbarButton.getElementsByTagName("input");
+        if ((inputs) && (inputs.length > 1))
+        {
+            var tooltip = inputs[0].value;
+            var imageButton = inputs[1];
+            var tooltips = tooltip.split("|");
+            imageButton.title = showArea ? tooltips[0] : tooltips[1];
+        }
+    }
+}
+
+ReportViewer.prototype.VisibilityToDisplayStyle = function (show)
+{
+    var displayStyle = "";
+    if (false == show)
+    {
+        displayStyle = "none";
+    }
+    return displayStyle;
+}
+
+ReportViewer.prototype.ShowCalendar = function (dateTimeEditor, location)
+{
+    var frameSrc = this.calendarFrameSrc + "&SelectedDate=" + dateTimeEditor.GetValue();
+    var calendarFrame = document.getElementById(this.calendarFrameID);
+    if (calendarFrame)
+    {
+        if ("none" == calendarFrame.style.display)
+        {
+            calendarFrame.style.display = "";
+            calendarFrame.style.left = "-500px";
+            calendarFrame.style.top = "-500px";
+        }
+
+        if (calendarFrame.offsetTop < 0)
+        {
+            var paramFrame = document.getElementById(this.paramsFrameID);
+            if (paramFrame)
+            {
+                var frameLocation = GetAbsolutePosition(paramFrame);
+                var calendarFrameLocation = GetAbsolutePosition(calendarFrame.offsetParent);
+                calendarFrame.style.left = FormatDimension(location.Left + frameLocation.Left - calendarFrameLocation.Left);
+                calendarFrame.style.top = FormatDimension(location.Top + frameLocation.Top - calendarFrameLocation.Top);
+                calendarFrame.ReportViewer = this;
+                this.dateTimeEditor = dateTimeEditor;
+                calendarFrame.src = frameSrc;
+            }
+        }
+        else
+        {
+            calendarFrame.style.left = "-500px";
+            calendarFrame.style.top = "-500px";
+        }
+    }
+}
+
+ReportViewer.prototype.UpdateDate = function (selectedDate)
+{
+    if (this.dateTimeEditor)
+    {
+        this.dateTimeEditor.UpdateDate(selectedDate);
+    }
+    var calendarFrame = document.getElementById(this.calendarFrameID);
+    if (calendarFrame)
+    {
+        calendarFrame.style.display = "none";
+    }
+}
+
+ReportViewer.prototype.NavigateToHistory = function (step)
+{
+    var url = this.historyUrl + "&Step=" + step + "&rnd=" + new Date();
+    this.NavigateParametersFrame(url);
+}
+
+ReportViewer.prototype.NavigateToReport = function (reportAddress)
+{
+    var url = this.actionUrl + "&Type=Report&Value=" + reportAddress + "&PageIndex=" + this.GetCurrentPageIndex();
+    this.NavigateParametersFrame(url);
+}
+
+ReportViewer.prototype.NavigateToBookmark = function (bookmarkId)
+{
+    if ((this.reportFrameID) && (this.bookmarksOnPage))
+    {
+        for (var i = 0; i < this.bookmarksOnPage.length; i++)
+        {
+            if (bookmarkId == this.bookmarksOnPage[i])
+            {
+                var reportFrame = document.getElementById(this.reportFrameID);
+                reportFrame.src = this.currentReportFramePath + "#" + bookmarkId;
+                return;
+            }
+        }
+    }
+
+    // var currentPageIndex = this.GetCurrentPageIndex(); // TODO: optimize
+    var url = this.actionUrl + "&Type=Bookmark&Value=" + bookmarkId;
+    this.NavigateReportFrame(url, bookmarkId);
+}
+
+ReportViewer.prototype.Navigate = function (pageNumber, anchor)
+{
+    this.SetCurrentPageIndex(pageNumber - 1, anchor);
+}
+
+ReportViewer.prototype.UpdateDocumentMapUI = function ()
+{
+    var showDocumentMap = this.documentMapVisible && this.documentMapAvailable;
+
+    var toolbar = document.getElementById(this.toolbarID);
+    if (toolbar)
+    {
+        var documentMapButton = toolbar.GetButtonByName("DocumentMap");
+        if (documentMapButton)
+        {
+            if (this.documentMapAvailable)
+            {
+                documentMapButton.Show();
+            }
+            else
+            {
+                documentMapButton.Hide();
+            }
+
+            showDocumentMap = this.documentMapAvailable && documentMapButton.Pressed;
+        }
+    }
+
+    if (showDocumentMap)
+    {
+        this.splitter.show();
+    }
+    else
+    {
+        this.splitter.hide();
+    }
+}
+
+ReportViewer.prototype.GetString = function (keyName)
+{
+    return eval('this.resources.' + keyName);
+}
+
+/**********************************
+*
+*	ReportToolbar
+*
+**********************************/
+function ReportToolbar(id, arrButtons)
+{
+    var toolBar = document.getElementById(id);
+    if (toolBar)
+    {
+        toolBar.Buttons = arrButtons;
+
+        // Methods
+        toolBar.Init = ReportToolbar_Init;
+        toolBar.Enable = ReportToolbar_Enable;
+        toolBar.GetButton = ReportToolbar_GetButton;
+        toolBar.GetButtonByName = ReportToolbar_GetButtonByName;
+
+        toolBar.OnCommand = ReportToolbar_OnCommand;
+        toolBar.OnUpdateCommandState = ReportToolbar_OnUpdateCommandState;
+        toolBar.ExportFormatChanged = ReportToolbar_ExportFormatChanged;
+        toolBar.ZoomChanged = ReportToolbar_ZoomChanged;
+        toolBar.Init();
+    }
+}
+
+function ReportToolbar_ShowButton(buttonName)
+{
+    var btn = this.GetButtonByName(buttonName);
+    if (btn)
+    {
+        btn.style.visibility = "visible";
+    }
+}
+
+function ReportToolbar_HideButton(buttonName)
+{
+    var btn = this.GetButtonByName(buttonName);
+    if (btn)
+    {
+        btn.style.visibility = "hidden";
+    }
+}
+
+function ReportToolbar_Init()
+{
+    var btn = null;
+    for (var i = 0; i < this.Buttons.length; i++)
+    {
+        btn = this.GetButton(this.Buttons[i]);
+        if (btn)
+        {
+            btn.Toolbar = this;
+        }
+    }
+}
+
+function ReportToolbar_Enable(enabled)
+{
+    enabled = (false != enabled);
+    var btn = null;
+    for (var i = 0; i < this.Buttons.length; i++)
+    {
+        btn = this.GetButton(this.Buttons[i]);
+        if (btn && btn.Enable)
+        {
+            btn.Enable(enabled && (false != this.OnUpdateCommandState(btn)));
+        }
+    }
+}
+
+function ReportToolbar_GetButton(id)
+{
+    var btn = document.getElementById(id);
+    if (!btn)
+    {
+        alert("Button " + id + " not found");
+    }
+    return btn;
+}
+
+function ReportToolbar_GetButtonByName(commandName)
+{
+    var btn = null;
+    for (var i = 0; i < this.Buttons.length; i++)
+    {
+        btn = this.GetButton(this.Buttons[i]);
+        if (btn && btn.CommandName == commandName)
+        {
+            return btn;
+        }
+    }
+    return null;
+}
+
+function ReportToolbar_UpdateButtons()
+{
+    var btn = null;
+    for (var i = 0; i < this.Buttons.length; i++)
+    {
+        btn = this.GetButton(this.Buttons[i]);
+        if (btn)
+        {
+            this.OnUpdateState(btn);
+        }
+    }
+}
+
+function ReportToolbar_OnUpdateCommandState(toolbarButton)
+{
+    alert("OnUpdateCommandState: " + toolbarButton.CommandName);
+    return true;
+}
+
+function ReportToolbar_OnCommand(toolbarButton)
+{
+    alert("OnCommand: " + toolbarButton.CommandName);
+}
+
+function ReportToolbar_ExportFormatChanged(formatList)
+{
+    var enable = (formatList.selectedIndex != 0);
+    var btn = this.GetButtonByName("Export");
+    if (btn)
+    {
+        btn.Enable(enable);
+    }
+    return enable;
+}
+
+function ReportToolbar_ZoomChanged(zoomSelect)
+{
+    return true;
+}
+
+/**********************************
+*
+*	ToolbarButton
+*
+**********************************/
+function ToolbarButton(id, commandName, enabled, enableStyle, disableStyle)
+{
+    var btn = document.getElementById(id);
+    if (btn)
+    {
+        btn.CommandName = commandName;
+        if (enableStyle.length > 0)
+        {
+            btn.EnableStyle = enableStyle;
+        }
+        if (disableStyle.length > 0)
+        {
+            btn.DisableStyle = disableStyle;
+        }
+
+        btn.Enable = ToolbarButton_Enable;
+        btn.Exec = ToolbarButton_Exec;
+        btn.Show = ToolbarButton_Show;
+        btn.Hide = ToolbarButton_Hide;
+
+        btn.Enable(true);
+        return btn;
+    }
+    return null;
+}
+
+function ToolbarButton_Show()
+{
+    this.style.visibility = "visible";
+}
+
+function ToolbarButton_Hide()
+{
+    this.style.visibility = "hidden";
+}
+
+function ToolbarButton_Enable(enabled)
+{
+    this.Enabled = (false != enabled);
+
+    if (typeof (this.EnableStyle) != "undefined")
+    {
+        this.className = enabled ? this.EnableStyle : this.DisableStyle;
+    }
+    this.disabled = enabled ? "" : "disabled";
+}
+
+function ToolbarButton_Exec()
+{
+    if (this.Enabled && this.Toolbar)
+    {
+        this.Toolbar.OnCommand(this);
+    }
+}
+
+/**********************************
+*
+*	ToolbarImageButton
+*
+**********************************/
+function ToolbarImageButton(id
+    , commandName
+    , enabled
+    , enabledStyle
+    , disabledStyle
+    , buttonStyle
+    , pressed)
+{
+    var btn = ToolbarButton(id, commandName, enabled, enabledStyle, disabledStyle);
+    if (btn)
+    {
+        // Properties
+        btn.ButtonStyle = buttonStyle; // true: toggle button; false: push button
+        btn.Pressed = false;
+
+        if ("ToggleButton" == buttonStyle)
+        {
+            btn.Pressed = pressed;
+            ToolbarImageButton_SetStyle(btn);
+        }
+
+        // events
+        btn.onclick = ToolbarImageButton_Click;
+        btn.onmouseover = ToolbarImageButton_MouseOver;
+        btn.onmouseout = ToolbarImageButton_MouseOut;
+        btn.ToggleState = ToolbarImageButton_ToggleState;
+    }
+}
+
+function ToolbarImageButton_SetStyle(btn)
+{
+    btn.className = btn.EnableStyle = (btn.Pressed)
+        ? "PressedButton"
+        : "NormalButton";
+}
+
+function ToolbarImageButton_ToggleState(e)
+{
+    if (!e)
+    {
+        e = window.event;
+    }
+
+    CancelEvent(e);
+
+    if (!this.Enabled)
+        return;
+
+    if ("ToggleButton" == this.ButtonStyle)
+    {
+        this.Pressed = !this.Pressed;
+        ToolbarImageButton_SetStyle(this);
+    }
+
+    var inputs = this.getElementsByTagName("input");
+    if ((inputs) && (inputs.length > 1))
+    {
+        var tooltip = inputs[0].value;
+        var imageButton = inputs[1];
+        var tooltips = tooltip.split("|");
+        if (tooltips.length > 1)
+        {
+            imageButton.title = (this.Pressed)
+                            ? tooltips[0]
+                            : tooltips[1];
+        }
+    }
+}
+
+function ToolbarImageButton_Click(e)
+{
+    this.ToggleState(e);
+    this.onmouseover();
+    this.Exec();
+}
+
+function ToolbarImageButton_MouseOver()
+{
+    if (this.Enabled)
+    {
+        this.className = this.Pressed ? "HoverPressedButton" : "HoverButton";
+    }
+}
+
+function ToolbarImageButton_MouseOut()
+{
+    if (this.Enabled)
+    {
+        this.className = this.EnableStyle;
+    }
+}
+
+/**********************************
+*
+*	ReportPageNumberTextBox
+*
+**********************************/
+function ReportPageNumberTextBox(id, commandName, enabled, enabledStyle, disabledStyle, pageCountLabelID)
+{
+    var btn = ToolbarButton(id, commandName, enabled, enabledStyle, disabledStyle);
+    if (btn)
+    {
+        btn.PageCountLabelID = pageCountLabelID;
+
+        btn.SetPageCount = ReportPageNumberTextBox_SetPageCount;
+
+        // Events
+        btn.onkeypress = ReportPageNumberTextBox_KeyPress;
+    }
+}
+
+function ReportPageNumberTextBox_SetPageCount(pageCount)
+{
+    var o = document.getElementById(this.PageCountLabelID);
+    if (o)
+    {
+        o.innerHTML = (pageCount > 0) ? pageCount : "&nbsp;--&nbsp;";
+    }
+}
+
+function ReportPageNumberTextBox_KeyPress(e)
+{
+    if (!e)
+    {
+        e = window.event;
+    }
+
+    if (e.keyCode == 10 || e.keyCode == 13)
+    {
+        try
+        {
+            this.Exec();
+        }
+        catch (ex)
+        {
+        }
+
+        CancelEvent(e);
+    }
+}
+
+/**********************************
+*
+*	ReportTextButton
+*
+**********************************/
+function ReportTextButton(id, commandName, enabled, enabledStyle, disabledStyle)
+{
+    var btn = ToolbarButton(id, commandName, enabled, enabledStyle, disabledStyle);
+    if (btn)
+    {
+        // events
+        btn.onclick = ReportTextButton_Click;
+    }
+}
+
+function ReportTextButton_Click(e)
+{
+    if (!e)
+    {
+        e = window.event;
+    }
+    CancelEvent(e);
+    if (this.Enabled)
+    {
+        this.Exec();
+    }
+}
+
+/**********************************
+*
+*	ExportFormatButton
+*
+**********************************/
+function ExportFormatButton(id, commandName, enabled, enabledStyle, disabledStyle)
+{
+    var btn = ToolbarButton(id, commandName, enabled, enabledStyle, disabledStyle);
+    if (btn)
+    {
+        // events
+        btn.onchange = function ()
+        {
+            this.Toolbar.ExportFormatChanged(this);
+        };
+    }
+}
+
+/**********************************
+*
+*	ZoomButton
+*
+**********************************/
+function ZoomButton(id, commandName, enabled, enabledStyle, disabledStyle)
+{
+    var btn = ToolbarButton(id, commandName, enabled, enabledStyle, disabledStyle);
+    if (btn)
+    {
+        // events
+        btn.onchange = ReportTextButton_Click;
+    }
+}
+
+/**********************************
+*
+*	ZoomMode
+*
+**********************************/
+function ZoomMode(name)
+{
+    this.name = name;
+}
+
+ZoomMode.prototype.toString = function ()
+{
+    return this.name;
+};
+
+ZoomMode.FullPage = new ZoomMode("FullPage");
+ZoomMode.PageWidth = new ZoomMode("PageWidth");
+ZoomMode.Percent = new ZoomMode("Percent");
+
+/**********************************
+*
+*	Global functions
+*
+**********************************/
+function CancelEvent(e)
+{
+    if (e)
+    {
+        e.returnValue = false;
+        e.cancelBubble = true;
+        if (e.preventDefault)
+        {
+            e.preventDefault();
+        }
+    }
+}
+
+ReportViewer.prototype.HideEditorPopup = function ()
+{
+    if (this.oldEditor)
+    {
+        var popupPlaceholder = document.getElementById(this.popupPlaceholderID);
+
+        if (this.oldEditor.GetPopupEditorValue)
+        {
+            this.oldEditor.GetPopupEditorValue(popupPlaceholder);
+        }
+
+        popupPlaceholder.innerHTML = "";
+        popupPlaceholder.style.display = "none";
+
+        this.oldEditor = null;
+    }
+
+    var calendarFrame = document.getElementById(this.calendarFrameID);
+    if (calendarFrame)
+    {
+        calendarFrame.style.display = "none";
+    }
+}
+
+ReportViewer.prototype.ShowEditorPopup = function (valueEditor, rectangle)
+{
+    var popupPlaceholder = document.getElementById(this.popupPlaceholderID);
+    if ((valueEditor) && (popupPlaceholder))
+    {
+        var editor = valueEditor.GetPopupEditor();
+        popupPlaceholder.innerHTML = editor.innerHTML;
+
+        if (valueEditor.UpdateState)
+        {
+            valueEditor.UpdateState(popupPlaceholder);
+        }
+
+        if ("none" == popupPlaceholder.style.display)
+        {
+            popupPlaceholder.style.top = "-500px";
+            popupPlaceholder.style.left = "-500px";
+            popupPlaceholder.style.display = "";
+        }
+
+        var paramFrame = document.getElementById(this.paramsFrameID);
+        var frameLocation = GetAbsolutePosition(paramFrame);
+        var popupPlaceHolderLocation = GetAbsolutePosition(popupPlaceholder.offsetParent);
+        var absoluteTop = frameLocation.Top + rectangle.Top - popupPlaceHolderLocation.Top;
+        var absoluteLeft = frameLocation.Left + rectangle.Left - popupPlaceHolderLocation.Left;
+
+        popupPlaceholder.style.top = FormatDimension(absoluteTop);
+        popupPlaceholder.style.left = FormatDimension(absoluteLeft);
+        popupPlaceholder.style.width = FormatDimension(rectangle.Width);
+        popupPlaceholder.style.height = FormatDimension(rectangle.Height);
+        popupPlaceholder.style.backgroundColor = editor.style.backgroundColor;
+        popupPlaceholder.style.borderColor = editor.style.borderColor;
+        popupPlaceholder.style.borderWidth = editor.style.borderWidth;
+        popupPlaceholder.style.borderStyle = editor.style.borderStyle;
+        popupPlaceholder.style.position = "absolute";
+        popupPlaceholder.style.display = "";
+        this.oldEditor = valueEditor;
+
+        var textAreas = popupPlaceholder.getElementsByTagName("TEXTAREA");
+        if (textAreas.length > 0)
+        {
+            var textArea = textAreas[0];
+            if (textArea)
+            {
+                var divWidth = popupPlaceholder.offsetWidth;
+                textArea.style.width = divWidth;
+                var currentWidth = divWidth;
+                while (textArea.offsetWidth > divWidth)
+                {
+                    currentWidth--;
+                    textArea.style.width = currentWidth + "px";
+                }
+            }
+        }
+    }
+}
+
+/********************************/
+/*     ReportViewer.Splitter    */
+/********************************/
+ReportViewer.Splitter = function (splitterBarID, resizeTargetID)
+{
+    this.splitterBar = document.getElementById(splitterBarID);
+    this.resizeTarget = document.getElementById(resizeTargetID);
+    this.defaultTargetWidth = 200;
+    this.state = "expanded";
+    this.initialize();
+}
+
+ReportViewer.Splitter.prototype =
+{
+    initialize: function ()
+    {
+        this.isResizing = false;
+        this.splitterBar.style.zIndex = 5000;
+        this.splitterBar.style.cursor = "e-resize";
+        this.isVisible = true;
+        this.attachEvents();
+    },
+
+    toggleVisibility: function ()
+    {
+        if (this.isVisible)
+        {
+            this.hide();
+        }
+        else
+        {
+            this.show();
+        }
+    },
+
+    show: function ()
+    {
+        this.splitterBar.style.display = "";
+        var width = (typeof (this.targetWidth) != "undefined")
+                  ? this.targetWidth
+                  : this.defaultTargetWidth;
+        this.resizeTarget.style.width = width + "px";
+        this.isVisible = true;
+    },
+
+    hide: function ()
+    {
+        this.resizeTarget.style.width = "1px";
+        this.splitterBar.style.display = "none";
+        this.isVisible = false;
+    },
+
+    expand: function ()
+    {
+        var width = (typeof (this.targetWidth) != "undefined")
+                  ? this.targetWidth
+                  : this.defaultTargetWidth;
+        this.resizeTarget.style.width = width + "px";
+        this.state = "expanded";
+    },
+
+    collapse: function ()
+    {
+        this.resizeTarget.style.width = "1px";
+        this.state = "collapsed";
+    },
+
+    get_Width: function ()
+    {
+        var displayState = this.splitterBar.style.display;
+        this.splitterBar.style.display = "";
+        var width = this.splitterBar.offsetWidth;
+        this.splitterBar.style.display = displayState;
+        return width;
+    },
+
+    attachEvents: function ()
+    {
+        var splitter = this;
+
+        // Mouse DOWN
+        this.splitterBar.onmousedown = function ()
+        {
+            splitter.onmousedown();
+        };
+
+        // Mouse UP
+        this.splitterBar.onmouseup = function ()
+        {
+            splitter.onmouseup();
+        };
+
+        // Mouse OVER
+        this.splitterBar.onmouseover = function ()
+        {
+            splitter.onmouseover();
+        };
+
+        // Mouse OUT
+        this.splitterBar.onmouseout = function ()
+        {
+            splitter.onmouseout();
+        };
+
+        this.splitterBar.ondblclick = function ()
+        {
+            splitter.ondblclick();
+        }
+    },
+
+    ondblclick: function ()
+    {
+        switch (this.state)
+        {
+            case "expanded":
+                this.collapse();
+                break;
+            case "collapsed":
+                this.expand();
+                break;
+        }
+    },
+
+    onmousedown: function ()
+    {
+        this.configure();
+        this.isResizing = true;
+        if (this.splitterBar.setCapture)
+            this.splitterBar.setCapture();
+        else
+            this.hideIFrames();
+
+        this.oldMouseMoveHandler = document.onmousemove;
+        this.oldMouseUpHandler = document.onmouseup;
+
+        var splitter = this;
+        document.onmousemove = function (e) { splitter.onmousemove(e); };
+        document.onmouseup = function () { splitter.onmouseup(); };
+    },
+
+    onmouseup: function ()
+    {
+        document.onmousemove = this.oldMouseMoveHandler;
+        document.onmouseup = this.oldMouseUpHandler;
+
+        if (document.releaseCapture)
+            document.releaseCapture();
+        else
+            this.showIFrames();
+        this.isResizing = false;
+    },
+
+    onmouseover: function ()
+    {
+        if (!this.isResizing)
+        {
+            this.splitterBar.style.backgroundPosition = "-4px 0px";
+        }
+    },
+
+    onmouseout: function ()
+    {
+        if (!this.isResizing)
+        {
+            this.splitterBar.style.backgroundPosition = "0px 0px";
+        }
+    },
+
+    onmousemove: function (evnt)
+    {
+        evnt = evnt ? evnt : event;
+        if (evnt && this.isResizing)
+        {
+            evnt.cancelBubble = true;
+            evnt.returnValue = false;
+            var x = (evnt.pageX) ? evnt.pageX : evnt.clientX;
+            var scrollLeft = document.body.scrollLeft;
+            x = x + scrollLeft - this.width / 2;
+            var minX = this.offsetLeft + this.width;
+            var maxX = minX + this.maxWidth - this.width;
+            if ((minX == 0 || x >= minX) && (maxX == 0 || x <= maxX))
+            {
+                this.splitterBar.style.left = x + "px";
+                var targetWidth = x - this.offsetLeft;
+                targetWidth -= GetInt(this.resizeTarget.style.borderLeftWidth);
+                targetWidth -= GetInt(this.resizeTarget.style.borderRightWidth);
+                if (targetWidth < 1)
+                {
+                    targetWidth = 1;
+                }
+                this.resizeTarget.style.width = targetWidth + "px";
+                this.targetWidth = targetWidth;
+            }
+        }
+    },
+
+    configure: function ()
+    {
+        if (typeof this.width == "undefined")
+        {
+            this.width = this.get_Width();
+        }
+
+        this.splitterBar.style.margin = "0px";
+        this.splitterBar.style.padding = "0px";
+
+        var offsetParent = this.resizeTarget.offsetParent;
+        this.maxWidth = offsetParent.offsetWidth;
+        this.maxWidth -= GetInt(offsetParent.style.borderLeftWidth);
+        this.maxWidth -= GetInt(offsetParent.style.borderRightWidth);
+        this.maxWidth -= GetInt(this.splitterBar.offsetWidth);
+        this.maxWidth -= GetInt(this.splitterBar.style.borderLeftWidth);
+        this.maxWidth -= GetInt(this.splitterBar.style.borderRightWidth);
+
+        this.offsetLeft = GetAbsolutePosition(this.resizeTarget).Left;
+    },
+
+    hideIFrames: function ()
+    {
+        this.showIFrames();
+        this.iframes = this.resizeTarget.offsetParent.getElementsByTagName("iframe");
+        this.iframeStates = [];
+        if (this.iframes)
+        {
+            for (var i = 0; i < this.iframes.length; i++)
+            {
+                var iframe = this.iframes[i];
+                if (iframe)
+                {
+                    this.iframeStates[i] = iframe.style.visibility;
+                    iframe.style.visibility = "hidden";
+                }
+            }
+        }
+    },
+
+    showIFrames: function ()
+    {
+        if (this.iframes && this.iframeStates)
+        {
+            for (var i = 0; i < this.iframes.length; i++)
+            {
+                this.iframes[i].style.visibility = this.iframeStates[i];
+            }
+            this.iframes = null;
+            this.iframeStates = null;
+        }
+    }
+}
+
+/* * * * * * * * * * */
+/*     Helpers       */
+/* * * * * * * * * * */
+function GetAbsolutePosition(element)
+{
+    var x = element.offsetLeft;
+    var y = element.offsetTop;
+    element = element.offsetParent;
+    while (null != element)
+    {
+        x += element.offsetLeft + element.clientLeft;
+        y += element.offsetTop + element.clientTop;
+
+        element = element.offsetParent;
+    }
+
+    return { Left: x, Top: y };
+}
+
+function GetInt(value)
+{
+    if (value)
+    {
+        var result = parseInt(value);
+        return (isNaN(result)) ? 0 : result;
+    }
+    return 0;
+}
+
+function FormatDimension(dimension)
+{
+    var dim = dimension.toString();
+    if ((dim.length > 0) && (dim.indexOf("px") == -1))
+    {
+        return dim + "px";
+    }
+    return dim;
+}
+
+function StyelExists(header, href)
+{
+    var styles = header.getElementsByTagName("link");
+    for (var i = 0; i < styles.length; i++)
+    {
+        var style = styles[i];
+        if (href == style.href)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+function GenerateGUID()
+{
+    var s = [];
+    var digits = "0123456789abcdef";
+    for (var i = 0; i < 32; i++)
+    {
+        s[i] = digits.substr(Math.floor(Math.random() * 0x10), 1);
+    }
+    s[12] = "4";
+    s[16] = digits.substr((s[16] & 0x3) | 0x8, 1);
+    return s.join("");
+}
+
+function LoadStyle(href)
+{
+    var header = document.getElementsByTagName("head")[0];
+    if (!StyelExists(header, href))
+    {
+        var cssNode = document.createElement('link');
+        cssNode.type = 'text/css';
+        cssNode.rel = 'stylesheet';
+        cssNode.href = href;
+        cssNode.media = 'screen';
+        header.appendChild(cssNode);
+    }
+}
+
+if ((typeof (Sys) != "undefined") &&
+    (typeof (Sys.Application) != "undefined"))
+{
+    Sys.Application.notifyScriptLoaded();
+}
+

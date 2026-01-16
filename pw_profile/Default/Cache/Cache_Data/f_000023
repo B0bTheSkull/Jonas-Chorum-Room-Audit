@@ -1,0 +1,1253 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>
+	Reports
+</title><link rel="icon" type="image/x-icon" href="../Content/Images/Chorum-Favicon32x32.png" /><link rel="icon" type="image/x-icon" href="../Content/Images/chorum-apple-touch-icon.png" /><link rel="icon" type="image/x-icon" href="../Content/Images/Chorum-Favicon192x192.png" /><link rel="icon" type="image/x-icon" href="../Content/Images/Chorum-Favicon192x192.png" /><meta id="AccessToken" name="AccessToken" /><meta id="BusinessDate" name="BusinessDate" content="1/15/2026" /><meta id="HotelCode" name="HotelCode" content="UNILOG" /><meta id="HotelId" name="HotelId" content="76fd74d0-9c43-4645-89c7-708bb18dbbd1" /><meta id="SLHost" name="SLHost" content="https://d301app.msicloudpm.com/EPMService.asmx" /><meta id="SLHostCommand" name="SLHostCommand" /><meta id="SLHostLanguage" name="SLHostLanguage" content="en-US" /><meta id="SystemUse" name="SystemUse" /><meta id="UserId" name="UserId" content="6a302f32-0059-4c12-b4db-b76f5bc041a0" /><meta id="UserName" name="UserName" content="CameronS" /><meta id="UseThisSDPort" name="UseThisSDPort" content="4520" /><meta id="CCHotelCode" name="CCHotelCode" content="UNILOG" /><meta id="ShiftId" name="ShiftId" content="00000000-0000-0000-0000-000000000000" /><meta id="ShiftName" name="ShiftName" /><meta id="CCDHUrl" name="CCDHUrl" content="https://cpweb03.chorumpay.com/CPweb03/ccdhservice.asmx" /><meta id="EnableCreditCardGateway" name="EnableCreditCardGateway" content="True" /><meta id="CCDHToken" name="CCDHToken" /><meta id="CCDHHotelCode" name="CCDHHotelCode" /><meta id="MyToaster" name="MyToaster" content="http://UNILOGCCP/CloudPMOffline/Login.aspx" /><meta id="EnableOfflineCheck" name="EnableOfflineCheck" content="False" /><meta id="EncodedParms" name="EncodedParms" /><meta id="OfflineOnlineCheckURL" name="OfflineOnlineCheckURL" content=" " /><meta id="IsOfflineInstance" name="IsOfflineInstance" content="False" /><meta id="CCDHUserId" name="CCDHUserId" /><meta id="EnableSettlementModule" name="EnableSettlementModule" content="True" /><meta id="PendingTransactionsCount" name="PendingTransactionsCount" /><meta id="UnsettledBatchesCount" name="UnsettledBatchesCount" /><meta id="DaysPasswordExpires" name="DaysPasswordExpires" /><meta id="CCMerchantId" name="CCMerchantId" /><meta id="CCProcessorId" name="CCProcessorId" /><meta id="IsPerfMonitoring" name="IsPerfMonitoring" content="False" /><meta id="UseEMVEnabledCreditCardReader" name="UseEMVEnabledCreditCardReader" content="True" /><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <script src="../Scripts/Reports/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="../Scripts/Reports/jquery-ui.min.js" type="text/javascript"></script>
+    <link href="../Content/Reports/jquery-ui.css" rel="Stylesheet" />
+
+    <script src="../Scripts/msi.common.auto.logout.js" type="text/javascript"></script>
+
+    <script id="purecloud-webchat-js"
+            type="text/javascript"
+            src="https://apps.mypurecloud.com/webchat/jsapi-v1.js"
+            region="us-east-1"
+            org-guid="b14dedb6-85ff-4f02-86b6-86d654038916"
+            deployment-key="07f497f8-304b-470c-bfc8-a993324b760b">
+    </script>
+
+    <style>
+        /* hide module links if the user doesn't have access to them */
+        #MainLeft .rpRootGroup .rpDisabled {
+            display: none
+        }
+
+        .mySelectedNodeStyle {
+        color: #0000ff;
+        }
+
+        .myUnSelectedNodeStyle {
+            color: steelblue;
+        }
+
+
+    </style>
+
+    <!-- Style required for extending the contents to the full height of the page-->
+    <script type="text/javascript">    
+        function LoadModalDiv() {
+            var bcgDiv = document.getElementById("divBackground");
+            bcgDiv.style.display = "block";
+        }
+
+        function HideModalDiv() {
+            var bcgDiv = document.getElementById("divBackground");
+            bcgDiv.style.display = "none";
+        }
+        function UpdateBusinessDate(theBusinessDate, theLoginSessionId) {
+            $.post("UpdateSession.ashx?BDt=" + theBusinessDate + "&LSID=" + theLoginSessionId);
+        }
+        function UpdateShift(theShiftId, theShiftName, theLoginSessionId) {
+            $.post("UpdateSession.ashx?SId=" + theShiftId + "&SNm=" + theShiftName + "&LSID=" + theLoginSessionId);
+        }
+        function onLoad(sender) {
+            setTimeout(function () {
+                $telerik.$(sender.get_element())
+                    .parent("[id^='RAD_SPLITTER_PANE_CONTENT']")
+                    .css("overflow", "visible");
+            }, 0);
+
+            setTimeout(function () {
+                sender._adjustByImportance();
+                sender._adjustByImportance();
+            }, 0);
+        }
+
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+
+        function openWinCLStmtNoticeDialog(LSID) {
+
+            var oWnd = radopen("CLStmtNoticeDialog.aspx?LSID=" + LSID, "CLStmtNoticeDialog");
+        }
+
+        function openWinResForecastWalkIns(sender, args) {
+            var LSID = getParameterByName(args.get_commandArgument());
+            var oWnd = radopen("ResForecastWalkIns.aspx?LSID=" + LSID, "ResForecastWalkIns");
+        }
+
+        function OnRadTreeView1ClientNodeClicked(sender, args) {
+            try {
+                $("#RunReportsButton").prop("enabled", true);
+                var sessId;
+                var userId;
+                sessId = getParameterByName("LSID");
+                userId = getParameterByName("UserId");
+                var key = sessId + '_' + userId + '_ReportRunning';
+                var cachedData = window.localStorage.getItem(key);
+                if (cachedData != null && cachedData != '' && cachedData != 'null') {
+                    return false;
+                }
+
+                window.localStorage.removeItem(key);
+                return true;
+            }
+            catch (err) { }
+        }
+
+        function OnButtonClicking(sender, args) {
+
+            var sessId;
+            var userId;
+
+            sessId = getParameterByName("LSID");
+            userId = getParameterByName("UserId");
+
+            console.log("button text:");
+            console.log(args.get_button().get_text());
+
+            if (args.get_button().get_text() == "Preview") {
+
+                var cachedData = null;
+
+                try {
+                    var key = sessId + '_' + userId + '_ReportRunning';
+                    var cachedData = window.localStorage.getItem(key);
+
+                    if (cachedData != null && cachedData != '' && cachedData != 'null') {
+                        return false;
+                    }
+
+                    var button = args.get_button();
+                    button.set_enabled(false);
+
+                    window.localStorage.setItem(key, 'RptIsRunning');
+
+                }
+                catch (error) {
+                }
+            }
+
+            if (args.get_button().get_text() == "Notices") {
+                openWinCLStmtNoticeDialog(sessId);
+                args.set_cancel(true);
+            }
+            if (args.valueOf() == "Edit Forecast") {
+                openWinResForecastWalkIns(sessId);
+                args.set_cancel(true);
+            }
+        }
+
+        var checkDeleteResult = function checkDeleteLogo(sender, args) {
+            return confirm("Do you wish to delete the current logo?");
+        }
+
+        function validationFailed(sender, args) {
+            $telerik.$(".invalid")
+                .html("Invalid extension, please choose an image file");
+            sender.deleteFileInputAt(0);
+            alert("Invalid file extension or size, please choose an image file of type jpeg, jpg, png or gif that is less than 500 KB in size.");
+        }
+
+        function fileUploaded(sender, args) {
+            $find('RadAjaxManager1').ajaxRequest();
+            $telerik.$(".invalid").html("");
+            setTimeout(function () {
+                sender.deleteFileInputAt(0);
+            }, 10);
+        }
+
+        function NavContextItemClicked(sender, args) {
+            var menuItemValue = args.get_item().get_value();
+            if (menuItemValue == "SetAsDesktop") {
+                //navigate this tab to the selected page
+                var targetElement = args.get_targetElement();
+            }
+            else if (menuItemValue == "OpenInNewWindow") {
+                //navigate to selected page in a new tab
+
+            }
+        }
+
+        function UpdateNotificationCount(notificationCount, theloginSessionID) {
+            $.post("UpdateSession.ashx?NCount=" + notificationCount + "&LSID=" + theloginSessionID);
+        }
+    </script>
+<link href="../App_Themes/ModOffice2010Silver/PanelBar.ModOffice2010Silver.css" type="text/css" rel="stylesheet" /><link rel="stylesheet" type="text/css" href="/Telerik.ReportViewer.axd?name=Skins.Default.ReportViewer.css&amp;optype=Resource&amp;version=18.1.24.709" /><link rel="stylesheet" type="text/css" href="/Telerik.ReportViewer.axd?name=Resources.ParametersArea.css&amp;optype=Resource&amp;version=18.1.24.709" /><link rel="stylesheet" type="text/css" href="/Telerik.ReportViewer.axd?name=Resources.ReportViewerInternal.css&amp;optype=Resource&amp;version=18.1.24.709" /><link href="/Telerik.Web.UI.WebResource.axd?d=PMrIT5dOWaVYIcpFWUE4nMXbBFUSEMUE3jNBB8hjaBa-2cAilR_KHqSMd5wl6Tph0zH28IB0E4CgboT0etwbxlPBiHRmabiZZCtlAoo14SODx6ZLa9JdJ9N8N_jjPDyK0&amp;t=638840802637275692&amp;compress=1&amp;_TSM_CombinedScripts_=%3b%3b%7c638974980820000000%3a1dd4f3b0%3bTelerik.Web.UI%2c+Version%3d2016.2.607.45%2c+Culture%3dneutral%2c+PublicKeyToken%3d121fae78165ba3d4%3aen-US%3afb63f838-b932-4810-8e72-f1ca43eff960%3a92753c09%3a5c0abcde%3ab241f632%3a5951aeec%3a2b415891%3a1f65231b%3a7f7626a2%3a889f5a13%3a9fadc829%3ad7e35272%3a505983de%3ac17ca3a3%3ae4bb482f%3bTelerik.Web.UI.Skins%2c+Version%3d2016.2.607.45%2c+Culture%3dneutral%2c+PublicKeyToken%3d121fae78165ba3d4%3aen-US%3a1f2d2395-8419-4ce3-8348-2c86968e7579%3a605d48d6" type="text/css" rel="stylesheet" /></head>
+<body>
+    <div id="logoutWarningModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">Auto Logout</div>
+            <img class="modal-image" alt="Warning" src="/Content/Images/Warning-XLarge.png" />
+            <div id="messageLogoutWarningModal">Some text in the Modal..</div>
+            <button type="button" id="closeLogoutWarningModal"></button>
+        </div>
+    </div>
+
+    <form method="post" action="./Reports.aspx?LSID=9ed92453-c971-45ff-8f76-391f5be620c4&amp;UserId=6a302f32-0059-4c12-b4db-b76f5bc041a0" id="Form1">
+<div class="aspNetHidden">
+<input type="hidden" name="RadStyleSheetManager1_TSSM" id="RadStyleSheetManager1_TSSM" value="" />
+<input type="hidden" name="RadScriptManager1_TSM" id="RadScriptManager1_TSM" value="" />
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__LASTFOCUS" id="__LASTFOCUS" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="sma/A5n6R1/VWg2PFhZPA2jQ+jpANEClZWlAOMPPnJKsD39HzEp9kAiXKnuZA60cUegz9gH0vae2ViNHJUNR5gnGAcvYG5+oarV1PqWznY062WUeLQk50/WRTnMPKgOW9aELSRXFcNmEZYIbV5XIfV73g3ydHbnjulo9O+vMvZHITwVVkzRxyDWIeez2RCOKXeO8L3VQCAPatGR+vY+p1T6U5nDztjGZPuzPDpZsWOqbrSv7TTzbltjAhJon3hT5R2hftQHgy8mwe7D29OPqzJiC3d+c6+T8mVmpnzvKGXvpdKfZbqNYZnbU1ZdzmYH/XgiXErRGIoV/ifChC8jYTh9/icJP3R00wZkRuR84xDkvSzGH1snL6thUgXsS3GXqNlFQ9Q98t0/2uxbFavXVoY9GZq0xr2lAZB9MG/fSGfEJw2b/jKfRpd20PNlVZylKS5UYJ8RAdui7UFwpNyZz1tQtlg74fmAPza0qE2TDzeIBfkfsp4eljDkshGAjZGs4kCuO1YKwzzjFd06X8RBMfW5H+yyXD5zn9VwIabIL2FflU80fPaYzI1bAI43+KDtFh+CJupRwtn5EYuH4sNL90tuwQnBSMaoSC54dx3oUgyrwUX3dvMf0ExSo0EIFt5uXyCIcGwIsB0uPLVbxGnHk7N1jE3si4O1LAr3UoZlwEloxzACtbJuU4aWcLSGH0ms6QLi2uBSCfAEaO56iptI5T9+rLO61wdDTYL1NYwD8UZBKZlPvkuwmTfsxrafGiwag9BxC7d8eTWszhKAyJ3Dwak5u6wkiXsqI1zMMOk1m0XIg2md/4RNgQG7l4ukilAWXq7iA/1Fsru6g+UmwGKIuu08UbE/XvI6NkHX6UnY8Qk0QXUVg/30IU3N/rnRgnVsLXmcLJ4JJgYt50WhsmdgiY9b+IezWxe3lNqJeyJPbUzkQydevrZjOWaZGyqbMMer+4R+FNDnaWOVS/ph83mb/LtV3Rr6bCoSzxenq5kAKyY956UmOvlFyYwHzh8i3v7v0/xlJqyxFd/g1pI+Bd65rxs3P6sWBEFa1GfstLC29LRGs7Sst99QtMNIk5DQord/2cSDPfsQHSJupMLY0Aln5ahspRUoXgq5S28BHT3ilnNmJUBsjeGIKB2IVjz7U64hHPYzU/sJ2S6FsZmAJZWafco06QFmnx13XNt5NAaUrEuhN8ycmfgzXD7KV3R1pBye+brGR11vX+qQ7EUugs2/qSXHJF9dUhwxhIlJOHhmkJnrwEKA1louZqh/7PKn1WPIuUEBk9bwG7VN0jFeq25gP/OgeXJpf/KBq/Z6exB9E3lpVTdlMxJFeWV2f6rbhbvxE8WErutW1kQAuqCj79X9/SkrfZJOD+ASBmibKe4Yrrb+Lp77cggkeiAuicCr+A4m2Safc25aQD7TK2hOtBxGUNPZiCtFsVF6+fDcSlh6s3LuV+85I7vKgHt7H8pyDc3ZYg6inaCWxO6Jm/lgWE87uo4NFAYVcdnvsagBPQNLL2AFkiEl4tishftP+Yb1/bAQJiWK/9Vp2B/c1ES20CFwAwkUgQDR3OOtHvmXlItQ109LbcNYKnt1yROhULnStfUnHxf3gCfMVXHp++M26hoYCIH6cBCVoKpM4wEf0c1TgvjY54V7t9f+EJ8kvR2AGsNxffnMCsRFrfIB7pZqaksJMVgdHwDbNYzIGPG8KdnA7oh3xxJtTkhoKy3yKo/g4hVluKLasStZqASE/MzGvzR+1Cdh2sg9xdYxQelwIRBr8Db04IvLJYfAuzyOFiCfXF71RSVPy3hKMDqvxawU2QHAuw0N2omsA0pTC3ma1JNIo37u00wZhFk2s87qkvIiqqm9VfO4XPRSw+z6MV/9sASpsZmRknOcB+VlH997DBBoTJZ9cc9vdzNlANsD9kx9sSWS4cWw697Ag6h9bdLc0hgIfILq5YCG7k4DAW2ytygLJrL3zvKS7JugUkifUI+XDCp41j1QXtoHD/RtwkdcKlOnhy+qTjpBP4XsYQACuR68h/LK7yBKFmIa+L+fPxAhx57WJbYE7GNrz1t40BoCEM4d1nkF/qxeJO/VXB199Sd3GngBmnuT+sWn2UrayZSltzEctqK4QKpYdcDinxFS/IreR9c7tZP+Q5rbZ09FjEI6bHm4yuO/lhDCuW/LSZxaTp/h6wrcjr80Ir7TxqCwLgpV8WUBvYq+6VIh3V8EmTQD3V/z5yn7D14gmbWFm420W76T5Yn7unHCULKPXShKvquZ7rXO2ITU8P5D/didmjt6TTqKypBHAjmL82mIYIyKZE8GOqY3WU1hpsWEL082ewI3O4Ybime9UMD0W8EZF6StkP1Hi1Bu4mVQv6lFg5yY5/X/vtUlp1fv0YoUl/QpqXyuinStpwHR6v9FD/ahEFBDhpM6E0br3FVMT+ecY/nGRuI1r4AIZFbajLPfiouAYxENxr5YVEUa8xcXIyz5+5hEYrSJ2Pzwj8GtqR9YXW55XYq1/SurS4j0arig4aERrpWT3NNspAOniGEf+LgWMkH5oikdykqpWf/xM7SB8WzJM1MeJMSJ5FHNcW/XvKfGnCDrvdfifqKQKyvPgp1+3zmBu9XQLyvXFWfseWEAPZlLSxtVZCZq5ZSxB+/R6FFgaLGXIfdtT2b5hdJMQAtwscp/leuWD8mLGHFwoXrOKhlcZTlvwUpJqypiXMKKSRRMfuGZeRJFxZmgescytogc46Ybo56ukwmHyJjAco2VPrFATVrmSlCQLCztrGdOigaAVI07pAOfaJdcB4OXkuAOUB7WeYuedF++U/1e78eyAoG28rY38q3XuUBcUktxsrQdHSPu1Rfln3gXA6lO0q/lQMiQuszUXHIKM4bx/kva7LIHH7GXuiDeHKJgAQawFOt1nSYn4GIiLTf1e+N8uAWmNxPx+ccaTf5Mli+6U4IblJ96VJmjim2w+sxumytlvrmb5H94pSv9KsA7T5IYL5MBSeyXZUFQ0l48GUFkAVUx7ov+uIOObL+H6V50O3IQsnIztKHH20ePi5YW3wZW9A2dtPEtZM15QN1u6x3+pEZAeC5eTVJ62a5sogLgycW7gvd32grFvQvr/r5qQeVjB+XmNNMKBICj97+lR616KTFTQGmHMjHZK87KqyK3CJAsGlGcfsrOTzjgFGGJmCGQ2Zc431+H/O/nnxamqceB13jnWE8fj6pvnblKmmONnDpdCS26N3pcSzej86VyFETyeEnJoQ4RO+M8du0lEwnDBckgWbnA0a4QjpyfAhUdL2yY6QXQWrxu8MXZOtVznRh3j93Y7q95gC4kgV4riA/APtif3lG33Ap5D1M4H2DVKyBwfrJbWtzblr8Uulont/HQLcfNKg5ww1MBeUPuOAsTpHXxmmHr83HD6n5V3bsJNtV8tE0pH8/oKpwO/H3KKwUQwhB1lErbsOMpF79bwe04Ab7rZqITPAQJBTsoSbMme5aN8vq0m7wTuuuP45WbnSHW7PH98zsQJGodlTXi2JeVBepNd0128i0R/I/izc3l/emb0awNmogb6zFSftgAOXIfapgyv0mwpjVww4wEMHIXL5nBl/6FGJvsAPG3dtFjI+AJJsJLBYOTk5U0tMAJXiW7aupdlxzIghBiH5TZQ0inyRTIWX/Dimh5PV/WU0us43dpgq+AGybBVHcrBxTjBY8/dnddDFzGkO4XVOr3/3fM+fBYu6lEGACzSIr1TAxCz6wldlj/2FITpy5zF4hc13ugSWFvNNULqLQUReHd+ae9lRF8YNOM6+YJClFVknTrN1ij58KdrGohyJihMjV7idrR7kEK1hXhuvv5DmzKeeMKIk1P9m+TtSMV7ruVLGgULqOrrLFlbyL2tI6ZYRqzZflJxErEREb23Luxn0s3L6kQsu3CpHH+pGAWNn/CbGJedqKUW5+r+xuFsZ9i0Eb16591w0o44flQ/bbgbXns0XDbBNDKdnEsbwIzgHZruWxFKBoYuYZL2fgJ9iMPcY4mdC/mvEflOIJm4D5WcIZmo9oqZtzH060gSkRXKi2N/2bMNhctljyW2OEvCqegDu4peINnOTgYt6fIp4Dv4TMWH8sZRhnMeUfFOa6Typbc9XiSdjX8a9uQs95gE2FFvmaqo8qdKs5NckxkjFTKOmXCqzQEY5tXi+swAaxp7jyKeL+knr8wOjzxaf6wvRU0wfBXpjD5zHtUc4jK0pwtrIa7s4tGeM5g7NqjQyrS+lIS1fCWwd8FORE+yoFwvLnCBdCPHayawzI5XqnrUC1y4sPzhUOm9pDSehv5WHNx+/wQmA2Dv859OeDMT43aAI6/s3b9aItTvVyzZoXa5y5KUAmeNGvc/0Bu7d+yzRj+h8bqEyqe/f/NiEizPRmUUOV3IEHYA5qhXCulcSKAnLJHT+sMYT4z7Giomv/yuqmm83kuLdBzJE2BMStNoxZ8qr1xMKek/zBb03iMLu5gzTj0DGzdmb/ELtw5F5klYM2WBBMp+g4o/zk8Nt9iMThXmk9xYngBO16Esw6n9x5SwLSsDzXgDYTzL34zLP17M5Y2mNgEFYLg2GoR8zkGh3lNO+VeZzmRf8cb+nEWqQzAtf9kqy1n5ceLWAOQSoaDUllS+CZXKk3r4N5pc14TQMvK3rUy0t5TiAc5oAd/SovykLv2i88XiuxdAK9xI9EY8LZnL3VjuAnRwXvjLB+wTVFkDj3F8CP/L7iG5/ZYi9rW29ZCoVtv/irAi6LU8CWidxXbE0/NwGT3xyAeslwH9IY6jXDTfql/ejhA8/xrfzbjVfabxN2QXyuxRdtRObr27thDyEhgXsb5/W2FbWDdp9WDCnteZx/nLgM1B5UQqJNOOenA017yLGkR7T+F2XXgrrzY7/kAH2chtJf4UuLENhrYOWPOZS1yuU4kF4wEh7ASA0tS7kt7RzQvmHzgBw3fH1QE/P+WDt3H3wx3OWKEtkg++x1WFqs90C/FEMCTM8gxg685ZuGqjzZn5yE/5E/MxNLopZoL34n1JpG3x/GXks/fkLQRlg4Z3vaJ9XdKzUX/eQCIQLLAPnvY91VPPDiKOklZvKvSz335e6Qt3R5xQVWtbeUGW+yomWzCYZ1Jh9Qx5B5wJTdmkcszUYss5wfL6zOx4CZWp1mQFlirukvV9a8+Nfw7gNmRUOSbh8re3WJlwczWpilifm0eSqpsi1Sffru6VQp3GOUbXbZAnvuXdQSY/idINZfklUYWoDymSv9Bx/KdB3sXsoSKUV/QUe6g+P6qht40fY7dhlem6f+VJZot1EBMRMdOmx6M9JlE5AyEhEcl6AJgkj31vmuQ0NfmLdSYgVKhZBt8b9SYnJMlidkw/1TL91O1axEGSOdRwAMzJphmdBA0x+juefZ9vrezs0H6/slfHoJlADV4qa8ebAH3DWJGOXoNo7p14NhtIDncUuYWjEblCHiXZiGAIQD+GgEyilpZEQkiOGRaWFVpvTux4zoUcKlZnDGxQISFH4n3eFpwTNIV1r9Ro6bY8xDsnd2Bp5E5l4VFgA6yQYtD2Gx0v9nGumrPao1t9uHawXYiablNF+gUAqdyFk/SzrzVO93Nl4OD+ySVaThxF3hq9FoVffAAIBeigW/dtjRwXdlZidWrhgXurkL72uDhfk2RezP6JCUIdM+885H2DPn8IhaghW0ySMJEDzkEaUyrwVz5IXTZDf/3zWDFZvRqkfOTzt4KytnNbbsboHisjwswL3xnqrtJQCd6r2FUSedOA9s5MMCHc/5pGlIg5lcpJ4wizyi3SFgL9Ay6CteB7fqlAdy+IS2APgc60Qv8XETSRkGXf13C/RIqDM7xC1LccjzH9Fg8bdq4EyDRA+xBTU0d8aXUTaaLo7tI+uzWKpo+JSDjffGi78Ph2KnNPkSEmLMN7Vg2ezyLkRtc5WX4wN+RYEb/reFwYgEaZM8LuPQCBmSNpZotMwXOgGk59559Sr4YnpPaVJl2MZC6mF+KS9EEXMvHa/ylY+4v8xPm+yZFFEUemN+7WS98/7ywiYI7IumNt97fjv+yK7wie6puW8gifkvc0VnOXo99fwo1nK9Ot6mZaw0utR9WVPj58iLp01vTvzpdvYpn/6mh7A5qZRAAtGq5Az4s79xhPpbY3F2X2QCrqtoQw8wHqwA+MYbUlH9jeQbTOJW6vDz7ru7E/5iRa61Qq6OyAYDr0cjStXcrdcXb2IuBhQCMDN2LPWYrTxJpv6eUuYKsBQOT64V6rD6YK0gjgkNPnre9HLKO/URVdfLx3my0+43NcuD4MsBWiiU91Waq4MrCSTU7S+nansj39P54avGemFxYuRPEWCR2mSQzT4zxtIwPTpcidsVBzVTVpSZRON0UgbIp4zsCnbKOAlQfl6gXeClKCk702ATopJTm/xN3RoQkG89W0XscUdTSa7q18927AMSmAoWI7glqgLatKcyW2bm1vnsVNPlo+is43x5T4QB7ywwKATtOAEihClzRdCZNmuHRCEm/QNnOTLxBf1BawOYGQtZhDcaA1+3Zr98DdqCRCjk6t9T4JJ5fDZ+FQMitbmtDhHJszHbACg7dujPOHQpSxoDYs029bAEgZ//8S35qOtfjpGqpClkQAlX0RzAtPElYCPHwA6h2dB1lR7n7GJwot5CulgKR86XyJAaXb3z8XaAtwExuL4Jn0p/3F9NxEBsKHfOB9lj2HrnsFwi1O1hszAArYiridcuKEf5woU6sSRCwXMAgZIvZIG0HK06QcheCucudDdkwvXQv5gjh/1BkWOo6Hl6Oop+FIIxg3dkjrwwN1BYkL8yM2+k31GcBFo8+lvLpI3TF0zG/FOqeILG17ovtbq+KL8rU9ModOLAekF3So6Ta6NGcYfR810i7iJ1Wm5skBd3iE3F8XyMOZj2jyM2oIzc5w3+bZZ65z/7XCM3p985+62QjLSVPe5iWsD5SrRPGK1+5VO10KHqDsH4Y/y9qBmTTcvWwkxmLi2rPrGIhEe1lP4+p2yrh8OJGYJ97pE16UbObCVIpzjB2pG8laHI1tatd3bo2LT3hdkK2gaMGgW3uP02MGZs48KgFG49XHy603hPLPIX+X3wjQ7do2WMFDK5eBdD2Li0w9KitIch0TpmL1zns7atlR07/c1Q35+ay1zbJEdr2hw8wWjCkBoi5s486jIUDa0tyEkzbqSR8LOHCZn9n/nwKJLsgH9vVSkTDPD4zLtW6VxA0DfCRxREjJHDqP8yqH7Y2Gcou71WxCL3wUFUnN0YqtwLnd3d0JuUpob1ph+noUatoPRHmYaTVfi56OM5uG8caIuOB9xjeS0CtsEHWhcWT8Bn4GS+BVv/Exdo7uqPh8VX3toU+HwO/Sv1NLi6dqVQLnpiLl9tcSPq4a1fFIaFWGJbtIkpEbCzTg4SPVqCBoH8MhJg+JYtJPjy1SQxI2fq7fcHFiCDesNCT+BoAApTXPaqkVsLjpQKi34o/7LAf7dF1AYXimHUHoKqCsDfZRdG3DuDH3KcuP7wDfuKfxo5Ze1Vc689p5tcWCd3xYl1FSyXwdOnbW/tv1sYkLrzzb2TXvHzyEr/9Yef/4zyvMg0Fa29wgx46RLWhfJ7dHoYAu5ZHW2tQhIvL5s9IlIQe9chRe9GanVGMf2zHS3OP/uFOrmujIvbajEPslnG8HQL9Rw+zQSpxwnlXglFYsdD0pwxKQXEvC2c0CiWOMW8qd+eMXKn4Hkd3dr+gYD3xNCigB2XsVhOsjKbFFYmn9H7HxsRy4cJ69VOHl3qk0ywYScMgfUvMYbp5U6Z/A/JpTuo5MwLiQsSC480ScDa+/+UM9Kg4DHgmmAQdCSckmUbicQKwORLK/SKFXWw3riNqPcgSbIq1p9ziyCVnWNLGuRuVzwidU6MeM6YYelZRZODJoFqKopQyd6zphR4rKd6QN/dD+wwNtMVsnK1R1iu4xVaaBVFrorghR6LnGtqkUyU/X1N3HRtVC+4pGdhfZZr3+he58yh0WcnTiY9ywgEGAc5OHiwpWba47ILJdd73lnXkiGWefvR0P0kCOGqmuB3r4t0PfSJhJ6xNms3X2QjATKX2Ub15DZIagLaC77EBIFgs5wj/3debdRJq60Ks5YVs9Jd1WuhQoqM+JFyU4Jpos+rx3crjt058b/Ho5kMAKGE94dE46EP93ZRbfEaZvtuIXaoq7TnwdOt2wrT2ILTNuZVv/wf5TpGhV/sO9/7dKSaeprhnW9IL2Rs+DTHw6eYowA3SVRif+MS4ucLmt5l5M3X5yQovUiK/s+UrYXi7/T21r1miL490bsSdfBVEqR/bAxV769pta0eOuHGrdOq4+TLputvq89ad7qLsSWNpgJXfFBDhejiF70423WanAW0QjXNPzCacIE2WyJDEXv4wRHcRuNxhiiRpCvEqrV7Z7It+oxYqYBqvQOfu986u7KsVs780MffE5oXP87rD8YbIp3O21S/XclafRHnbVhBWtzYaQLeLChPCihLJNDj7ihLtpEd+O7RqYLBpDaSokiHvD8LFmwlCa7zODNfKlcRp30VIghN5LhNdeE7TMJFtK9uGXvjRXGptnnkEE5zNM/10/ExrteYpFCnXlO7ET7ZKD2qTSz9O83TS2GHzUe6nV6IjGQq6jHOuaRCUJb7H7fEw6Ogkoc4L7/mQJEErisokphcwI2/+Ymt+JgvquX92VzzaVkimqI4yyXgi43ZwMTbdcNezm7QYBjIvx67dP6+AcSBSXA74EcGWP7FHVzudAHrElw0iCY2dts4gogi4sGRe25xp4iQqp2timl6G3OwT6tASG5BoprxJiAaUWqqEz8yCG7NC09DFBTRw09Xy/IFDJXd5uKBxNJHzuzPbUHuKdXDVsyvZTwtEFuerZx5KKmvE693UfZvO/7nEt4/KcxDFGI7wGze3YE9VyYbTmLJ35Mdjt6Un8sAqOTcmHQt1Wxj40kCUecHN0GBA8YFsqy3HnP5uPF59sVFKgqHBcGsN0+QLkACe6fihUetoX9RUW6jByxPktrW4l/FERitwU0mNry8m6HI7UAM1wQX0huMnOf1RSr/VhTuG9MD06Gwk+Mq6uP1II0X6+a0Hrlm1Tf00sLsfhVbRLEHgQOI9W8NlX4x/pYydG/R56vx6ZLqI1+br5BG+q8R7UO+NhYuPAL2PqkfStGX67ffVF4NEQyszYlYt0WVk+/EtmsDRji9DkAKwMha1l4RyHA8QqThdMsYDPKFi7pR4BhE2mwATynHPow14L5uEKV6vQktuP4+AfIMEz8Gn+0dds0tmcwMtOzQKR/wmhJM5xW6YMTVjhFR9nd7V13Q+UgqwZgWVyC+nMnMGd+6BBCMC3tqQr8bnUjCHfezIF/0i+pqxpkazgayZPS9LwhSXRtTI8hB7yttAHbt5ykxMsTfSV2+zSTsktVhXw1XGNYYMCf6Qdu7Cxqq/GMLYqGO+AqSxcG7NKu80vlZ/nPj8+XVR1ixwO1t3PBcfqsTDCdX+HIjTb0/922QBKKJa61FOj045S7HKxzM2t77jvInWuPtW2jTv7NW1tE7RIzon3pTwg+uUQbC/9+8IqC2r655BhdafGvxut6LWv7TLiFuG+CHLnPhrWcWyrIyWkaKtMxb3BT3FK+8AFeHbRDvtTOzKQfcd/P3Njs44EUOia4Nx59lfMyNqrCnldBS85jo9ExrG4SSFEKWSkLXt++gKvX+fYrGC+jsTj4c4whTYHO1lB09OgFJHhpA80MNlcKcBZg7M1yn4FrCPyziD4Dc19nxplx5zpE6UYZvEoBMlE/1/ns6WpMwE5Jv+MtShcGrrFPOsk2Q650BlkPAirji8/zDfFGGkKL0U8I7Y6U0brEnx8PN5cRPZT71FOY01aM8itgYmVo+vdsd1B6gBCy3s+tJ3MeNTRDhKUhC1PGjqPyafHaUI6XcnK/YqOPYJmroIyUFgBdIeIRUNbeaicyOG4M3jAf/f7CZeyof5aYB/k6xRSaiWGNhhA3cH3OhCkP/b9RiYCH5NG2stkDA6vCWFsqqwTxMOr9a63rDXp204GDsZw+B1I86sI7Wut6HVByEqu6pVv/ISoZQc4CQElIUSalF3ZSd43UNT0DChn2ltKs+lYg2LGUlRCA/l1icgtRo6BSjbAHY0uzyDDDEr5buFvmxY+ZKdl+CHI2OZdtkxu+ANwcDeMs4rKuNbrpC7R8WAp/n4BcAA7eX57h94i6opjJjI7hAOgRDtlCuZDYmGO/gOT4yVkO32q5NHvNUmsT3ycV7/4iA6XRT2gDVU08kAv83UfROSN5A5PJ6UGchOTQ2an6JZVI98e1+DiCN/SU8OVWteLHwtWiGUgb9MVFJGnlbKYrM207HQND01TFjrySyFuNqhyE2iIVrArMs4VjuUzs0UhxjAaSnrvTeXd33npyEyow2Wfsk8o9h1iKb0BDKqm27q68y9c+UAFeFuJmSNSqR1k4hNWh33G2oUscwZb+9QWDD9Gxv96GZIcXVVfQK7kSFqq2tWYw0D8TZJMD0sx0jkQe3wz/IeZni6oR/Bg+UuHuZk038xCQ8/fSgJuOqXSR/vEpB4gwdGFjfVDsNNTBUyct464u1Vnm+3qRzawS5OSd+9pJBH2SUEUPgdn6IxTBlixeJYYRGxARZP40ONksD+CzHT5YeR+LL5A2vT1HFy5eaCR5IErQN4Bls8Z1DrIRLY8blSWymt4JZoKriR1++RTjpahaJL+ZyHuI8Vl+Js0M+sLbWCwTIO/tk5ZK5gdSMqCae6Cm78SV68ZTP5NLqleDPXdozr4CQHgKSI4glMTCtQ5LoIKD+fTdCU7jOTwFMZYvFB7qZYj+ejJfDGnrlfJ2ZHqJSPyhlw1ffmRuu6LY4M+8Kj3HhkBSPfq3i9LKfi9EFUMwhEnnv0CtGYvpo9j5BS/Hr40PLEGI6khdRICLRrLwbc5W5G1bO2XAXjj0b0efR38J9IDqHzUfaI9YMMKqQuPb/hLDRaSnEiXs9Fqfk3cLjmjoPgqbwicUJAXND62DT4b0CXmA1y8K9A3z1flPd4ij6MboM8pe7UohOXAaLMye9zCUxgsbUhtMhb4Btwo+rpR+wkXYZi4/iamtZT9t6tygd61+pCYdFGq+vZIfiCAKn3AlWU0r7jHspWorXAQzgVcN/u5tKTpeJiKsiN2SqQ2lDWoNSXiamzTOmpy2J0/mXWRVf3/UkqfdRMcBv44FijJGSP8AFixDLwKwJuOdccsS+PKqVpQ3Gqtrad5T1Qi/fHwUA+an4NTHYr3wQtFnhaedExO0v3r+QwwQPoGn92xgkx9vc5cMIHZR7w+ANT+93Hld7wIJhDHOFChmcknE8Eej3SiE4NxcvnUQQ0eaeDit40Rb5pbenZLjM6dsKCf/36YDUO7OaU8XhcBjWOd9rqKHwNbG2kpQxOgb7dL146MUdYcMLbYBv6h+Ny5xL2eGh4Qm+CyRVKP8rCtU9LlzBtNzdgy3cSB7gtUCwq1L4H3ZbByrrntRaZNUqVLKMyntfYT5/e+fsOVnNYW75n9kHvcyiodqWa1kr7npMN1hyvkUtUMryIVqWygVFtakdFcDmcbQEZ0RCvLSHvDD6iwDvQ0XnH59tyc8tMcWQaBXrPn59N0U57qjmRTskkC5A6OLYASDTxa2F0/rSRiO/hcLRmzrxxAQeKY14ZpxpozgaDAFusnw6mUN+5xFhxxsctopeFjEsLog0/ldcyjLZmHOxgZ2CqTFY2I7FVHstG0T9SQn7oVz8Vm7LwGUnhIjD2mvUkoYfd8JN6Sz9WSq8duoSovxamvfQtYJmxUKWKHIS9nzEN9ol6ZLqUgJ7kZTfcKw8xp2gilYVb6rjjUYdqyzpsuljBaDT6mF0AfD7W7Yn6n0vOiCacg0LzIeZa0G06sPi5L3LytpheK2mMaD8HzuWDEJcBa9ZLzSJKFNNTfRfgaEBAMjhTv5cxBBBFcC75Jfr2cY+/mFVymeYkijvZRyBsIbElgrXy1NhtTIFejIaeDrNiiDxtVE/cyvN6uCP2A8z/VAKAWFRL3u5X+UpzrMVw0PZYvaeLsPk0m0xAcJWc0l9ah2Iv+SIGgCr7fNZt/y16+M0wnTl+KDuxEBxmliD1QDy0i+cfHGsaun4DRkPxkYaP/qFVBpcg4UghMNH+4mgb2lwyHsi9mDGfRAtzWs8mqDZiovn5/dxzgjp8bID+Ctw+qHAgxv94cu0VKZIQ4OUu2kcKhaQ6hwttLvyJeiXswGZwD1OZn/RpvKz8h1bYJzAO+jOJyXNejZETSg3B1191W6nScJzIisF+LdNj2MXDns7yK10NcyjAilGlMbTW8EAGJtccO/6mJ5ypbOmr7E+Iynggl6asAGWZioPMv2CqLF0zu9bmrgD+aFgQWHsWBBcrwPuOGwz0SGouTqjQ1gihc4FamZ95C2R/XEr2EUbJnr3NvxNTp2WSpHEvFNiPFaiYHfkzeIcd4pVCUpzJyzzQFcddIFvdpymn8ZmKZYZe9wxvjf6uFyrcAMRqs0Bk+dlXvXGwl/c1Mr3pIsr8Fp4b/lKR8Jyi7L4DJBeUw1PQaEjHXFM2kI+S6A1o3aF2MJdr4SNnejEftjwiO83eb/yCSE9ARSAZphZ5bGh5K5oZpJiHgi32w8c5sqf2JvgvkSXajsQ/g4V8WMB+ZjftgmV8/LW6IxKwfwNs08it6J6sntsAVGVW1Xz5z52Rk9AVxE6WokAfQ6NaNXX8omJkvTcM/WUlVkB23moE8o9cdDQNZsbbLBNxfD1Mif3zezkAx35XjbWsJxV34lqX3XFK+EDlISLor+pQZD9t7Dq60IMcbYnGoYLtUFiCRWaZze0OJdPUw4yGVm6YIem8CPeP+UWjwznnoYIx5cEXnST2/QcvVk18wvLTaziEtBZivbouxuVLlRhACTrJGYZf99Lc/KoCDGwOxSUnzKr2H00g7CwezczvTryUfRLmERftiM3Ktk1TMtoyPIqNETD2eCp7inHRikgxpqCY1O2l+aoN3F17QrVXT56zi5lSOF6Vc8gHcFHmpeAPvXIXfowkC3vOyvI1plV8jx6sQ/pR9RmTqu33qK4Vlpzv2NPmC16aqI4VHXN9ixzjVFkrQGIFIlzCjCqsx9jveKOAknZckJ72/UnHCQYgTLc1AcdHIIID4vKnhEosDTmlSwos1QMuZedHOhp+KEDr8qnql/Co40dfuv9g72gUSTQAp05D5h7Ro22mgrVUamWIveNb8WLgocO49tSml+jDSoDaDqgk59k9Yv3x6Nvp2Zqr8TgncG4DJcj/8XyjE98ta6a9/1q7pHxfIvvSwG4N05KdrirPhGTRjLvL1n+1mnHEXbeSvU64q4uGo5tZrNdwBZcBomO7OcdRG4M/k75ugGXedUzlWH3sh7pQBJX3MzuV6ION3i1qVI25eMHiPEo+gZdEUnPg7Gx40qQim3fWSAg1MgkGUPE4/RARXUWCIdHgPxiAT14Ow+AghnYRMh1FDzplN9jejkAkhM0hPNop0AKQ3839jMObgtWMHqNJW3uU5Q1J6j95Jyf/W3HflW50N9yPJwpfub+Ok2gLCk80OOAJ+t8G5YYxcF7uiORCLJDEB+Mz5gca4+S8gjFC0LsheiY5o2OEaWcuzBjdsicY6DKybdiCj6jHtAgcFqm64pSMv7dmXLuADc2/Jhc3161x341esuIU+6GGZMg352Tj7E5lUcag0ilhGwMOMMGQjDkrKw/F8665cvFEp6PRAxNP/Qn4jEHee9N9JdScFfoDDXF7efEg9gkVPnTxi3CViSR0DcJYO3wRdFj/1/pWzwjekZmH5x04UhyqdaJdqmwsc3Fsnw1bi6g58cG5yEXuV84mPH+Ep2gIF6X8RzwRSYcg3B+s6pw1uOarc/x4X6Rlbmk71zzsg9dMo5/eMyHZR2R0XW6sPCUxGYIP30lMQVeA0GjOsQMTTN8SWdZ6WlZHizahq8pSgWC36qySGKt9ujpOC6Lx2UmIqUAWtDET3F9waw0UFCDOmRHjNvF+PijgMdMK7ShPG02WH8yeKj7hfR/PRBmanRlAfLPrXimt8gRc+TH7FONtIkuHNMYtrbKRtchoU9h+6yfi9qQ6e5/w9tEeyvAfy29OBEUfdHqkzn7ZXbqtpVPnHq4tdNHk9dLRI/Auu0UL/g2BA0oodVHFM54zbBm7c6OHBPon2EnnGWB7S1ltFvIJNTesoRRrV8bJ/I0RulRowYk6U+8FEqZSq1M6Z7u2inyt5KQxTliX/XUidO9NhfHAtzbPLLvsvMomG6zH89fEonLD99DS4Td2qUekOx3T7EKTc7NMGSqv5GwPuy3vueOEHsC9v55yfzJXU4H3cfdqpLpb5HMMy0QX3oJPC8uW/xgDBxvEnsRrr/569jemrygeHYlaYlBjheo6l5Fwj9YLk8bBI4HngbAiZ5wC+u9jRpYbC4Kxg3biKGe046YJqujrSZh7BV+bPoqTECfbYTt5eAac6F2puSrVSGFegpd60tpmIBSDMYS0lZMqT778Y346iN7t2ufQIeGNOeXN9Xz0v9EKCP83s0m2P40cwNn9GJXAxlsWm+KoHzohx9K1BKpblYlqzPZcEdHGosWaM8JxonM0P9N7xb8Hfd0iVe81qd80/nOdiE6AY8MYkkEjTayOhq7yzy5BfxpEFgmB7adtbfAyFu3wad7RRimWXkkKGWZrHkbpjnU6k5dIuwAKurBg7LzBPzJ42X50O/JlDP26SOV2h9q4wg3ujWWWgrR5UXQURyzA8d9wVvev9kuF2WZl73hiPSlyvCjKqZCK+kyTPNpa0M7QZBimLSwNkUrNpl+YBBco+n+56fvF9yn3uo09KL60MRG40BKDZAyZiuLMZImFWVP+LWxaA2ejssY8IjJlMZVPtAvO0d+8Iqstle4dw/SGGMZxT/AqtPtLTyude7UXobB67RnrH6Ps3fIMYLto/11xnRbam+zyL3RpVbXGK4hNJRHz++3anEH42hFB5XIir74OVtGh4mVRIzlqHfBl8SN76Pb0BX/N6lFMhW+woJKBFq9E6l/EFnbM5l95IUZTplmIAxd4T2gKWnOY9QLa09pbW4Ku70f9W8pNu2siJlS/8uFlp5O0l3GzloLIYCBsFHa+obu+M+lPR3K8E+IJhSWuAu3QjthJyNsRwueF9/tkDywEt9a7i410zdESFXiUuPJ2aUJA7uv07za57iTGdvfnBpNjfeG+dqi3XdvnGlLyFHnrCo2T2+5JY0dIJ8YIoMq3O78yFpEGtlVN3grKfCt9Xj2eyZyCnoKkHgddNOy6xc4tHWw5MiWKx/ay1tVdtaWJMwLi5qmk60WpSFAbtLh3RXoTZa3ZFj8TLWxAuenBJ1EP5KCwuy0c0thdXH4t5rPZCZCB9ZSXzVLtxnh4J4MdQ3Ow+CBh3uM3EWWQiQm5XcJk5bAZo46Ed8u0X5Zs7Rbu+BuS5c89hJ4myeHHmLcqMwhCXEjGQji6Fouy/b2tObdK5uut+Lo1pG/nGg2Q7RY96oKLkW2Xh6N4QeYen81IZ4k+lwUPtJmu7n38oWzg5OPHGLsfnGZurl/pdjZsFpwkV0vOI8pQ8x65/YZr43SefC/hZROIetiTFpJSiNbt3N7PZdXRyfRExUw9lnka+lgZjGtLC9KzECSsD9YVv73+SFMAk4gS9b4g+qsd8kMidyBSzaK3AnCzCvydRxxexcysyinEJqWbTAnNQ/QU4AMOd0jpFKacNGCO5poFhNCY36a2KnpJREh1o/KmNUT9wK43mEkNFi0KI8EyIUBnIBAE/wmTGHimHxL8yDfoqfo0mBLHHCBQHcawJw3hubUFVk6cUAtcadLLFvQV/EXl0khtH0ZBBbeZmx0z/9O+94qDSs18bGSGYvDs1S6Trc6uSlnj/fcspFarFUMG4eMpI/v+zlOTqy6xBs5Rklo72ct6+HZ+oB9uEJeIDFmQlPPtZ5o8/7hsI6D540D++Nh78F4IEvmbY+oi77u1wtsbq351JqarbrYfuSzGMtxF8n13+tFBrR6VZU5PpJ4G7lS5jLeJvktYgqnIl6tp76Hnb83C8EmC4vZCcNyIZe6Y5eo8xGz0SGzEvoirZm/+AoBD5WyOiFVaIsaCOFNEYftFEiykEZa+5BjHy9Wbkdrjd9DL6ERKBQiZx60Lod1mGQNwlY5XK8Visos02QL06z9bDGowwvqEIIX+vZEp20rlOpAHws5cKKGt1dp/aHE/1Bfzf5741D+xzIaTp/RfkllRgwgaeQgnwOVPOSxuPuU99L1ejCzd66dUCSw9yHtgAAZpgrVvmU2F7vPlpS1WvDUXEYZ2R+onaO+E10vAWBKeeNA2owfW9iiXZHAe2njFkDtl+NCXdVorjPyI3a/7zHxu0MVAQFT2RaU3DJubLYaCZS/NEUq7zfAlAEswJdbiEUaOwNh5GWuw2jrRcMfySZwibHM8IAIXy2BSriQCublryGDDxw9Mb7++xbBuu+W48RbD9YwEE1dDokSwxAJiatoVr2SZwQO25zejqgAyBglrRCTZiYQCy76qzJ8NzkiQyPEpUJ/rWL7Azf6/f43wDkvjf2TKyNhFWQWTpBRWiH+kL79tW+Yr1bYavQgV4mEC8VPIv3vE1cm4228jLw6NBpBj8SFj12xVrq9qPwj1kQWsBkrhYQaOGO9OPzZNNDfVqEf/YV8AlDlFJ/yxAeLmIAeUsCuqsrQ4RLb1zgFayFivb1+QK6xtpMAaYZRHarM4oLgk9gT3AvmIwb6xE55WxC2DacTmgxIWydmjjMHzL3aIj7GP6t0Kg1+DV4kPElRwMksbR7k5FlrVU7xDKnNMRbdKua5ytjCuO56p3ANtFfkjj0NiYT2cgvoKyP6xuW6x88kCGERASF71hY0KSZG+ilzxJOdPnaj90XPymUwO5kCLhl7kL5zXVHKmDTVHMwqsfeLA0LKI3n/umUAXILlrY0CHYXaJM1srx7z3OrINF768hKlCGL803GprD13ZXZqkMoJbD52+BAqyKN7wZb4yKq66APouivltfQCVIvZj2+57srnQ3T+RgiPUBB6pLYftamJQUY9PjnbpVNOBVW+0r9J1lSMOMtZojqC/fkS8mJat3JP1MwB2cpMiw54+gA/PCfIe4yiEQUGihQfbWu31AVwMOSv6OiIw0qnxnoRErZ7Ti30DtoOQa70JMwxyMQzYK03Z1ZhFayPj6Ysrcs5LD2jmXVOxAzcF+/pFn9TFglwKmqmL5uKbwosPUXOkm55nAJawphKf/CoDGkhSX+e8Cr7oEoJ+jPNn2ZBefC0yt2UPtGxMj5CyQG26iFwRbSHQKaqOjn4KCKLhimW7kgRVSJCQyWmLUUkqq5Mt6/7PnCGM5YZTGI1Tc8Okwn70FFP3ZYzgVr9iPve/eESOUbVzoNuxLLg90c39ujbqYKOqFgx10E9nDMYvp2HI8ATkhGma6c44uhMJlq7z0n426EjbB8Ac40zaHm0cEyR8jS4jo3Se2N9IpVoalUgu37zRTsCY1eXB82vKYI4P+14vTRZ+X5ewlF3dvmT/Kdnzbxt4SykadPS9dhU+XuFGdOLCfnxqVE2I/fHQicdPCCOlhv8inpVqDavt1ucHDc9F8IJn0A7NdZsZbMf6+r/FINVZ2B9uevLwoK9TMpSqGdgmQOrErFSKMXZQvn8D1ZHNajXJcYqGV85lDua3uRj4r/lYDkYc6dpIdm8G4j9ObDwo7zGasFQ+8ekUyTghltZDmIYFx3hgqpOH9bHxF/fNP8mICEhhxlL8zUmRM0VQYd6XmRWEULlhmZGeweaL6ffS6jU3ix3+KksyJEV1AbCW71ga44DwxKI+xtgmnODsziMfW+WxNCnNJtmmQstL4Yt/9wZTyqrgjO1pyoLGF5F//6locprV2WPApDVbDmWAzTWcb1UI2JuaGJuW4DArkwQhziOZqW9cQYOHunfW8TlRMSQ2+L4023k52/f3ZM22uA0uM1P7TBIT+gPR0v9NnMeKWIibhL3HAkwViDcZowvyPUKiQDt7z+5JJM55M7ha4h9BINg9r85mycl0jme+5Vh8UzceqlR8gBAYv0DkujxkGlOgYOV2zTOfto2kY0MsCBmMkNlecvhzsIuZiVGFuKcS9jJUJJRLiADvI3PyM2g7lCvldvMi9Oml+s7C0bVvAoxbDfTFXj0k34Y6+jIsrjV+/3VAIW7m4AmYbF3Ua9qyZdP8g7qi2LhOQY/XQpGVnfhScOtJ2JRdVxKk+vK49hWCnBYKHQxLQciG2IPco4xZzNGmuzj8RUyFC0D4Xb+Vu3qAUHd9bk7emu8gC2u78JmUzwP4VVLwVusRbRfcS8M1aCYLvqBm2Bkqu+hEYLbGevMLiEPM+W0rsYrgvvWNpOGNGUiVatcXd0CepJ7n++s1vLXO5q7sYu6a4zsVSi1nQYrExpLumNFPAU3F7c8pHddMV0xIZXEjyBfs5wlGh8F0DNDaYVORwBQkjUZxOMloqqOouAHr56/vgx+Bsi6TdvsVOGycma++5VHGWv4SRsPyO1nCz66ACBIAEKsFQDs5Nb2OjYtZfunnX2ZCnZ9OHnbrrhnd/yi0i/uwDagDU/A1OHXTK4EDSc1bRdMBwoPDx2wNL4F5OvdbOiauM68Nj9fmvwwTGjUiydTayZHxe4RX8EsijVkGDVKzZuN03tu5f2ONIxfJIuOgMJmU+ev3Nb+u6QSvunQ8jyl0UBYAHcq9CRY/GrgcgyJmAQlT6oEjp+bWT+nY2owFeDC1ZfSPGNvmmyf9jjy32k7Zr2nrrL48fdQeznoUmrw7gFJ+LWqb9kA6g58IW4eb80EUDjGbDBHqqnc2BgT8nu+i1sUe+B8SaWX45PL9pkm0061303RMz90ntfzk/mFPskzQFFBQszSaImsW5GpZ5g0RyFS4PftMAsn092fIyKovoaFWe9K2K2sahE6fmDIqm7HWETQFZzin6THVx3WD8tjfj0D/JZEiYtCvmG+Wabc5A00rEv5ljc/tWJPENRX/ble13k6nw/fmI35P3GItvR9NW3urfzLTYf76NtogcuPKruDF91XmbTDqwve7Om/tSrrkIUGPhRSyNxhhLW+54rx8z2uJAlvN5KcvDqf30fHgDtU5ohMu6f+QkxdiDRR+QRR2OxMfVlTlnHAeO3tq99oOWs1z2sJFgW7rNoeMYiwMjpKp6A8jJdIRaN+sFeflWnZ9yP3BpBHn6fqxWIuKD6F5F9fewv1KzDYnaNOf2gm2TW6Y6tRRYahKZlN6JnlXxdWganGwv6sWyX22bEmjc4wVrzBzhs3nHv82m6Ew4nAjzN8etrdDS0uRriG80KuL5pFoJPHd9HfNX+CNiMj6iQMGTpAab9NNj9xTODKILJoR03Pakdtz0/xh5py2xdQQ7eJNPqKphHbuv0bwqZwAGnyfJNqhaPCPMrwa7fQwP+kj+3goEFZjOZduThq/IPcsVIohTmMYGb46CPQ96D6Xn6KpLeg7jzcetOEL/F3ZMUcNlPG/CszAc/7whbY3356KoVFVGyxPspACg1+1fKUz1bWAVMElCxv7iZYZM5moR4Hk3IkGggsn2/40UnENgP7d1wKTHcCOL8RPps5ZJdHLk5I1p5mqkkLG2cVvt4ssjRyG9gLFX3FjRnSJGM1jTrc1lv4P/wJ++zSwUMoqZbFMzUCzcd9vhp1NFb+PS5ZRWpFy+LQ+RYWUi/oQdVSWfnRl9L6e9UYrsyD/ZcaJaZ8g13F1ltExH9sK65DyCvUCOKRzigIFCf3tsFndmH0kKjPQB8zzO9l9ZCT1O7yz22KMWjhgOIlWnbmlntRBuHl/ex2/ZfJPsIQHuGNhp7J3iPL3ge60lX4qKbdR2kIDNY8OyrE6w3PJEzaSohL6RyQq0CNvQhP+r8xLqVlWicQwQ6ZGaRrqPKkMoRg8N7lRoLdfVqMn5flJFJb5qUWtdR57wAvHOBOK6qogyZj0T2pgGBhdviQhE20DqDC0StmxgcmRdOprkFKILF8MPvgE5LSrcYdvu7fN5EuC+cALrpB8XDcCfD36MzpYy6hIdzeQPItuoyZfFZEi7vayrdvS0g/9aUjYkLCn/ljdGMU+Qqb8+F2Rf8FRdG7Ti1255lSlhrzjUxfyd4wB0ADZL6ueGbwDGys3pIuQKpK+3u8rVYxWMCNTHGM4KwMJunduqqH8lf+zvEMq2Rset45RboFrPIJ1YcsPSyE7lb0qqE5PpjzAyahWZb9iLz92NgtRXERIkC7jSRcGJVUDMBVQC9EsW2k0Swahjk1/4/4YV1Iw+Hb7CxCZM1oxagGmp8ghe2+GscBvpr0+R3uFuQuzatKkayHcb7tqTrnDN/Cnnb6eNf5F15tJIQ3eTtw4xRiQWXrVPHhNvHWTRZhwhy0dB+ggPmbJmWlsIBPJRePxXR1mUtgiY2WCv56xoLTQM4OAgwgMz+JwL1pXv8cNqxQMDPVR7t3ORm7msxv0uWATfLMN9VTF8SgUlYGyK2xBqzI+gDfHxkQ6sLolglsHdCm1nIz7p+ZKwqssabxtBQKsNDZSAjz0CAuiOpv+3owsrOu0JRHFOidAc/GXswpon+Lo+UMhJ9UQKMfN5V9NsKdgzCLYYYYOKShTOie9FBYjI0vQuDiTKa+kpGtKNwvE/tHm3L00jRtixxvrCeAaxlsDbmRMP5IYQYNN7Qypc/CqTK4mY8laqLmJr3rBxExamLO1fQE4H8miBiKvqKuGGw2eMwBToHutAxXwgGuzcicDmpLh7PCo6s6RAf0qFG3GbROPeWXY/UCqWmdw8UqgHDsodZgzSWFgovmKXbJPKqz1mvfaeOoia6TJwPHZPVbCOmlLrL3g/VL19A2QOY2wyEO8R1hIlUhAtnZe7YOOs/E7nZMtk0YCL9DNEVHnJK6vUyVbjC0MR+83lxRze+ROS9Hcjz/ABlOAgmdkFyPyxQ8OMupHRgB8tvTSkZInDIkowVk9/OTqWSY3Lnx5HQmznseCessAp1iXmItysZvd4n/ilZoCmrAwjKJPAZT6xGV1c98XTDdxH4AdwW/p/KMmmfDMESK5t+JsQ34ydOtIwh3SV6mJkXItDyLUfvimusU3wrEWJJTLVsDZif3Ojlw4tmOJrWCttsEMdGj3w2IdKtjYN/9528wdnKnhFDiy3b2AuD6DJgSXElMzeGIf4H7RV2hZGcY7H3gOeDLd5TJRcMece+4GgdP2ytjDi5nSVDm+4CjgneV5LK6MOKFiWNKV1+1NZGHHZMCfhx8unZqXMaE95Pg1ptkyKrLfAArOqp/penEWSQT8EltcZIufwhgiJzBBXKKockM3NAK51v5d71BdH9zKJrsi0qEKlxnwg4A6GQxS4KJrpCfdDcJkkKDG6QesgXOx4Q8jzGOsYDWroiJBk2U1W30IRzhbhV+OnzXgWElZGRLqbV4Ecn1UHbA94PL8umk9IV0plrQWvueUmY4bNe+FGtsGQFTKMzqSFQgYeUck6COZD2OW3kmFVIKa9t+foduaoMOco/1C0xVJv9vBhxHFETE97T7AnN0QyLst++pe0uU2xZgpAgylhlO7DXPnNtVv0cHnCsYsmkIoRDfgq12PoAVTYTOx6mogr3bk9HNxqIgVXPqOHBHFHyxZnCBGVt0ukEvOgMA+282qUD+SMaXPX1uRuWXf4C9tsjiU8oH/R6qMQKMl8PBEFGsB3YzYR0tmXsxOkXV5g0FlxhfKvkGcDxGoe4Me06UVDDr7iQZEltib8WwUK1j8uClNZVZQA47a9N9Axd0yGq8k0BAh2JKFensX5J0HhkyUNL0Oeovk3gkOlUf3GtEi4HGRIT4CyuYejr+7Q5voaJHTBYk1xmskuglSL3WiDmco1RMuBMQ4ZgB+gIJavNhRnVLoWREBiqtvDC0OQRuW2lGAYWdm6MLPcx1sWLqdhjrgEf9hYdf8YoToXE6w0BYKx0FIfTlQmvdVDW1e4Xl061xZOT0HC/PXSHtnBJTwupZldJr7txjvLlZS/7wdC+QnKkHE+dOHoYi0Z9jwCKXirsrMN4Esl5bQvFRaBMd98vbupEk/yq35XPf2mYi8I6R4KLwfq8hq1mcGqB6imbRPennUYnezEhfQadn0dhsCP7h/LsP6y6pOjpuvVaDoKhq4ktgOE5K1MhtZizGiAoZMMa/QEqMdDAqg3PjVn5V2CdlGI/1IyDBQY4m8mHPPXX6/gCEUAV4+YmrXrGbumcHttszwMjImBMFQFIjFyfNH9yE+5yOqcKAv7mXGA7ak7yZtlHPhDDN7w/pkMzvqDv0P5zwAR94HbHLImdaMQsHRLZsgs2Z0b0zbiDcuz8EiRewbeUoagnsasrSikXpVMIb+TsopB90QemRmTpsaB5k1guFHlvpKBMZnKRua+hW3hP+CrmKc5s9N7Q+Jp/RWvD1dN1qd1iXNyYFoQtacXhwZfqz5HHF46boS0WncbcEEHskPQQuTr8JNaEsAnI3x4aUFupkPdfPByDC9RcdzhwIfWQXK7mIbJzr2bFUARSD+rGNf50iB4hKxbLTUdsI+1/KEXySS6IvNEd4vk2jy0dcH4wJxrcXhlFeHmpfyZIDaPyRFTThhbMMmMkZVn0hVUI+wujXR895wxdSIDyusmaqd4I6HW4yl6o+iJJmYziNq7jFj+HuGtuWvExpMmjSUoDhvMduKf1atC2FI0Mfi0Z/f0B4/G7aYNcGDO09GmDRiB7+AVQh/j+1jC/01U3hDPvQZcy4G9x7z5zAhcv6JdNBxg0oMGs+XUoJWdSwonHaXeSWsaWSX8q4dTz7L9b756WXdw8Nu7cQ8uU9XjLIFr1fF7cQgj1kWP2xgUfTtLaFJQNfm+ANtRDgYgXxz6KFWwpYI/SOFi5HmEGHH7xSD3H1eiMeJiRdEflnqAS5NAO2ACHL91aqAptdG/B4F0/mSbmXNjI1npxbv8eydQyIsdIX5PCi4grscHasgPxoMDLzD5n7jFkHrqWVtTncQMkfvCbyDSVqFTQfUxvfcJeEfE2sdro493wTBa9yMnfKJlz4FOfl+FYHZoZcwTDCdbcOn2fDtQqRha4mxchYgZjB35fdPvwqIre79WmadYuHP5thN43hP1gNaf6MmIva1K84Ccf/LlTlHCr1NL0RB3VrGD9lrf0CVBCW0U6pwBFMp4P1LERVmGqwKzRepGDCYpuNvB8+dY5bEyietXVdz90ZVTFCXBA4GP2c1mPe8QaMNbkLWzvJM3qiNaWmQqR9LI8oXp1AJsoUwcZ8AKD3TGSwR3JqCw5fM+znuE8d+NKRHIcdw6DqolHWGZe4BhMR6Au3efHEVl+1tETBP4br1l3TeOCyjmSqThHJognEQ4XUN7fomLvr74+QAasXb5ZZepM+T8TwvFE0u/5Tomldfh6zduiw/MnPnezXKRkaGm4Y8X6CEf/WztQWVQ1fPSM7mw/K+co5OqxLiS/qZMyE4hzNxHyWirhMUBJ3jjHVOxex1rBKDAPlXBzHPzippCfP41/32XAcHXUeO+PFlpHSJeQXoTHkG3igcQlr4smhBVSaPBX26pNyWVjt7fXZnHBH9OWN7oY14f3R7cGgzKOJctX+05DEHGzXePlVtQHqETmZJnd0HhN8NoWBY7ySLyQIe44l9VMYY5WG3uwLUU8wHPW5PVu9wAxVY694bGXci/1VGUS+hr1iIhlLAWgt0EaCOvgRHzn+iWKyd2BTJXegP6+wck6HTe7hjSbcmnyDm2O+1vu3B8RdPr0gwWevUXRpPGT9/xfk/cSeYoE4dEtksWbbW2C3JcT8pumBU3g0HARPOett3zVRQUIGwF7CQTUY1UO03ZLgAnjk1prUzbk/9aji1xt4qpD8AwGHFSbCPZqS9WYH+dCHDyx/0DHDlGoqoLpjcfatgx+N/IcH34tbgqW9X2DGDQvRXch2w4gSRftFb4zEAWURLWAtuXb1AceCwRY2JE1vZzm6JmI2Ie06dFlwOpqYoLkr/VqOEUdHPXz9seeJcs7H8u0xGYxd629Ffyy6K0MmK6MmR6cewVk2cZgTuHVRUWo/+hTujbtuED/2A6uHxcvYH8XiFNHu14BSTAOdt0LGR50puZXusk9RghALAgMt3NeIUqihGJhkCiCbBK1fZ744MkmEwckP8X/Prk9059HGSt4cSpzshmlC0RBpkY+os8fbMEcWHRd9YfdDDKoEebMvkOkTcnuUN9sCp9D4fyg38P6PEB0zNZ8dxmWmj2W0GOEjeqIB7sQHbIndbv7z2ife7zHuFlxoVDolcjQoMgomMeU/so5XZMadAoevIYQBbhGobsWRMPKF3GVjIkiBkwxSt1haUL0GURN4XwGuga64cyTEPCLnctj+tcJqgbnOjVHQXPu1JMrOC+c0/4uXrkjWeOCEJyzmKJA13sSi+Sr4eVcgq3wQNdmMicBxrkM28LnX0l8cY8KmHW5+M2ZqOtoWqj0WDA4OIH6o0aaOes7UMF3P95Aer/HWQHXsbBiQmKXlmc16zqpjoeq42xbZmm4nED0Ymb6aaDSLNADFZea8nJbuTrusssD9NjVd0penNVLDo6+2AR0FKDfWalQsS6dSvumS6swMWvUpha4q3B0XRaTpIMezjZLakHh+k91qYktnk2ibPB9ryGJAAziDvObhmTZtAk6FjUYPRMpPuHW7XDqrkECH6qVY3YPneTDQF1LXo6Ghk0m5lUvvoPGQAGbvIFaeD6NmJZAbHH7bkU9/davVJyFSJ6AQZj5LQ+JnNP7NHs7OWZzJarQu3BSpflIDyUlfQXypTgDnP8DOWP4re9DG6N0J1gF3lYNQYl5ptAgs3JiXWT5xKM3LXZ+uNZaH2/gdNZvzIOJkV9dd8hl5k6NnLgypYae7ckFyfGgbxATeFO7uN88hKM8FEz+IrEzPkjL97SpHau5uMg8lvK5DpEyg/HQmTNMPXMT/l3Ngd2KU2GkYonxO1EODXgdZtVO6kmcKrp3in2Gse0uA7TuDREOv8R8E9kapV5gAfAKkoqb16XPX3ZuNaxed8SFrIZqj3Sk0VSfyMBqbNVjPbxM8ZvO3uthnaMU4SqFF8Qhz2h0NV4/ZQuru6x4KcFkod9JjVVRCpyKloAR/5OXAXaLzqUU2Gd+XgDRHeDbFynd0qsACXvvYuFHZITNmbR4r+QUwUAxbbzltL37Iwr5QYGooqfkMazCrnFTZ6SIoCnwaQ7apAwNSKh2L87k/L+ImJIisLFG0VZP295t6E4cZ+8TsCtBFp6Xmz9HzgNdAc/FnT9aRJWvOTEpT0iqjqml0ndAHYBEOx+VtpN22FsUgQQXZSLDAwyQb5Giu5S2kGQ4468iZQLlSMS9fN6IOot2V4tMfa/RFKajVaMCPVc03QAYutkZApTzWxuLpFdfj0fhomD/xWKNvJfxitZ4BISljGUSfyAQqLveJ8CWQFTmPLwUUjdqMuoXOUV4MbhowZVMwvm1vlzOJNgREeOO/2n12FF2J4yNEOd9wz+WY6vAW8NyC3TRACbnUT9o6/jVcgT3wD6QKwZzFvVcGN2Cz9LoTB2mLa2ATfpxnNKd1AX8GxKZvN/IKGBv1l0sTq1OeK/Kz9ki083/STUVSY4Yg0EEywap7PKrCKXPuBNEkkjChRn+PqDkq75hdG1uYasfd1079+Ta1nVks3/IJ24TeeuGO8KeJt3LPvm6Xh9J2qauoKDbhgiplDmKm5Shcn7BEim+9UoKrLueIum9/CDBrXc88yeIYjpJ9UdhSp6WQAugYakMqFlqn2rkLtUgshTe3eufhUjzipXMH45hAC9g92EQL03nt0EYeBjceAieyAnSOcT0y9cl21K4XYfWnN2BB0tElje4vospcHug1ecR4UAIczP5IJzTWiU7LQZD3q7x0+oO07uChOGIFfNz1e0VQRzdYKpGub2mjTibg8hemvptw3gqpHUxXVi1AOra+4HHR30LRWgoKEIBfFGg2fC2H8dcC91M4or3/kwjnhj2zPFqe9py9q0eoMCAk4/x561KLMresSDqidrWM4V8eOgIi+4UIdEFvquRRVXlji/iFyd1IboTBPlS4nEeMgTlXptHV4lHN4JHUX79BbEiLFFLwdBlgUQHwTC1kT2Hvod625Ef8zwzU4or+VQafMMkufrLsHVU2u+GW9DZZxl/gd3iWMsqJZAdVmpXz+5kOVfnQNtkbqxoPMUgVGIMSizE8089L1J4uOV44kvo3aXHZCrkxqRrjj7js7kn+YX8pgmZ9u6pBp41ueV7hLR/LYxs849rhWJ9PPE2Bar7qoJ6afiy3eOv6UpIJ0+KOEWdpQcWA7ff/KvXdyo94ACjZqpd1Dr2/pqOBnmDH0Lfq1zoipOXOQI9nSrSESLb2gvWgrskeB7QB47D/8aExPqIMXxDMpuIq4t1ZJ3DaKBAPGMpSB/ILXvI353lkqdbueNvoRll/SxrOs5GQyQl9iUmD1nqOKiZ/NE1F/S8blr2WOBWRi2qqDpT1g+OZwnRQi8WI+r3BTcHPg+YuAZTNAMrK/9ED/VwyCGo2XGv5h2WPcBcNZgd0GZy7QrQzrn4uFsG38OYTPCVIgNOVboRBEqHbdVGEBhR6x8fgYIm7x/crthd9iExawWuxIWE+YhDkxqh6FmyYk7dL+hNKzy7wHF1R0WsKIMNPiHqmq4/0eeRtXEDUSEKFoSWddZbyLH4A9pALdm4eiG2cbok4xnQesscHLgh83HUnysjHEoyEJKOMJRdNqIpqb6F+Tv83T308VJ5JncNHntwdKpnKrXdsxUFGmpCS/7uXWdgSky2jTqXWwiy5jc0TRQ5mHMBzDamtYw842JqSipn5u1hNMSmq1raDyc5la068+B31dfDCgnrb8l2ZsN0YGbYJQcZeFJdD2LhTJgZNJEu1t1F3jmQa1hyitmkXQSdf/7eEsdqIWiIlLPOMioZ0lmNHpbPiBUbgdLWsc9rqlbi9E7YpKoqwheao/t2sQcHvQ0v5QacollaNRRLuEaz1Y/vjepg6SseUfPDBSJ6E3CtKxfuWtq7bM4b58anUSQ8OxbSbMUDYAPcBFBsJcnCt77eVhDt1DsbXuGkQmv8cBhn3yslx443Iq1f+K6BhN7Yq/tTwFkcvntLJVCGFdjSQiyxr0ywRGPtsanlu0RTHT/SqUjgDh6HGjobjcFy8boKv+2XPKHO/OBAxJIw4o/Yv16M+eTvqDEVIFuoOtcKFyDxj2tjbM8kxro4G6l0VBL0OriCDNM3D9TLnJgSYp4kR/yv9uPhS+Xh4pcvNHGJweK+erxi9qB7T0I6dfM7cVrWHFKxz64gHqbWw2lTrPEp8AWyLA5PBPUGzJNMn/nY8jhva+XIzw2qQXtc2+J07fUR/ANdxb2t5bYHpWrsYFHJtsZbR8NG7yxPynPxWoechqMHz6QkJRBblx725UmPtTTxBOo5+3MUs5nKyjK+JLYi0YPhhT/+T0F3CCTEgYQgjR9z3YhbBwqyUhDrRnOOF71PPZjnT6lOkFyMt8jzDajZHpqOHbjlM1X533StRUv3Evl3Pwz3hVi61gSX+Aga6WmS5wAxmcgefeNmz/wE4IelsO4//GhkcbDFE1/2GK9sIdIr4Cl/0JygM5LC9xfSI/mL5+o7ixgmxktKH1IDOEbggjMm8N3ZmXiad82RwGXxefEib0h59paaodV4utGy+vLwjlsfqH/G81w5W7CE1rx3s53ojBoGrbiix6zUH9/Xw049WhDj1FbzkJZfj76QuYJHtbTAKIITLpiCpWDKTbuxpqJ5boYuCrGJdT0n3oJ1sqOQYlXQHRT9xt75aL4kxe1hPS/ADNxwnIlcUJZBHjtKydyti4XQ0BSqA/FX5t1ea9hnhpwIOxg8qNwMmUhiXU3ve+j7HELB6ivS80MRTT4yLcEHwJ6TnAI1I6XH8dVjrtkF8Oz3Y8Uw5fDx5JRZAab9284BKCP2vFt1UNxiYe+c3NJqSZ+XFcL1IEBp7KOGB4znR08fUefw6/YC3xIgDnGGeNyNFNRMAdx66blVkGRmwOdBpRe+Ke9LoPP6wSDt1HT2YdI/XoQ4dz7K30P5lhoOXOs595G8oxOr/WFVbtBdk4tC30yThaDvURrDKe+arS0bJ92IdJTQIi3pqU6LcRbiXbq+Nx4OhHogM9C+CtytwL+1Ru/1h6XmQyR3+byPt2ZbKOIHaqM2AyFuAakovO+OaOD3pqqy2wj6t1V7vU8EpXYtKHR9wGmdMQAW0oATqUPQkIoj7EtSR7gZ+fBh/GlUuNWAQP1Xu6k5S4LB/PE8SDdo4Y29/smIO0lfKP1f7xMND/Crr1YbG0CKpI4QmsE9OiZwr05tHCXXerw+aexvkkIwitGTPCjTrwm4CtPlEyM0cuoGTvCfUAAhYf0FbwiEXS/Swu6mupedzUM1MkBnBWFFwvXSYtTFx4IB18QUVaEFLRYqJ1xF0D7bk/I4jcca1ogwXEIV+Ss4DKPwFLIpR0mOGlJ1xuaLWoJZYN+YQtIX8mahWwUYv3aKrgriuSLmH5MbU3NQXF7U9FKwPSS4ijYf8lJnNJ6C85zR8xgQJ9PjG5cbTqhaRxqbhme4XWO/LKbvq4HPvMwMolguZXHrfF96hmutRShY8RVFNI07z4C99j98Ha+mzDaK7vbsHikZyD/wVPcgZFFwS2OU0JILMFzeDHK1mxVgRFWZhRDiX3atedk9j1Do97prsRjhMYr72qnjbvWX925rG9b52AdMT7RIRmxzhx/kDERTmqMB+/nTsYLvGjyRYG5osQT6yCwKJGRe2XRDYqVxIvsn4gqo4ali+/712KL4WCDfMVQdtZDpb/EL5uG4Y9d+V4psj+grVK+tGSVe8r6xZG8X6/fuiupBiZOIaLaiJG3GRp30Js8esRNbuxDw2yJxQpx6WCx+ab2HWy6AHc+gXauhhrmbnMGSLW44efNmQKLTpAbV0gVKKXxavR9Uu45GbL97SZhcjGNDlVk2P3XkbvUjBkLaWdCLJvIX2O8JUIW6R424vy7V/cS5X2ED3mEd3uP4gZnO07/rJWHL6amE1kMWmwEfVyOVD0EraS4QY5McPxZT2Fso3swxZtxX4xitkxpx4Z0qjDm8mn+Mg+ObszmLui3VlxsDtXU0dBlBF+E+rVJDXzYjhgsW2X32tK3wxyRy/0dQE+VjtMGz1oWQSZH6z+5rJK4cILmu59BGesuYtFiBO08p5OrtljlCWbqZjRoIHXUWHE6PPa4QP/IJCpj95JrXwtnF0CyMnH9AWLW1U8OUtPXsL9IRff/vCw7UXq98Hk9DBMtXawf3Vr7kSJKzMLJer8YMCY2KiQXSl2hHdkdTNuj69sRjU0p5D4ukAXiZO1XYxoztOH522+PWCbiy8P76bEtIyBoWmo9XdZZtLvDPLZj9AlOS4bVGpCrfHs9lHOOk8q6ThGTsE2FU64Pmh0KzTVAev8QORbZRF90he3vpU2nfM0bM251/rB6bnKCy72dBc8DXPE4r/k4Rwd8w9Ot1mzUUW1M+knKcGVUQ6yvB7X6h4O42p0AOVQiRgsTx0YzZLv9DsgFGk+VMXxtCEarHrsmgoZbnj5UBEHPV4VA95dOTzm5aAs7B8R5D3mI8fLWtsqkB9J5geliYeR8Bvlr6yMyAt1RQlxS3lW4CTHzLJNPVAb+IEl9hJ0kwBP87oMolxi5Db1k/FAXt9cGFnMHHMRpJKb40BG3KN6bRtfhobpO2u/M5TuTtJKqrN7bNQ6bMsOQXoyMny9BGUDQPWWaYqoqeYoeTtUwngi0adCYkpbQzxmqDL3chlEGvhydLuJqbosjQR5eNl3s9oFG/lOdxdg7vW2qKl4xW7K+2v4jHWkIH+WqJFniTgpMS0y5TsevrXBTY/5c+UHRXjxoIrKakA8VMZh7QF+djcnc7FN4ZSugl12mfxI7Mlcy3m1jwY2tqVJD38zmjWGOZf1UvJUx7YOV95NG2svsT4290Ymk2eyJ6njLxCzexyUOkDEApFm/pFGRVfoV3ViohxkAEdpO96talBFhe+XUYFkTAMGSuHix19Nmwz+Y0nl6R2PJjftIixK639BluldQT1RdjFtfxMdsb62scZudm/vL6p8b/F+Q3Xf2YJUqNkC2LPe2Yn94ptI1l9DSS/y2QW/rvT3x0tv3ASRQNth4KNN4nLEVFnC0RWJ8OPFs3Rpo4sV2yxB7hQHp4QoFeh0ASVZNrrj1dMGmw6FMla8piuCAEWQ5LRAHvBG5/Ro60Exir/EQ3VmLXv8tQ733JW9KUo6cFtbhGJJD3efUZhyZU49d2X/yBoAbqrSyM3fh60nrK35Evv+DKgccyL3gHhIx7r0lqM5DgQksEN2vDiIFj0If0vlx3VdpvKl1GDXOandBAVFgaLqgmVAifM0s0cFdGTQf8ERotM61d7PraQ2DNEaak/QHUvshEnesNQm/Wzexsuj/ErDb6AbjU2EVCQZs4rB5k59ie7lAXR55HfbqFLd2bdYbBJn3ds7wWM8uN5uUqm/SBNgFBPhEwJU38fgWoIi1qOZOeR6tLBke2xPdMfYRsXbn1/2VP48zdPGI4gVNfCeTqr+e9M3JumkA1kuBljTmSkaI3TuKMxQJwAXsJBQFSF1E7F0TZTjXRJHjbBa5z5Eso27wQrkPOQPxK/DbyTRVQkKoXQiBOo+JsRfk/ptq1PoE3qWjGZeO6ItPTCrpXCcY2dtMCSu21/P7bUPxPxtZOyVdSUup3tKRGczf3uOYmOmYliBo/ONRzcNv899YaLC89skE1rvdgTNZiehFgdINTJjj2wsWcZlK00N2DlPek0kH+tc2iNTAPmD0jwtq6gOVGq6EXh1o1kIfkxxQWa9k9uwnz8DOddB1MU8lEDMnndWC46Y+ISSGCHSUBngEhevEQp+1dQMz9Dsfjv8F9XF6zStbgRl1GfmiwstwT9AeWLip74ahAvabPtENi8TsAXSBOUMn2Cw8Sf8ZIL0c2tyIUaGVNb5kei+dRC7/AjOnPDZ6syOGUSP6nAmycRXmDfc4sA+J59WUmETvGntjG0jZQUVf8RktpFZHrlAJu0LltV91Ok0inurfeD04BcHoeUuWVBUVjNC3IoDqTmMmZ67jH5BfV1Qk1Sqb3y89JnEbyGlTyb2GBS5s8OE2ebYVNQ9VkBfxvuWu/HlYizNyMFUB8otRd+otby2VeKfXernOvkKo7zqdbLoP7cLWhNJczhGd7WQvjbQOvGbaaHu/+Y5kVnZ/Dm6a2t+aKB8CL2E0q00Iz1J1K0oo9Om19A1vcn2XVJLwenAeBezt4WpnujB+E4TbwIj8lg/4ZXa9dyPQn5ERtv8csEcOPWNji3qMM8aXuODAWPJTJ0Fgss12bX/MBnTgtGaqk8cqW8ZdKT2sGuuj4LEEhw3ZtpyryeT9b8gadYgL+epLKedWQYT9wTEY297FmoSGRva+r0b37JFyP8WKlArqJkO+sVgwgf25Y4tDcaHDVKN0tfx/8DQ70spJablmTEvhbxcZwiw+r6TFG9ezf2KN0RFUxBViFvKkQ1kZ0snzZWB41MAfq++LxXpaJJ3Ta7bpxwlv4O/AlLDGn9J3c//E7lXw3GeGEFo1mISJPRPzpH0nIFTyZly+ElFKt2jFnzwbBwYm1QSIEp91fL0eBr8Dssxd0KvDCQ5LTnXC1G85OOhmmIOK92hRCmOnycuQLasvTUEboQPKWkb6rWamJUmKof2NLotR7VOcbhX/QUcwnWpZsMxhB8GjlgK8eThp/0i/XktLMvGPTQ9oAwUVvA29P7xhYaUxevetV7YzAMY3UZAP9xXabVMQXZfOTA5t9hwIONw2BqLidqirhjeqPyBx5ABDziHwFuJbfSa7aI2tUJ0jWatol/szcvJ95m/4J/RE41odFMrrZXF90B2IO3xg4TPM5RjumKOCv8Yd4Cr4bnb/G7VGzJzVwt6kPWbEKZ+iNUWqD6NciWXzC8pNrItv5lFFK0g+AzrMHnKZ9ifIKZdz9zLIqN1gZ8v4hFDG8Lexl+Q5/IpzwhdDC4KU7pjCXLQZf6mij3h5k5/wj1UWI+A/YTruQg0WW5gZxEALevMH4D8MMXF4SUUl3sbcJ/3y2KZhJq0KCqRyFdFSmi2hRi0p2ZXa5gexaieBNwBBKc4BK0UGYIeLik2T4G0elpxk3VBJmNl//j1qNDvAbdua4u6bnJiLJXQr6ZBttAB/l/byHHn6ptNEhysA01YeuqL0DAOGmPxsZexl1Y8N4leHcEbk3NBJE1xMkVdN6ZBpxo7SXRTKE9HDY2y0srGAuet/F0KfXCxl4LCNIl0h4LqEX+HzhDe/5wQfKKxrEiVTrsOT7YYJCfYDLqvy+WTx5fl8FhLj6g3NkJbc55q5jjj79F2ObFKdGw0EFkmuk/E1/GXsaUHH+eqjuwWA1rzOylUbKhfFtkGoxOIIrB//vSbGsOpFbPmsconHRJB2cl+P9d46etnpyShzDF3wx6xUuEB/PMh5mUiPcyHcRXWULRd95hoAWnOkvK/5pUQrNOrg5Pk48e4DFxR0UgYoSvePptu2Xe/Y7g257jOY4WGptRYq5SNNClx+ACJMwBRvyzh+tqqzrN2pPJwX5Y2NgBEPvTcHCKsGJG+dsO1qYYXKB3eyz5VZLUcdULP2jzFM51ymDjkpIVz/SLz5W5wM60jKnGih7mEy5wJA89ocYODGaeczqCtfUad5/HJBUjBy/h33zM+CHgvL5CFa8fs3IpDjJy024lfpf9/vF8/NAPRuIqPQwRaNXoNN7vv4zLAqLhpB60glqwBn0VT+HAgGDxnIKZIg7bnJeObNWFrPfVKrSDteLlF2XKfCNbLdkI8uPQpQ3vs4gN4DCdVielH6Q2S55XeEXYmM/+XjFUV1KnrMKPH+iZIm4mMm7pRveA4raemlXF/HFUN0CXoqTmYc8GcJv3eIdv+30hFNf5s3naBbyiJIT6yVEXr0WWhqC7x5HvWNcRAGXB0sH5LeuQOsMrNBLKi4K1Jr4mYRD2eJVziXix31jIuKW4I/quEdWiz5tnk2ZvagwMqPyxrw+/2w+NZA3B6YM7Ty7TxppNQISo7DGRrJjUSCUvH0kWOZ++5w0HrpqZXDQH33YGEcINASkfk30PosCcBONZooEqQ3j6kylomM13p7AJWiqwlcrG8BcJCz+vCz7CcGE4wmJFD6+We9YQ05xpkPGovU7ZUSS2kHdHaI1C7upZN2Yhuh3GeUImDc4Mc+4R7CcENXwJYhZWcyNVIv/3D1qobFidJEqircV6E4kKKlTmjjY/mjnffF+uoh6tbht0UHa5Z1kXhcJURdhtrgLbOUiFicIBEw64PTMDIYSpbyY8ikAuoIxcCE0I+6McnkmryMnvbEEcr+FREfAUmuW8OK6qMwJZl9FfktuLXyovHWe5t1whiTCrRA01mp+NC7ZZQBxzDZ+Li/RPtPweC1+YVI/CZjF1Hzy2URVE3n7NqTpSGH+8Co33XmRi41NxEKsKwZZYvxXFGyGu1rCKCWgUYV9NwsiynQ2SEf/uG27M06UjRl5GBuf0YZldoMzRwSqtwRgDAxin/VsJQeuDb1UsZV0gzoC2DF9Bnc1cxGg97ZJ8MmFWp1Q9krGG5dK0qpVsgMpDL/nEwIdXAJ2cwOJJSlb9FJyPULIl6iOVbs4fU3CFHxEinVRulAA58kaHF/qlSySLJHel+MG01cAovRmdE3tcP6K41sZFnpyOPAxkuEYqmdFVj9Yvq01UDX+ux71nE9fq6oxn6nimIiOlUwiem7qGnjliTOCLMsoysLhYdJqSR0sopszhyrd2xzKfd997ZZmRfmHbMRXhee2m0CRjM3nOwTQdoOKVZN0wLwbDGXIyz7DzUSCC1moWsEpratk4NBliqNHnUTOdqXqOGWEOs6e9acM9Mm+Viu79KO2Q7kazLIUAc0QWT1HkZsJ/s68aJmeSS05oO6GTeO/dx+ypzwQJPaGbX/qbD2IfgLXgtTH70nIOLFOfN8GVGdWBdGTIiBWgnVIhxENaCKnwsk6YM+h3Ffpe409mqNV+Dr1zv9uL/qLlrDIV+4AVAVi8nDjnGZlO9XPd8Df+IF9K/fKKfNI3aAjBDqFl8MxCWA/LgbqKuSul7/DXrXEtS8OY9L1Gx49dAn8r+JleIHwS2HHOJBFOpIiXnrPQVAADaNWcQEoRp8ZQeONjj2I8zaBoFeKx4WlXxvoBvSMEHlYBWvveDoFN7N45Yzwe/C/uaFeS6jLXirkB/QmycptflnF6wWy70xFV01T5yZxMkD7Moh1dzq/1SZmYX/f/CqR8mSek4+9dWMMstzeS/xWSs25HyMa4PPQkn0Y/WJm4EQegyEAtfhMu15AlTCCTw/h/Ov97C6S2+dnvXTpff2n23NMFA/xc55IFEBuABHQrEcYe1zWh83Dm7+aENGYDbTreRLx6lAISJPXwdgAiLg9opmgIdUvigwSqOG7Neex+/B6JN9lM/Jikippq9X9R4xd0Lf638VkfEt8mIKXfgFW4qAl9W83hCARqEGTQG1Pvv243rx0+p+2rCWf6NPD5qjGdkEgsot1pV30aScVGwIXInJHrP81gGti7i+6pKmmhtk61YBo3RTzT6lLHUfBdH+JY/ibfJyNjCNgbgMVn265pDE2+DcH48CHfPI9ifZI9d+qT7UORsGleX+LDka66NiFwqcl1dVITWgtf4mBDknX+zBsmYsnX+Jsr/bwhHQ4Ob3X/gGUGB+IpoJI2wkxSzyyzVu6/Ns7wpMq5wXPo815fOq19TZSKwAUsKbbE8QuFxgAmp1aaWcTZzDa2tRQlv4rnDJYVdtAbDKwGHUmJiTKYI0Do8zbyva1cdcT1x8iyjEFEoKnDFO5VRCU+iwg0V+b4hfV3s/6m5efDsooZkup+sGfw6eImb9ygTuMUNwvyj26vqVFKeOzrhdpn0x/pAGx/zKB+O42mluuo+DpH+pIu13xm6Kb/fYaEI84DxOd8g1mdQY1c+1vW6Hdnst8AkFkmjsz50l97ndE9mMoYJQMgLQntomHJYWQTKt9QlayFxXqFZgBfpXgwQGTRDQfZ+Ahrb4NR8KLJpG+sRfO1j/E/3lKpz3WEF2YseSlJoLZXSWgo9X9rPaM7rCgdXf/UepwMoQ9RuTSVrTSQBL5J9utePNui+Vu4/pwSB0+iz28rX60nywEOu6lC3l2IoyEtJQX0jLEoufB7LQGi9QXV05S5x35kji6HeHuaaJ2yWtFQdCBelkNkDy6IHRGfJ1qdLSzGiQYKqa+/GFGajTYFODuA4yjdJnUpDFdSTpIusTEz1sSbYM3jCacbDkDawTe0jCP7k/W6PrxamrzVjOJqaXUoJJfg5susZsUjp84nSLxOmc6P0Z5vhxZb0hSAJDfkA5zvlCnPFZpeNtwrhiWviHfz86/ZwpCJ3Ovm4ItR2fyUhaQNHz01igbpR20m/YaEZS2ppu0Sp9/r4fXS9g0YFAE0SjkVP2BOCy82VC52BBneHbhvPzYon9gwKof7vPbTq9oE537SOIuJKP6Sr5eS/XbmNohT+12D1Awgk+CYtAh5hS0sxcOHfr1zr0vuIDcBz/UHTGaY40+Tx/a78u+9ygV+k73Vm2UPaXMvBfvArWBEnGBFud0kzj63ce/KLba2zfSCwLD9l2BVmKHpQQlQPiWchuhX+StO5uo5C4CLJS06Xi6QGIJsPkw0r0eDSQUY7Kzb4gqcX3JVCuFAuJhHDvk70xxiFQycyv5E/NQke28MB8c19XhvZKIwKAD+GvpcEbLs79zY6OIX/76LvSYxclrLuTsl/v7Ja7RICuJOgXSUgCf5vliLyGquGJpccrx0ObtSbbWTcsHOO3RLUJDg5UB/LMhnIF8JmHjVLdUD0AM9s7fffRgXXBH6JzdaZj9f9lQXsuUV4PjGNXQCa11Kr1PNZ4swlp0c5y1JA2illbIlX7IhcP7bbzCSy6iIjJUcpbNN/HGTIHI+s01+POO6GgZlQpGRDPAyJ6IIPtN+HWQHIDC/vVvyFcK0LPOcvP76o3pIlrUpdMs7c0DJas8m3Yb4HvIcZw9snW0nuTv6LEDn5w2oP0aMNsC4C3u4wx/eVzru4n5Cr9/VgL6ArAs/wQwgaehA/pszjkK93NuttXNlCTrHEtIln+hPNRMf4kSGS9vsjPKXprCoYa7So/Wu+odt/XSaFKqifxyI5ZDf9p7vIkGAM3wJrn9hGycx00f/BwN7dqJsQuQMlTQOnwybKDlX9NmRbrz2kGPskLb9vp8QlsoMpYkq4bEcQ/krZ+yz4msiBG3ctUpofp0L/LDlQ75gS4ixKsVhNlY9P9lnWghzHXJjQmRt/2a9K0kUUMxgrbNnb11bWm/t4JcKkMj6/kCbg7WzKZ3hJ8HO8LkXnSsRMaJTX+NEZWXn+1MgN+6ph5HvxIZ4G1HV2ZcrOTHetdrycue/awuNF8XGQtLIpst3lhuMz4pmIZ+TOXLPtJiZuBf7F4HeOAL8JPb2qvNk5qLbbriJQ8D2K9JEKxcxVPtOlLxgQuujU7KbMiWWFcX2ncwOmbyfWRf2uNgrGHr7Ug0jnNITZylj0phR9PyXj/tjlO4CxKetYtpQ4zI1KQ0hm4R6v9uZvyNYJ25EwuIXOU7xi1eZmI56/LS7Y3Jl2qT2lG/cwvyqq7HOmdRuIZgrtmONBWu5eh3nyZPHSRAbA9hLYRm5clVD1o1TlCB60YLZWk+YskTZwFgT+/70wk3fRSZMt8qPcCo/cB+pzN0Sk9cimMZ8QwTWSo/oxN9gidVxJdJeFElynus6xr7p9Y7Lbslzw8we206KmdVMmhqOqopDUe+9UnTGiddREaatsho1JdG9SgHOO+oJwXkK/DlVklBcyVZtJy2D4BPEH3v+TIw4u/YBbfNjlQPSCf7j27F8O+nwGuYDyXpLv8XxKZCBeybMtP10P/8wsraI4+JRwQgceMb9gP001z+Q9VaJk3S8KJMRJQ6GSCGNd8QAPpTBlBQbHZiB5B+y7xNdb6bv+EsiJYLgzDgKFq91kl603rW+vKePyEDID9MjHhWnTxqZjk4e7NnaWiNRzzliERcogYLTww8tiCQDmHMh5Syg4YmVSFdHaWq7OYHEsdm764SA4aFDbK59jOVS31jBj/0vZeB2AIEc+hDQa5c1TDw8NBRUmvILp/zYLKlfV2IEEEFC683MrdanlqGQMjmrDMpsxYD+/ozSOSD1K1ufjA5xC+bAZ3kb7DfZoBFg71c9jm+ZDDec8/d7j544v8bU3wXYm6TUAoRlPF7X7HkVqVkqzfEzhgpVB1Rz9mAle0i/4QGM2cg/PVvpIoYM86rxjvonxreFm6FReslljfMpv/aIz97eMg7A0BxCgTpFfO8AqK8ijnWj2yKoYWP0qqAzR0m2PyxWZ55s/yCiwbLectlt9BMDlx2n8AUkeZKl+xQddT3khSflHOqJrDz1mbNYyOuELWyXA2wqDXJXVI120NbT8Rc4sDQ1MSgctevA5hazPF9xZiwnapWyxH0YV987MDnMa84ZA+vhfi10ER1VlAflTDEQhhsoDzzLDpQN4JwvDLlAYWc9nFCmnjixbz/lPp7vjBImrGOz6fv8CIhxLnZxg511SuNmSkuwwHlu4GXzwKoloYEalq882nFm98G9Tjx03KTlp85FbqLLbgbxgY41dO+rmDoykWIBURre9BuzKAboSxl3RH1xR1lS6iBUYX/wUayfMdR0T1YVC9xrfUdBdhXGv9DxejNUPNDuPUuXRwZk+wiq4Q+R6/Xl9rc6BF7LDHdOajKzqqElJ/e5XEwSz9Oi8IA9OLo5doyFHuabgCDHv2tRZWz840PMFReUYpYcgOGuR2H692oGoQ5KD5IF4x7ji+75flJ+PaB1L8prtcg1ejJIYy/25HWLYQ0G95SoSOFXZjrXVSiSzWYnL2OWL95BvvQII8K+EbLDTnV9t4+XEUk7MC5WN+2ApzZTkDb+fkKWU6Gm942ZgQtY33brKV81vC8sDfju4iWwr2/u0hkoqbBnltIIHqF0+EjRK5aJo4XWRVBQFA96DuQj/X+e+w616guRz6ZaoTmBHoxskNuf9OPNDsKUE5QDRWSITYk3EFccBW9lOJbOpYqOAaeII9zUwnevxwHMK2vUh8TWBhdMwM8Z6dfaRB7NZvro7Sd6vRXfvEJtTvY8brbUDlqNsuiw+sgaGnkE09jiWVL2tF0e9D2PW0+9E1KehzUUUmS3xWoowbvk8g6vE3Aab8XYWcI6JoO2YVPHdsONJjg2w1s/k77ejs5r+ZCj8VUr9X6KBIqKP+t82HRJv5iE/ZBOLMw8xcxGmxiXCzLkwrBFmU9a5Bu/R4DPYepuBlKOeWwtCjxI2uh7eQkEutEsY7h6VJyoGuaSTepu8ZZj8bLhM0rG1WdEQjLK0H4SLWUvogM6ntPBG1zdryam9tLmd9gTqM4WcHizVgXa016nu4hfYaILRAStyrYST5OleQjmty420kQRQ6gmniJkJCYVl1/h/FtMvBuLVQrf5EE1J2X1gYKgDeiC8PWzhSZlsY37SxGhDMnGaQ/T34qMOmdmyIl3nEWLRih4oYDSDamsuN8xcXxRbEKaMXpHncUbfEY4u+OePso/ZKU3aGfnFPtyKd8NkVsq5/k9CdnYKmKZyP02uX9wpeCJHNZRFxgss0YYL0WqKXVpERSqowJyV7Mqhrq4u0qLLgJMfAg5soFQ3aZt5vtovYsEJ0PzkMazlUog9AvAc67OYfKO0WUGGB2fD4ltmmx/XgdvGvLUyfIPx13qQ7FwOFBswcwABoY44wWNbvPU5iA3MR1nFfPd1z1t1RxGrsf8YazW2t0N0Plx8iW5phRPxTeZ6jLpdvt3uyLhzeyTWfgJ5Sl5qUy6QZNDS0hqL4TnFhSdA6N17PHcPieBed7ms3w7j35j4LS59fywcxfWVTmQDUKvYbLPXs13RcxK7ftBPVdfczyGh8hpseOBBh/MfM2H2ucOK9mCuY9nftGnino2W6s4AkE5kjEKiaMLAwFxcm/RC01TWWhDzC9w5jnoBOJUQUTRl8lbr7jYyDrW2wVBEwh36zd39CwGPRZ+ahV5T3d1swrhsaFWj0TN6JNxzqndqRLLURtw670ZN1S54tL8DEUeZqltsv9/quOwA01jh51Su9zuylthpQW8t4Pn3U4qi2XCCq05fDM6/pXfnCYP4SdNApO06yzImYcaEjVO+AZuQ/AmmzPWhNRLl5wXB2FG7hj5MckhkBfIvGmWgP5kPaPNXA8KhK4/zNupqlJlSXdHWopFMIHby+6uA2cu9vTCCexVsXIshP4Pf8yPSsxgpmf27WHCqnM2mhvSLlv/D2SS2OO7Q9uvdlZ8h4f3LII/hRS/bWE+gHg11ZFr27qZJ5Qp9uwFjJntH5GF5TxiekrPRk7jhdlqIyTlHgdL8zo/I0fcVyf9uyb2mArXg9lUthX49mIwQ52v+gWd77IHshzEgd9Olkc1T1CB6FF5ouQTQSkdEWFnUtnxU9Phy1m6wBgP0pZzj1GMIm+HapsT6XW2PuLaS8EYwoac+0QjU8h5tk7ZBuf5SCL7d4riHXfZK2aEc0ExYB+HUCLyP/ca7WMYW4lR77GP1nZP0P9PsRgvwES7mRO8x0632fijMfC1FYw4f4WydOrWvB2MhUKnNW4dMDof0ZcHyil6BpFjtMcroTs377lp9Ed2iIGROrI+UkacZijpBYH/hzYuC2IOI2QNfVNqtRe9VlVdlicmqfsq4BHFmu68/4mj8dr8KPaqHuuWedjlgaV7sUOC0CRh0PyxKsKeDVKJ/AnyyCQSgaItFCX98X0qv7AUVtCPlIB/RRVhz43RP+/RXGbXu5Bdz879N6g2dCN/oGQx73eK4EzF7WJdCjQknMmTmrDTLmrsXJeGOcagWaGZPnYSDlKUF/nO4RJRz9y0p04cD2C7YjXTyHl5lFnn7Dd37OG8eJljUELwTu715wFQZRbtEfNBSmxhfdZEYh/FkKIUpN/Yu5JmkJ0K6hWgUCg5CATeJhxOk6H0kDeRyywWPOXjt+g8hZa+fNvehsXMbr4il6NQ0szdwAZG9ML/HyGK7la//+5xDoRvdaIZQxCOtYwzdP+rIfaDP5hiNOMGOIjaFKePEnCRio/4uFwjSx5ryM763NXy2vz0TXMzewzLIhnulWXyMdo9N4wv6NPs9Osw4D+xeMM7cb//7dF1/b7EEZyafgY98GXyt/HEiMlFLbBS8BVj2One3/FH/gCbsxEFSlP7+AthSKBqHKV4BrOvX0EOK7Ku+cJItAYPkb7c/7Y0kNv2E0GhR7kXRXbRhFrOafzxQnl06vQTBdcaV+0dqEFR11vKj9UlLhx0h96/trkM/MKSk32ABbXrleuJid+XT5Dawmj+8HZ7Cg098H+/qviSRjWi5qUm0uzFoA/ubXKgZeX3e0Oc0pX3nto8Ubw+PVub0LByAUKOqXZdwgyiO1AvYdwXHQZeXPGyHJBokcGAMzZBF7/OZR4wQ9yyGqIIXpJwxqFtJVXJ1QFuyTQS7KidA4vKUDhKcueyXUjQQpKLcJM6vyt9wKlqph4wS8QO2t4S+LbwfmTQAetXNzkbeKkxNE6tD75L0QMH/cS91RrV0KCuozmiiphiH/uv4vww1VFcERGrQeiix5ZprK57sSOdK+TZMGrXJa2moiCIXzj47QnFzOqlfYiR/3EavF3MBqHiBc6QSe8YbQF3CCO99B8e/1HZUWq2jQHBllHyN+yhUhtQOZF9PjkvcCaHXDb7/RaV1iaSWlt7CKKCV/bzuchicVMma7plbRfE9NtNfbiw1oIX2ywYmWjT6Ry/sdupHBUXqSEKzLc/PVxr3ATpmJJ9Z/DBrhioA45E7oA1oqTq+VPuwdWhYq7hpzaes04PEElYNFj6r2C5RaMoDbFYFtrPl8zlVZ/EQ2R4jcpMuhlHRJUej0RVfTCoSd71TqAWKY1LQreO9Gu/wgXkIqUc6EvgmtH4IktYy2iWlqb5kCy2iEDvAP1+xmqCAPJH/GiHgGSpeIko/3HfcZK+5Bbgvr8qTmaE/uBXEHvjYzkpfTmGeBUB1Dat4r4t0d+Dsz+9llo/7Bh3gfXbc/5X4u8U1sfiIek8Hl4i1N8DM5gHhEzOdVvwQuHLBuFZQ6It32o8GKsUf5mFK5U1F3YysNhz1CS73fvAiHHVy867LdqNCSGbQ3VULOaZvdWDJrzIEs6OZQJIqo84mclOnXNvdgz+b8bpg3jBRa0znjRMP9ULh6kJvW9MQLVWw0EM3jBYVAsGLruZYuj7DriyFfXGFhOububnHWPoi/Avdmuhdy4rJGKKScZz7r9KyqaFRwEoP8ByCFt9y5phvjHvCLE+HXqkJvnWDkE604Fw3bZbeTXcUUeIOKGIGKoxgVtgqPObvdne1jFoqL44IyNpgqI9zxgg5KWoF54/8ih6pSepUgdGmG4tlPUaxBk/Vgk2gaODpqZmPGrJKr/eo7PpErFhu07TwdWnjZ9/iX4FiLbLx5xRkhHPA5Ab2PdXvVvYCh8IDPBnEazX5bhM1dm9lpEp6wRMepDLjE9+2cNzAFrtFAetoJgTMsviSNj3GDklcNaIa37+Zk3o2bMhaiehhG/R+uUUXZz1Q2Swu9zYPdHEuOh2wrBDEQyjhZS4CjcRz8svUIVZU9iEHS5qthmZenr9mjr2yyhnT5wnJDyse5Q5XQ2GviaPApB666RJeLttay4o7bfRxNtOzy8QRFqbf92GnDzMz8ju7s4d8PmTf0MvuwcWjWpUHbGglnKPieh9gdaVZ0lJMTCOQr4HcpDxzPsppkgBSpvfa0k6itGzTc51SlQRo2+FaTxbCOOmY/G2rGXN2nG8ly499syZKNQVQmfL9U4mpRRmTiGRTnJDV6igAdZWEa0vSbKS8ViSbYTAzCY3fUyXFYTxaG/dSGtbr6rPqZmp15S21LLOQ1/3IBywqO8lCpzx6LL0YBVdK/8RuSJG7UO1xo1d4OsS+yypMeU52BKnZwzmPw9n6rr/DMkRI/cCzgQVM6XD+gVj3mLqvBia54Y7RY+zY1rqaKNLFCbv8ay0U/jQt9TCe2cObytYfu6OO5VcMd7saXg4LWynBsPa7RB4GGGWFYCW8Xxiw1A9sf/8bJ/PCTt5WXEer3U4j00emGiMhDldBKjoKAOHpdxhAXy6LCDjiWfsUGy1G+FJVfet4BJ1Wk35Wg7uMpL/9mCrrBBdYrhbc4G8dXIVDmrH6alT32dLZxRxsLTMvHRKoLLspHyjQk624Y/LCkeM1wZlKpQVZOGIvv5aD7t6R+Ni8wXXBxEECuLkT5O85580oZJ+kghvu4s6DpLRvjVsQfB2L0Nk2SqpXNoocxxJfnRlB64zwR8C9Ygm1H/uaRHsERainTHGiK4dPBg0wZoGdarl1+O07FdKh0gOTfJQ/R0IVsUkYTMWvLsfSiKyVCJn8NqolOO3J9mvJQ3bYJyWf2KWb63CDskjE7DqI8FpEFKG1SiIzotGbQhBaqZF+0o5iY242y02f+fuB2EYGWkd8JY8/SOX3BInUIeqyFlAWFz69x3C4LBJ8EFDcwJcBaZTHffqTDpHqCCfgscMl63U8Rif71xR8KxPFXHNi9vhEuoOhfCIaxWVRHgpEwGm5adeI9v/xD2FIvKBqMdub5kvcRb4WvVH0pcC0EjA6Wfi3uMZZs9WVb8zBKQmqka9NXnoomJ+05LFNrtug6kZYzlXwlevQscREx7Nn0f0SnqdB4egzERMwxFnOq7PXm+oc6+aHUyG8z34yXJO5b8tgDtkdcjVEywWL2seN/IURB9Yy9mQTObkjrxoXdT/0eFrMoYVwPhwLp2De4jj/ltuNK9ehh19mrn6VZSnimVT3vCSFpiEmWyAgJpWctNHuB23l7NbS6UHVubHk3aEvkrcx+CJ2XUXB/YAhJVu+q3VrlMsClU2P19UCXxf34/mpeXGLMAPbWZDpJXqadJgTicBnFFneiQRoXswuP5AEGDQlNOLwRY998cQhexXg4cUmdj4w1DroK/0GmJ/o4bYn51rkuD4hztskVgvoaBeM4esMPlJkzDH+wFRsHYk4A90GH3wRMrlkZl6SbfDumcTDgQQa6MfaRdiFZtSIBtc4WUSqGr2c9JaWGEgAO4xphh+pFAP4gMIUTkGL6yIPMoEQHmYGVHBfK1MT/1a12Mx9sZREVeQnMv8Abrm7P3htLsBZvcLK6FZe29mTvtFXfmWvie94A+zSAwVmklNlhuG4VuOAJ2FrqVgCDlL4rbTuU/C6gK5bHAZxqc9xdJMzfnREMGUByzOOYUFqJMcm2yPEb5zi3qFU1DUIhsE4UxqAmztE2azpfX+mZ0ilJXdqXRgJeUwpy7QANt13fA8zbbe0M19b1H5yQi7oyS1c0b2Y0UyAGstUYQYLSsRexQTKsBahS+yZKT94I/cwhM8M3DM+SqvNtIPZPCT5s9s4PYG+95DJ+WZv+OGTRxoY75H33CqptHZ2r1Wqfg92K5S0zCo8+X/SXZS6EqMnWRN2c3j4dDWmBaNhi0hy175PMTxLHvoTqv25xPzwvfWUNOi1q1BgsmEEdCn1RUb+SCfgJeeHsa5gQCuJVCEWlAhkxjND4QQ/A1i+S3eoQFBSKIQzLvWskOp6i2XN8OOImgG18chAY24WoD9m2TgG77zTLdONmIoqdcU8X/fZsI0hkHb6wTXKi2N88nKJrs+2QI59LG+ZF/hLnHsXoKNfS9qscGBxH3msiuV79J2KkdePioJCj5VJ/STeUnTrBh9mv7niBJl9ayOoaeEe0Yt92qC5y8aM8v37V4qpFdpI4Eqn7cJT8d5NKNX0Gk1FpCvH1nCzMSyADoMEaGC/fu86QE83bs9fGSGhatDTlG3YHr1o3pPKxjiid9I/aq0om2NeEn/iwxlCVyKptdCSNrv0v5Ah0sg41bIxBbygn1NJ+jsvQUt7+UNsPaUcjjIgVHhPjQTDZu+KOTAGT8HfwK9K55k079xGpl1vCw5AmtWgB/gGFz70ts843QLLpk6IKlQOOZuC2e2UUcjdaEkYCb9f34XXLKetE38gHz7O68bVPDEqw/e58o2IfMjp3+Uqcb7DZysHFpGUveVCriUuqT4iProwOX0KZF5YkC31Ok57Qg4Ow8O4IjaMUavzgGOnBkoqtMw6PmBt+IVweXJjhl3ouRhNbTLRr3byCV4iCQaLWOONoTxv96fEjC8EwbvVCWX7+CZioSkqjMo0J1cJGCghbcBtzqhR1s1lT1+1e6X8MQDucMw8uC3fpiB7V36NAxKJVc3q7xFs/UuKjG+3JEZIl3kuhazF2SIvStFaNaO8x6uBVsRV5HdBhytFpz+5WnDWRZ4+3Hs7qUv+IyfZDPvSZ/JrhZPyvN5pDzynyx3Ae6AgGNagE9++IhgrGZJSCrdm0E68ACg1psjSsjSajqb+dmBbE/5wPvOKO70wvK+WI8cYq0xMgTXEXn1p7OnE2Bl1IBC/9hjsjR2HGwOUMjOf+4P7iFN8km4F3y65EHGqnM8YlttUm9W/hEbJV0WWyw81HivYzJe0TDNjGDt59AaEqSLli45Xs86oclgfvIrmu/RBmPjeoGkNLRWXq+p8vJX8+4bratj8IEQA5RO9WylvyrzkrGP/MaSrGC/ZWe/SzKp09b9JTOQVza4o7QUehLfVAU8wmLBjv/aMjMC2sffK8Tafa8MWwsxuhOiP/lIT5su/WDCFlweMzJMiE8vLlUl4ETrkPrXtcSEmzMd3NTDo7U1uHmQ53G+EqmmcDNO/txaGbXm/LYBtJLSlwDS5NoeNXoScvC09BIumn2kTBFY1e+qSRd6CXwytAGs9s3WPW9lysUPfNRNOUnmR7sGGgpZ/NOMddI8YDKpQOxBkLvSEU41fqyBR9kxYAmSGiOyY9sqrlnicZrMT6unE30SrObJQN+5BwA8WK1aGmd3/+302KuHCTq/WX+hcJfp2wUCGGQ5qEeAK3Id2Nla0GThiXm/J70uoIdpPPwpIaZjdZdfatgRsji9jB6nF4KDIqrEN1aJdoDT54kl6n+iKdVDDlVYryp7jwumTSSImiGlbw6ZPCdQKt8SUDWmLcM1QdLDxgBHkYGNwaFzRlf7WUlBLeF7IhJAU30FHKjuZ4ldHhRqKQ+fjkimLt25TqFS5cVXnh2I97JBCpqBKxaSRBaIVKbsTF3oasAPnCM0QBYj29jF/x8Je9suklJSrZqt+TyQNCbImMZqEEPJ+ptM9Ui/xLNNE6pHZ5T4Wfs40TFZnQ3WzHNVBbRhDEawGaBe+MPFF4kOzwrej7GRmoAg1VyAruvzmHnd4DzOq4K/L9tCe/Hjm1jhJ0QU9uuw/R1DZv8KtntuWQLHgPbW2LSy8D7bfn8NV8f+J1pWjkqDh1x07romvpsSc70OniolaGcVbifoje924wmjpUyBH4CCTgmP5tojlUHg4BfI9lThg+U9YmcnU1wXAO1IkojVJFq0IuWkz2NZ7HanEYV+ozdEWLa8PGydk49UHwVFwEUxJaKn2Z5Z7jh89FylkInGz0qJkyUvk5kFGmDBRZLz1HBpuxrcFTqGOGpPuSqvRW66VIwPsk+iC8WrnvUi4R0VlW7KlvkoQ3VNbuwJHsm3BQ9dJ64EnQQv+L6GEMId6cihGkC7RjTixGgCPzXbCYQMvBRgncEqR2juhaEOrUn8iW8lKqeAT99ZHKYTWCPUlkmSYrBRvI39WwkLVteCp0fDb+UA5tzxnzUSWXy/sCnhgTG/fp//p/P5xE3KqbCYz4rNKxMrGrN6eGplOBl53eCD5TIEiyZQy9LEWjz5AbuyIb4ZXhrtMt3K++YW3TwM8JjKq1J8Q2v1K4N7ZaM4W/qs/+rLlxDZ5ALc+ux5rmqKpTROnXAOKq5L/pI4cm6Gj6dbZpohqPPOz1ZifImqYuLhqD44ypi3ki2Waz5a5VaRvuh0y1t4ChvTqa7Edzn88Pp0XwgzJv3VNCOWCngEJun1VM9CQUoCqfB5t0t582AWzfWx3VbCKttk2M6zKGayWR6uPcA6fI+Iy3krlqCQj+VFHbtITslXRjLTCGni5mLAALMD6wJYshJXkqIUPL6/FTPwcGiYxOGFhVuEX5smdNBlOJif5cUfIDfHWLsg21X2JjaHd+xGnRi8AV7+8BIKtm2+OEnzUxxqjJ/75lvA1P4EfBLjL5vl3z/pOanhRiip+UPyNiMa0bKi+YZ5IcAE/tRhfpXDhaJt1SYFgpXVbPJfWeps15nT+saEyNrxH2Y71uETQN/XSSM4OTi4AsFu1ToPwM2flJA5e7uz/Bxdma6IjLV0mTGxvxiDD5XCVqijCJ9MqhYvexmntL163HYHbpBqi7Vn5QbxebOXAua0nhkDEZahn6AojikJUxLXpJzP5mC6cMtjuSuaZq8YrpK0UaOLcErLSNSOCGNOGUhbJaP4d8uckqpmsAsROuIajpI/3LbrBCjPQQpHPmfb0MbwMyBqToEd2ZyQrvuwyuzMiv/LALY5xUe1kY59WF56zdM9xRPjdwl7T2RsE9QWi9ZZ6KVWAf39phVoljc3hCay9Y+dJvvhCTLG4Po+pf5lhTZg3HrC+bAX/9/zJ82YlqzdgCfhmxbVRH4igbgrh8ObW1yDIPR3UVgmeyoSuhOBFGXb2dpT1YpEXgzSv70SWv4WG6X7hcGUhKCv2WrAjLLD8WbIL32jOb0+yUeVJf52LTqMUelTNwvISXpX+AxHyIwrU/fC7L4PM5OUT7eRuyb5/OyPxwgz6ahw6vUag+qKe4UUoaQAlKQdl/ZN9A6dgGpcB9cl07wOc7eSR4jd+5m5PET3Ns/M+91hwraVQlaY3IWmMsQpHVleNU5bIScjNJYyLbSR7iQyylJOHqhtG7LucaOEIre22tqRIgSXciQH1UaCHL9gXupe1jPM54qJ+vLHbeywAnRU7Kl6G/JIRRagUw+i4RXdqj3kCqyPcIry3XBKlOgEzbhRiwCZghHDBOhamKdqq4IIT9ivqvRw7+TtxOQ85LyBIlLPOs/rKlfAujkgWtD4r2GziSeOtJ6wgeQwAOUd0OWC+mSxx9EabDEZlIdt4Gr3dXpY2jbCHw7MuxEKTnlcdoA5F1LCpzDXFPFC3wRUDhq8sPacJMos2cSEa2jBsUd303T+Q++/LGrPmrzicYUaEFGuBq6lfijQMWutsB1dixeI4avK8b5mSueOKvvPwiKuxavP/yr40sKgSb9mNgJiIegTPpIchMV3xwtSYuD/jN3jcSuWEXNX92SOh2RYGqZc3vysXOuyu14+jwH9k0XJZAGvQnBmZ8InsU138xyq6JWVEX61k7TZHHizSecjYaQufVIlMUXwd/43dnT9OqjufMTgc7u5OoDoF3YV0g0ctFJqy7T5Ktfje8h7cn157jzVqKZQr30TBrBKOQXVyWQv3FxQ6O2MdNyXKc+gpQJBHh6AK+0HOaKYEDVPXjhHFnJp570wVEYY5L3/nHXb1mRS9ov7AX50VJgPMFkgMWLi0dTR1F+smv5XOuC3p+jbaSfMejJ+uCXF09P1v+tQfBQP35llXEjkT2D7/7byWJk3sDEVLNcsht+u3fZxLRbok97cXFn1+h3qTuEG/ZfzmCEh7kAVQU2/uimumDfSVOA03NDImukZXZa9FcNovghgBgn8K8JeDdAEtivVPhcjF+7ubk/C7OBOYAe0/nVQmPjEaIm5hsITIUY4y/sLs9DTs1MrXcvQlYEv+D3yYJ2gi9hwZ8a//imYb70m3KhZ9eZpc1M0gX+Ib+4nji9wq8XD56KNy0Av88CLkuwcKaXV2lM9eGwnFOdd8QHl1U40Eugs1RSr3tux0cbjRn4lLfygGsPM5oYpC/tBTY6Yh1zUwDA8wwu0TII4unMzxwn74Lj9+00OKGbof1Cj6o8+7j87B7vEoFFkiovj8pz626Chn6zaR7qz8Cb1q3rK7fyU9nB/zyee+cyv6wMrS/mC0K3gukjURc6bRvgtij4Od5eNhRvwdh8HFb4BbvdXSbmvlE9iub9bONjUUnD34Pr6CZ27AbwHKcZGmT2r8uXiKfExAToDbDtdnnIns4T1CcycdCpbILHQonqn6Tl51TAEFwNpZiBpqogFCWoe9BPxRJ7bhoXi8L2Svngx1cJmOcEl2xGitWDF4J8y/auHI6Ax/OWAbKrnaKIXK3hrwkCBPNO/XkyQdWCLceOTm1wNhgBKSzQJvM/wpkshldc8MlpTsVVQ052RJhIdlnRbohUsIcdP66gzuXkdfrz3ab1YQmQqa0+k6zP293s+QdX6BcCaUEqElGrv2MgftQmpmi6GEcnG30vj3SN16vR9Zv+3GL/eVOf3h4x/QVueXL9HhWm0Qwk9wuJEN6zOccwAFtRMCEhl0f0G+CGwD35Kv6gMFGgODvlahgKAEi1yhQop2+p4kCllGceGtAMM/Dj2oJbmMJj9Gxs3eYTjjTKgQqvw0np7oKBm5SmtmqipjTnEjBQtQlg2rv4hN9Lo0y9eUxeYEmS5z0MOTc+4GPqSkNxRkNFegGKLIPWUdKCgq3Ovo3k3rb9f412FJS4+fWcfvY79pCeJXtxUdZ617ljjSHVFUsFaP6egLiodpwj3x8GYGTKoY8nkFxgySd5YOoTRkAsT7T0WbU7TKOCLVDxRVSSx+MBLAAl8cfKAeDVWW5GNhbosOMLUOK94lClAJ0gw==" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=pynGkmcFUV13He1Qd6_TZLMl8tgTIbAbgdMx_40bG5EOAbbXbeIoRMKC8wsu7oIl7zI3Zpd4b6DsLdNqVUut3w2&amp;t=638901284248157332" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+var isPostBack = true;//]]>
+</script>
+
+<script src="/Telerik.Web.UI.WebResource.axd?_TSM_HiddenField_=RadScriptManager1_TSM&amp;compress=1&amp;_TSM_CombinedScripts_=%3b%3bSystem.Web.Extensions%2c+Version%3d4.0.0.0%2c+Culture%3dneutral%2c+PublicKeyToken%3d31bf3856ad364e35%3aen-US%3aa8328cc8-0a99-4e41-8fe3-b58afac64e45%3aea597d4b%3ab25378d2%3bTelerik.Web.UI%3aen-US%3afb63f838-b932-4810-8e72-f1ca43eff960%3a16e4e7cd%3af7645509%3a24ee1bba%3ac128760b%3a19620875%3a33715776%3ab2e06756%3a92fe8ea0%3afa31b949%3a4877f69a%3a874f8ea2%3af46195d3%3a490a9d4e%3abd8f85e4%3a11a04f7e%3a1e771326%3a88144a7a%3a4cacbc31%3a2a8622d7%3a2003d0b8%3ae524c98b%3aa675b4ab%3a9830f58e%3aa7e79140%3a9151b61d" type="text/javascript"></script>
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="877888BE" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="qw5xz6G9HOPNg7wPT/IqXl9MiPbsJ8TyFkEsJvfj+ViUl+W0BdQwU8knhffzGx+dlziiJxXrx68GjAt7OUGyGbNHhgWl2RWc9P8AyH4C6RhMpGUhLYl/0Sw46a5egKld7b12VivGfTuqrEYaRJHCQ11ulr0yY8niRwZDPL7/m60VFp03BWaSngRd242ch2F3mOlUnqoJ+rOHhMhR2jFf8aw3YvS42sE8vHZ7GmuyPf2FmuakTvs5U6jgpWRkAjZLP/8//QNwNbC81yKsH8xvMMDmeql3Lwkg7m8rq1LEwB3liLWlX585QNF3ZwiNi+ZM2q7OBQ+4GnhFN7Ztp6XKtETEZvDlPKpzEIMNiEXTwBksQVgFHRt8fCO0otxT0ye2+S2WITaf9iLNKu4uCIjlWYHpLzHPFbqidwtUesgSwcbdORx8DBOpHsgNTFZnNZR2Ful+qpx8QAJxht22UnA+6ecqgwI7mOlvy0iv5QQnlv8=" />
+</div>
+        <div id="divBackground" style="position: fixed; z-index: 999; height: 100%; width: 100%; top: 0; left: 0; background-color: Black; filter: alpha(opacity=40); opacity: 0.6; -moz-pacity: 0.8; display: none"></div>
+        <div id="passcode-dialog" title="Support Pass Code" style="display: none; text-align: center; margin: 0px;">
+            <span id="PassCode" style="font-size:XX-Large;">Unable to get Support Pass Code.</span>
+        </div>
+        <div id="message-dialog" title="Message" style="display: none; margin: 0">
+            <p style="text-align: center">
+                <span style="float: left; margin: 0 7px 20px 0;">
+                    <img src="../Content/Images/Reports/OK.png" height="28px" width="28px" alt="OK" />
+                </span>
+                <span id="DialogMessage"></span>
+            </p>
+        </div>
+        <div id="alert-dialog" title="Message" style="display: none; margin: 0">
+            <p style="text-align: center">
+                <span id="AlertMessage"></span>
+            </p>
+        </div>
+        <div id="Utilities-Dialog" title="Message" style="display: none; margin: 0">
+            <p style="text-align: center">
+                <span style="float: left; margin: 0 7px 20px 0;">
+                    <img src="../Content/Images/Reports/OK.png" height="28px" width="28px" alt="OK" /></span><span id="Label8">Chumma Some Kusu</span>
+            </p>
+        </div>
+
+        <div class="page">
+            <div class="main">
+                
+                
+                <div id="RadWindowManager1" style="display:none;">
+	<!-- 2016.2.607.45 --><div id="CLStmtNoticeDialog" style="display:none;">
+		<div id="CLStmtNoticeDialog_C" style="display:none;">
+
+		</div><input id="CLStmtNoticeDialog_ClientState" name="CLStmtNoticeDialog_ClientState" type="hidden" />
+	</div><div id="ResForecastWalkIns" style="display:none;">
+		<div id="ResForecastWalkIns_C" style="display:none;">
+
+		</div><input id="ResForecastWalkIns_ClientState" name="ResForecastWalkIns_ClientState" type="hidden" />
+	</div><div id="RadWindowManager1_alerttemplate" style="display:none;">
+		<div class="rwDialogPopup radalert">			
+			<div class="rwDialogText">
+			{1}				
+			</div>
+			
+			<div>
+				<a  onclick="$find('{0}').close(true);"
+				class="rwPopupButton" href="javascript:void(0);">
+					<span class="rwOuterSpan">
+						<span class="rwInnerSpan">##LOC[OK]##</span>
+					</span>
+				</a>				
+			</div>
+		</div>
+		</div><div id="RadWindowManager1_prompttemplate" style="display:none;">
+		 <div class="rwDialogPopup radprompt">			
+			    <div class="rwDialogText">
+			    {1}				
+			    </div>		
+			    <div>
+				    <script type="text/javascript">
+				    function RadWindowprompt_detectenter(id, ev, input)
+				    {							
+					    if (!ev) ev = window.event;                
+					    if (ev.keyCode == 13)
+					    {															        
+					        var but = input.parentNode.parentNode.getElementsByTagName("A")[0];					        
+					        if (but)
+						    {							
+							    if (but.click) but.click();
+							    else if (but.onclick)
+							    {
+							        but.focus(); var click = but.onclick; but.onclick = null; if (click) click.call(but);							 
+							    }
+						    }
+					       return false;
+					    } 
+					    else return true;
+				    }	 
+				    </script>
+				    <input title="Enter Value" onkeydown="return RadWindowprompt_detectenter('{0}', event, this);" type="text"  class="rwDialogInput" value="{2}" />
+			    </div>
+			    <div>
+				    <a onclick="$find('{0}').close(this.parentNode.parentNode.getElementsByTagName('input')[0].value);"				
+					    class="rwPopupButton" href="javascript:void(0);" ><span class="rwOuterSpan"><span class="rwInnerSpan">##LOC[OK]##</span></span></a>
+				    <a onclick="$find('{0}').close(null);" class="rwPopupButton"  href="javascript:void(0);"><span class="rwOuterSpan"><span class="rwInnerSpan">##LOC[Cancel]##</span></span></a>
+			    </div>
+		    </div>				       
+		</div><div id="RadWindowManager1_confirmtemplate" style="display:none;">
+		<div class="rwDialogPopup radconfirm">			
+			<div class="rwDialogText">
+			{1}				
+			</div>						
+			<div>
+				<a onclick="$find('{0}').close(true);"  class="rwPopupButton" href="javascript:void(0);" ><span class="rwOuterSpan"><span class="rwInnerSpan">##LOC[OK]##</span></span></a>
+				<a onclick="$find('{0}').close(false);" class="rwPopupButton"  href="javascript:void(0);"><span class="rwOuterSpan"><span class="rwInnerSpan">##LOC[Cancel]##</span></span></a>
+			</div>
+		</div>		
+		</div><input id="RadWindowManager1_ClientState" name="RadWindowManager1_ClientState" type="hidden" />
+</div>
+                <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('RadScriptManager1', 'Form1', [], [], [], 210, '');
+//]]>
+</script>
+
+                
+                <div id="RadSplitter1" style=""><div><table id="RAD_SPLITTER_RadSplitter1" class="RadSplitter RadSplitter_Default" style="width:1px;height:1px;border-left-width:1px;border-top-width:1px;border-style:None;">
+	<tr>
+		<td id="MainLeft" class="rspPane rspFirstItem" style="border-right-width:1px;border-bottom-width:1px;border-style:None;"><div id="RAD_SPLITTER_PANE_CONTENT_MainLeft"  style="width:240px;height:714px;overflow:auto;border-width:1px;">
+                        <div id="RadSplitter2" style="width:240px;height:714px;"><div><table id="RAD_SPLITTER_RadSplitter2" class="RadSplitter RadSplitter_Default rspNestedHorizontal" style="width:1px;height:1px;">
+			<tr id="RAD_SPLITTER_PANE_TR_LeftTop">
+				<td id="LeftTop" class="rspPaneHorizontal rspFirstItem" style="border-bottom-width:1px;"><div id="RAD_SPLITTER_PANE_CONTENT_LeftTop"  style="width:240px;height:433px;overflow:auto;border-width:1px;">
+
+                                <div>
+                                    <table>
+					<tr>
+						<td align="center" colspan="2"><input type="image" name="Logo" id="Logo" src="../Content/Images/ChorumLogo_Medium.png" style="width:165px;" /></td>
+					</tr><tr>
+						<td align="left"><span id="lblHotelCode" style="display:inline-block;font-size:Small;font-weight:bold;width:130px;">UNILOG</span></td><td><table align="Right">
+							<tr valign="middle">
+								<td><span id="LogoutLabel" style="font-size:X-Small;">Logout</span></td><td><input type="image" name="LogoutBt" id="LogoutBt" src="../Content/Images/Logout-Small.png" style="height:17px;width:17px;" /></td>
+							</tr>
+						</table></td>
+					</tr>
+				</table>
+                                </div>
+                                <div>
+                                    <div id="RadPanelBar2" class="RadPanelBar RadPanelBar_Default" style="font-size:Larger;font-weight:bold;width:100%;">
+					<ul class="rpRootGroup">
+						<li class="rpItem rpFirst rpLast"><a href="#" class="rpLink rpRootLink"><span class="rpOut"><span class="rpExpandHandle"></span><span class="rpText">Reports</span></span></a></li>
+					</ul><input id="RadPanelBar2_ClientState" name="RadPanelBar2_ClientState" type="hidden" />
+				</div>
+                                    <div id="RadTreeView1" class="RadTreeView RadTreeView_Default" style="color:Black;font-size:Small;font-weight:bold;">
+					<ul class="rtUL rtLines">
+						<li class="rtLI rtFirst"><div class="rtTop">
+							<span class="rtSp"></span><span class="rtIn" style="color:SteelBlue;font-weight:bold;">Reports Home</span>
+						</div></li><li class="rtLI"><div class="rtMid">
+							<span class="rtSp"></span><span class="rtPlus"></span><span class="rtIn" style="color:SteelBlue;">Reservation Reports</span>
+						</div><ul class="rtUL" style="display:none;">
+							<li class="rtLI"><div class="rtTop">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Reservation Agent Productivity</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Agent Upsell Report</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Guest Name List</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Availability</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Booking Rules Report</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Print RegCards/Folios</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Cancellation/Denial</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Reservation Forecast</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Special Request</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Reservation Comments</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Vehicle Details</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Task Report</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Bucket Check</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Arrivals/Stayovers/Departures</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Folio Audit</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Room Revenue</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Rate and Market Forecast</span>
+							</div></li><li class="rtLI rtLast"><div class="rtBot">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Extended Stay Forecast</span>
+							</div></li>
+						</ul></li><li class="rtLI"><div class="rtMid">
+							<span class="rtSp"></span><span class="rtMinus"></span><span class="rtIn" style="color:SteelBlue;">Housekeeping Reports</span>
+						</div><ul class="rtUL">
+							<li class="rtLI"><div class="rtTop rtSelected mySelectedNodeStyle">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Room Status</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Room Maintenance</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Room Change</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Room Assignments</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Housekeeper Cleaning Time</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Average Cleaning Time By Room Type</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Housekeeping Forecast</span>
+							</div></li><li class="rtLI rtLast"><div class="rtBot">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Housekeeper Cleaning Log</span>
+							</div></li>
+						</ul></li><li class="rtLI"><div class="rtMid">
+							<span class="rtSp"></span><span class="rtPlus"></span><span class="rtIn" style="color:SteelBlue;">Cashier Reports</span>
+						</div><ul class="rtUL" style="display:none;">
+							<li class="rtLI"><div class="rtTop">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Hotel Shift Reconciliation</span>
+							</div></li><li class="rtLI rtLast"><div class="rtBot">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Cashier Shift Reconciliation</span>
+							</div></li>
+						</ul></li><li class="rtLI"><div class="rtMid">
+							<span class="rtSp"></span><span class="rtPlus"></span><span class="rtIn" style="color:SteelBlue;">Night Audit Reports</span>
+						</div><ul class="rtUL" style="display:none;">
+							<li class="rtLI"><div class="rtTop">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Daily Activity</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Department Audit</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Department Audit with Tax</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Transaction Totals</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtPlus"></span><span class="rtIn" style="color:SteelBlue;">Ledger Balance Reports</span>
+							</div><ul class="rtUL" style="display:none;">
+								<li class="rtLI"><div class="rtTop">
+									<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Guest Ledger</span>
+								</div></li><li class="rtLI"><div class="rtMid">
+									<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">City Ledger</span>
+								</div></li><li class="rtLI"><div class="rtMid">
+									<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Deposit Ledger</span>
+								</div></li><li class="rtLI rtLast"><div class="rtBot">
+									<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Ledger Balance Summary</span>
+								</div></li>
+							</ul></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Deposits Due/Received</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Room Rate Audit</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Room Rate Variance</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Tax Exempt</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Managers Report</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Credit Limit Exception</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Voided Transactions</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">No Host Confirmations</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Balance/Payment Reports</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Expiring Rates Report</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">System Overrides</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Credit Card Capture Report</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">EOD CC Auth Release Report</span>
+							</div></li><li class="rtLI rtLast"><div class="rtBot">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Open Authorization Report</span>
+							</div></li>
+						</ul></li><li class="rtLI"><div class="rtMid">
+							<span class="rtSp"></span><span class="rtPlus"></span><span class="rtIn" style="color:SteelBlue;">Saved Reports</span>
+						</div><ul class="rtUL" style="display:none;">
+							<li class="rtLI"><div class="rtTop">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Create New</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Remove</span>
+							</div></li><li class="rtLI rtLast"><div class="rtBot">
+								<span class="rtSp"></span><span class="rtPlus"></span><a class="rtIn myUnSelectedNodeStyle" target="_blank" href="FormReports.aspx?LSID=9ed92453-c971-45ff-8f76-391f5be620c4&amp;reportId=SavedReport&amp;SavedReportId=460ff402-3cb6-475d-91b6-c3950e44945a" style="color:SteelBlue;">Dept Audit With taxes</a>
+							</div><ul class="rtUL" style="display:none;">
+								<li class="rtLI rtLast"><div class="rtBot">
+									<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle" style="color:SteelBlue;">Edit Parameters</span>
+								</div></li>
+							</ul></li>
+						</ul></li><li class="rtLI"><div class="rtMid">
+							<span class="rtSp"></span><span class="rtPlus"></span><span class="rtIn" style="color:SteelBlue;">Statistics Reports</span>
+						</div><ul class="rtUL" style="display:none;">
+							<li class="rtLI"><div class="rtTop">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Room Sales</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Rate and Market Statistics</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Travel Agent Commission Due</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">VIP Account Statistics</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Profile Statistics</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Statistics by State/Country</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Length Of Stay</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Booking Pace</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Rooms Sold & ADR</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Occupancy By Room Type</span>
+							</div></li><li class="rtLI rtLast"><div class="rtBot">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Extended Stay Daily Occupancy</span>
+							</div></li>
+						</ul></li><li class="rtLI"><div class="rtMid">
+							<span class="rtSp"></span><span class="rtPlus"></span><span class="rtIn" style="color:SteelBlue;">City Ledger/House Account</span>
+						</div><ul class="rtUL" style="display:none;">
+							<li class="rtLI"><div class="rtTop">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">House Account Balances</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">City Ledger Balance</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">City Ledger Aging</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">City Ledger Statements</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Folio Audit</span>
+							</div></li><li class="rtLI rtLast"><div class="rtBot">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Invoice Audit</span>
+							</div></li>
+						</ul></li><li class="rtLI"><div class="rtMid">
+							<span class="rtSp"></span><span class="rtPlus"></span><span class="rtIn" style="color:SteelBlue;">Groups</span>
+						</div><ul class="rtUL" style="display:none;">
+							<li class="rtLI"><div class="rtTop">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Group Booking</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Group Calendar</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Group Cut-Off</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Group Revenue</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Group Rooming List</span>
+							</div></li><li class="rtLI rtLast"><div class="rtBot">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Folio Audit</span>
+							</div></li>
+						</ul></li><li class="rtLI"><div class="rtMid">
+							<span class="rtSp"></span><span class="rtPlus"></span><span class="rtIn" style="color:SteelBlue;">Exports</span>
+						</div><ul class="rtUL" style="display:none;">
+							<li class="rtLI"><div class="rtTop">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Department Audit Export</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Rates Export</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Room Types Sales Export</span>
+							</div></li><li class="rtLI rtLast"><div class="rtBot">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Guest Profile Export</span>
+							</div></li>
+						</ul></li><li class="rtLI"><div class="rtMid">
+							<span class="rtSp"></span><span class="rtPlus"></span><span class="rtIn" style="color:SteelBlue;">Print Options</span>
+						</div><ul class="rtUL" style="display:none;">
+							<li class="rtLI"><div class="rtTop">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Registration Cards</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Folio</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Confirmations</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Cancellations</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Statements</span>
+							</div></li><li class="rtLI rtLast"><div class="rtBot">
+								<span class="rtSp"></span><span class="rtIn myUnSelectedNodeStyle">Email Settings</span>
+							</div></li>
+						</ul></li><li class="rtLI"><div class="rtMid">
+							<span class="rtSp"></span><span class="rtPlus"></span><span class="rtIn" style="color:SteelBlue;">Knowledgebase</span>
+						</div><ul class="rtUL" style="display:none;">
+							<li class="rtLI"><div class="rtTop">
+								<span class="rtSp"></span><a class="rtIn" href="https://krs.jonaschorum.com/krsviewer/Documents/ViewDocument?DocID=98&amp;DocReqID=79685721" target="_blank">Booking Rules (Report)</a>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><a class="rtIn" href="https://krs.jonaschorum.com/krsviewer/Documents/ViewDocument?DocID=96&amp;DocReqID=79685721" target="_blank">Reports Overview</a>
+							</div></li><li class="rtLI rtLast"><div class="rtBot">
+								<span class="rtSp"></span><a class="rtIn" href="https://krs.jonaschorum.com/krsviewer/Documents/ViewDocument?DocID=97&amp;DocReqID=79685721" target="_blank">Availability (Report)</a>
+							</div></li>
+						</ul></li><li class="rtLI rtLast"><div class="rtBot">
+							<span class="rtSp"></span><span class="rtMinus"></span><span class="rtIn" style="color:SteelBlue;">Support</span>
+						</div><ul class="rtUL">
+							<li class="rtLI"><div class="rtTop">
+								<span class="rtSp"></span><a class="rtIn" href="https://docs.jonaschorum.com/" target="_blank" style="color:SteelBlue;">Release Notes</a>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><a class="rtIn" href="https://docs.jonaschorum.com/#Chorum/Quick%20Help/Quick%20Help.htm?TocPath=Quick%2520Help%257C_____0" target="_blank" style="color:SteelBlue;">Quick Help</a>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><a class="rtIn" href="https://support.jonaschorum.com/dashboard" target="_blank" style="color:SteelBlue;">Support Portal</a>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn" style="color:SteelBlue;">Support Access Code</span>
+							</div></li><li class="rtLI"><div class="rtMid">
+								<span class="rtSp"></span><span class="rtIn" ID="ChatNowLink" style="color:SteelBlue;">Chat Now</span>
+							</div></li><li class="rtLI rtLast"><div class="rtBot">
+								<span class="rtSp"></span><a class="rtIn" href="https://jonaschorum.beyondtrustcloud.com" target="_blank" style="color:SteelBlue;">Remote Support</a>
+							</div></li>
+						</ul></li>
+					</ul><input id="RadTreeView1_ClientState" name="RadTreeView1_ClientState" type="hidden" />
+				</div>
+                                </div>
+                            </div><input id="LeftTop_ClientState" name="LeftTop_ClientState" type="hidden" /></td>
+			</tr><tr>
+				<td class="rspResizeBarHorizontal" id="LeftSplitter" style="border-bottom-width:1px;"><input id="RAD_SPLITBAR_SPACER_LeftSplitter" class="rspCollapseBarSpacer" style="width:1px;height:4px;line-height:4px;" type="button" value=" " /><div style="display:none;">
+					<input id="LeftSplitter_ClientState" name="LeftSplitter_ClientState" type="hidden" />
+				</div></td>
+			</tr><tr id="RAD_SPLITTER_PANE_TR_LeftBottom">
+				<td id="LeftBottom" class="rspPaneHorizontal rspLastItem" style="border-bottom-width:1px;"><div id="RAD_SPLITTER_PANE_CONTENT_LeftBottom"  style="width:240px;height:275px;overflow:auto;border-width:1px;">
+                                <div id="RadPanelBar1" class="RadPanelBar RadPanelBar_ModOffice2010Silver" style="font-size:Larger;width:100%;">
+					<ul class="rpRootGroup">
+						<li class="rpItem rpFirst"><a href="../Reservations/Reservations/DashboardView?LSID=9ed92453-c971-45ff-8f76-391f5be620c4" class="rpLink rpRootLink" target="_blank"><span class="rpOut rpNavigation"><span class="rpExpandHandle"></span><span class="rpText">Reservations</span></span></a></li><li class="rpItem"><a href="../Groups/Groups/GroupsSearchView?LSID=9ed92453-c971-45ff-8f76-391f5be620c4" class="rpLink rpRootLink" target="_blank"><span class="rpOut rpNavigation"><span class="rpExpandHandle"></span><span class="rpText">Groups</span></span></a></li><li class="rpItem"><a href="../FrontOffice/FrontOffice/FrontOfficeView?LSID=9ed92453-c971-45ff-8f76-391f5be620c4" class="rpLink rpRootLink" target="_blank"><span class="rpOut rpNavigation"><span class="rpExpandHandle"></span><span class="rpText">Front Office</span></span></a></li><li class="rpItem"><a href="../Housekeeping/RoomStatus/RoomStatusView?LSID=9ed92453-c971-45ff-8f76-391f5be620c4" class="rpLink rpRootLink" target="_blank"><span class="rpOut rpNavigation"><span class="rpExpandHandle"></span><span class="rpText">Housekeeping</span></span></a></li><li class="rpItem"><a href="../CityLedger/CityLedger/CityLedgerView?LSID=9ed92453-c971-45ff-8f76-391f5be620c4" class="rpLink rpRootLink" target="_blank"><span class="rpOut rpNavigation"><span class="rpExpandHandle"></span><span class="rpText">City Ledger</span></span></a></li><li class="rpItem"><a href="../Profiles/Profiles/ProfilesView?LSID=9ed92453-c971-45ff-8f76-391f5be620c4" class="rpLink rpRootLink" target="_blank"><span class="rpOut rpNavigation"><span class="rpExpandHandle"></span><span class="rpText">Profiles</span></span></a></li><li class="rpItem"><a href="#" class="rpLink rpSelected rpRootLink" target="_blank"><span class="rpOut"><span class="rpExpandHandle"></span><span class="rpText">Reports</span></span></a></li><li class="rpItem"><a href="../Settlement/Settlement/DashboardBatchSearchView?LSID=9ed92453-c971-45ff-8f76-391f5be620c4" class="rpLink rpRootLink" target="_blank"><span class="rpOut rpNavigation"><span class="rpExpandHandle"></span><span class="rpText">Settlement</span></span></a></li><li class="rpItem"><a href="../RevenueManagement/RevenueManagement/DailyRateManagerView?LSID=9ed92453-c971-45ff-8f76-391f5be620c4" class="rpLink rpRootLink" target="_blank"><span class="rpOut rpNavigation"><span class="rpExpandHandle"></span><span class="rpText">Revenue Management</span></span></a></li><li class="rpItem rpLast"><a href="../Administration/Administration/AdministrationView?LSID=9ed92453-c971-45ff-8f76-391f5be620c4" class="rpLink rpRootLink" target="_blank"><span class="rpOut rpNavigation"><span class="rpExpandHandle"></span><span class="rpText">Administration</span></span></a></li>
+					</ul><input id="RadPanelBar1_ClientState" name="RadPanelBar1_ClientState" type="hidden" />
+				</div>
+                            </div><input id="LeftBottom_ClientState" name="LeftBottom_ClientState" type="hidden" /></td>
+			</tr>
+		</table><input id="RadSplitter2_ClientState" name="RadSplitter2_ClientState" type="hidden" /></div></div>
+                    </div><input id="MainLeft_ClientState" name="MainLeft_ClientState" type="hidden" /></td><td class="rspResizeBar" id="MainPageSplitter" style="border-right-width:1px;border-bottom-width:1px;border-style:None;"><input id="RAD_SPLITBAR_SPACER_MainPageSplitter" class="rspCollapseBarSpacer" style="width:4px;height:1px;line-height:1px;" type="button" value=" " /><div style="display:none;">
+			<input id="MainPageSplitter_ClientState" name="MainPageSplitter_ClientState" type="hidden" />
+		</div></td><td id="MainRight" class="rspPane rspLastItem" style="border-right-width:1px;border-bottom-width:1px;border-style:None;"><div id="RAD_SPLITTER_PANE_CONTENT_MainRight"  style="width:1026px;height:714px;overflow:auto;border-width:1px;">
+                        <!--Section to customize Form Printing options-->
+                        
+                        <!-- Configurable Confirmation Letter Options-->
+                        
+                        <!-- Configurable Cancellation Letter Options-->
+                        
+                        <!--Configurable Folio Options-->
+                        
+                        <!-- Configurable options for City Ledger Statements -->
+                        
+                        <!-- Configurable Email Options -->
+                        
+                        <!-- In-Page Reports -->
+                        <div id="InPageMain" class="InPageMain">
+                            <div class="Tabstrip">
+                                <span>Reports</span>
+                            </div>
+                            <div class="RightTop">
+                                <div id="RadRibbonBar1" class="RadRibbonBar RadRibbonBar_Default" style="min-width: 500px; margin-bottom: 3px;">
+			<div class="rrbWrap">
+				<ul class="rrbTabs">
+					<li class="rrbItem rrbSelected"><span class="rrbLink">Report</span></li>
+				</ul><div class="rrbCommandArea">
+					<div class="rrbCommands">
+						<div class="rrbCommandGroup">
+							<a href="#" id="RptDownloadMenu" class="rrbButton rrbMediumButton rrbMenuButton" title="Download"><span class="rrbImagePlaceholder"><img class="rrbImage" src="/Content/Images/Reports/download-20.png" alt="Item Image" /></span><span class="rrbText">Download</span><span class="rrbArrow"><span class="radIcon radIconDown">&nbsp;</span></span></a><div class="rrbMenu">
+								<ul class="rrbUL">
+									<li class="rrbItem"><a href="#" class="rrbButton rrbMediumButton rrbDualImage" title="PDF"><span class="rrbImagePlaceholder"><img class="rrbImage" src="/Content/Images/Reports/pdf-file-20.png" alt="Item Image" /></span><span class="rrbText">PDF</span></a></li><li class="rrbItem"><a href="#" class="rrbButton rrbMediumButton rrbDualImage" title="Excel (XLS)"><span class="rrbImagePlaceholder"><img class="rrbImage" src="/Content/Images/Reports/excel-20.png" alt="Item Image" /></span><span class="rrbText">Excel (XLS)</span></a></li><li class="rrbItem"><a href="#" class="rrbButton rrbMediumButton rrbDualImage" title="CSV"><span class="rrbImagePlaceholder"><img class="rrbImage" src="/Content/Images/Reports/csv-20.png" alt="Item Image" /></span><span class="rrbText">CSV</span></a></li>
+								</ul>
+							</div><a href="#" id="RptEmailMenu" class="rrbButton rrbMediumButton rrbMenuButton" title="Email"><span class="rrbImagePlaceholder"><img class="rrbImage" src="/Content/Images/Reports/Email.gif" alt="Item Image" /></span><span class="rrbText">Email</span><span class="rrbArrow"><span class="radIcon radIconDown">&nbsp;</span></span></a><div class="rrbMenu">
+								<ul class="rrbUL">
+									<li class="rrbItem"><a href="#" class="rrbButton rrbMediumButton rrbDualImage" title="PDF"><span class="rrbImagePlaceholder"><img class="rrbImage" src="/Content/Images/Reports/pdf-file-20.png" alt="Item Image" /></span><span class="rrbText">PDF</span></a></li><li class="rrbItem"><a href="#" class="rrbButton rrbMediumButton rrbDualImage" title="Excel (XLS)"><span class="rrbImagePlaceholder"><img class="rrbImage" src="/Content/Images/Reports/excel-20.png" alt="Item Image" /></span><span class="rrbText">Excel (XLS)</span></a></li><li class="rrbItem"><a href="#" class="rrbButton rrbMediumButton rrbDualImage" title="CSV"><span class="rrbImagePlaceholder"><img class="rrbImage" src="/Content/Images/Reports/csv-20.png" alt="Item Image" /></span><span class="rrbText">CSV</span></a></li>
+								</ul>
+							</div><span id="RunReportsButton" class="rrbButton rrbMediumButton rrbDualImage rrbDisabled" title="Preview"><span class="rrbImagePlaceholder"><img class="rrbImage" src="/WebResource.axd?d=F5mzDzjzJ7k-eIHsGtuuUTuhH2vUjNPJls1z3ovKAP4BV9j_gLH3efgZXc2HGMw4lMZ1IBk9RHff-kF1w3T6tRsFGniMNqbgQ7jlWNRwsz25VC31Kir_To_e5dYdovcCVZwaK9lyAKwwnjUcP1CCF4zzVEchKZ_uXwhpPhIYJYU1&amp;t=638194722640000000" alt="Item Image" /></span><span class="rrbText">Preview</span></span><div class="rrbTitle">
+								Report
+							</div>
+						</div><div class="rrbCommandGroup">
+							<div class="rrbTemplateItem">
+								
+                                                    <table>
+									<tr>
+										<td><input id="ctl113_Occupied" type="checkbox" name="ctl113$Occupied" checked="checked" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl113$Occupied\&#39;,\&#39;\&#39;)&#39;, 0)" /><label for="ctl113_Occupied">Occupied</label></td><td><input id="ctl113_Vacant" type="checkbox" name="ctl113$Vacant" checked="checked" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl113$Vacant\&#39;,\&#39;\&#39;)&#39;, 0)" /><label for="ctl113_Vacant">Vacant</label></td>
+									</tr><tr>
+										<td><input id="ctl113_OnlyDueOut" type="checkbox" name="ctl113$OnlyDueOut" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl113$OnlyDueOut\&#39;,\&#39;\&#39;)&#39;, 0)" /><label for="ctl113_OnlyDueOut">Only Due Out</label></td><td><input id="ctl113_Maintenance" type="checkbox" name="ctl113$Maintenance" checked="checked" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl113$Maintenance\&#39;,\&#39;\&#39;)&#39;, 0)" /><label for="ctl113_Maintenance">Out of Order</label></td>
+									</tr>
+								</table>
+                                                
+							</div><div class="rrbTitle">
+								Front Desk Filters
+							</div>
+						</div><div class="rrbCommandGroup">
+							<div class="rrbTemplateItem">
+								
+                                                    <table>
+									<tr>
+										<td><input id="ctl114_Dirty" type="checkbox" name="ctl114$Dirty" checked="checked" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl114$Dirty\&#39;,\&#39;\&#39;)&#39;, 0)" /><label for="ctl114_Dirty">Dirty</label></td><td><input id="ctl114_CleanVacant" type="checkbox" name="ctl114$CleanVacant" checked="checked" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl114$CleanVacant\&#39;,\&#39;\&#39;)&#39;, 0)" /><label for="ctl114_CleanVacant">Clean/Vacant</label></td>
+									</tr><tr>
+										<td><input id="ctl114_CleanOccupied" type="checkbox" name="ctl114$CleanOccupied" checked="checked" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl114$CleanOccupied\&#39;,\&#39;\&#39;)&#39;, 0)" /><label for="ctl114_CleanOccupied">Clean / Occupied</label></td><td><input id="ctl114_Questionable" type="checkbox" name="ctl114$Questionable" checked="checked" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl114$Questionable\&#39;,\&#39;\&#39;)&#39;, 0)" /><label for="ctl114_Questionable">inspect</label></td>
+									</tr>
+								</table>
+                                                
+							</div><div class="rrbTitle">
+								Housekeeping Filters
+							</div>
+						</div>
+					</div>
+				</div><div class="rrbToolTip" style="display:none;margin-top:5px;">
+					<strong class="rrbToolTipTitle"></strong><p class="rrbToolTipDescription"></p>
+				</div>
+			</div><input id="RadRibbonBar1_ClientState" name="RadRibbonBar1_ClientState" type="hidden" />
+		</div>
+                                <div id="RadToolBar1" class="RadToolBar RadToolBar_Horizontal RadToolBar_Default RadToolBar_Default_Horizontal" style="width:100%;z-index:9000;">
+			<div class="rtbOuter">
+				<div class="rtbMiddle">
+					<div class="rtbInner">
+						<ul class="rtbUL">
+							<li class="rtbItem rtbBtn"><a title="First Page" class="rtbWrap rtbIconOnly" href="#"><span class="rtbOut"><span class="rtbMid"><span class="rtbIn"><img alt="First Page" src="../Content/Images/Reports/FirstPage.gif" class="rtbIcon" /></span></span></span></a></li><li class="rtbItem rtbBtn"><a title="Previous Page" class="rtbWrap rtbIconOnly" href="#"><span class="rtbOut"><span class="rtbMid"><span class="rtbIn"><img alt="Previous Page" src="../Content/Images/Reports/PrevPage.gif" class="rtbIcon" /></span></span></span></a></li><li class="rtbItem rtbTemplate">
+                                                <input name="RadToolBar1$i2$txtReportCurrentPage" type="number" value="0" id="txtReportCurrentPage" title="Current Page" min="1" style="width:40px;" />
+                                            </li><li class="rtbItem rtbTemplate">
+                                                <span id="RadToolBar1_i3_Label1" title="Total Pages" style="display:inline-block;width:40px;"></span>
+                                            </li><li class="rtbItem rtbBtn"><a title="Next Page" class="rtbWrap rtbIconOnly" href="#"><span class="rtbOut"><span class="rtbMid"><span class="rtbIn"><img alt="Next Page" src="../Content/Images/Reports/NextPage.gif" class="rtbIcon" /></span></span></span></a></li><li class="rtbItem rtbBtn"><a title="Last Page" class="rtbWrap rtbIconOnly" href="#"><span class="rtbOut"><span class="rtbMid"><span class="rtbIn"><img alt="Last Page" src="../Content/Images/Reports/LastPage.gif" class="rtbIcon" /></span></span></span></a></li><li class="rtbItem rtbTemplate">
+                                                <select name="RadToolBar1$i6$DropDownList1" id="RadToolBar1_i6_DropDownList1" title="Select Format">
+								<option selected="selected" value="Select">Select Export Format</option>
+								<option value="PDF">Acrobat (PDF) file</option>
+								<option value="XLS">Excel (XLS)</option>
+								<option value="CSV">CSV (comma delimited)</option>
+
+							</select>
+                                            </li><li class="rtbItem rtbBtn"><a title="Export" class="rtbWrap" href="#"><span class="rtbOut"><span class="rtbMid"><span class="rtbIn"><span class="rtbText">Export</span></span></span></span></a></li><li class="rtbItem rtbBtn"><a title="Refresh" class="rtbWrap rtbIconOnly" href="#"><span class="rtbOut"><span class="rtbMid"><span class="rtbIn"><img alt="Refresh" src="../Content/Images/Reports/Refresh.gif" class="rtbIcon" /></span></span></span></a></li><li class="rtbItem rtbBtn"><a title="Print" class="rtbWrap rtbIconOnly" href="#"><span class="rtbOut"><span class="rtbMid"><span class="rtbIn"><img alt="Print" src="../Content/Images/Reports/Print.gif" class="rtbIcon" /></span></span></span></a></li><li class="rtbItem rtbTemplate">
+                                                <span id="RadToolBar1_i10_ToTextBox">Email To:</span>
+                                                <input name="RadToolBar1$i10$EmailTextBox" type="text" id="RadToolBar1_i10_EmailTextBox" title="To email address" style="width:200px;" />
+                                            </li><li class="rtbItem rtbBtn"><a title="Send Report as Email Attachment" class="rtbWrap rtbIconOnly" href="#"><span class="rtbOut"><span class="rtbMid"><span class="rtbIn"><img alt="Send Report as Email Attachment" src="../Content/Images/Reports/Email.gif" class="rtbIcon" /></span></span></span></a></li><li class="rtbItem rtbBtn"><a class="rtbWrap" href="#"><span class="rtbOut"><span class="rtbMid"><span class="rtbIn"><span class="rtbText">Switch To Page View</span></span></span></span></a></li>
+						</ul>
+					</div>
+				</div>
+			</div><input id="RadToolBar1_ClientState" name="RadToolBar1_ClientState" type="hidden" />
+		</div>
+                                
+                            </div>
+                            <div id="ReportViewer1" style="height:11.5in;width:100%;">
+			<script type="text/javascript" src="/Telerik.ReportViewer.axd?name=Resources.ReportViewer.js&amp;optype=Resource&amp;version=18.1.24.709">
+
+</script><script type="text/javascript" src="/Telerik.ReportViewer.axd?name=Resources.Parameters.js&amp;optype=Resource&amp;version=18.1.24.709">
+
+</script><table id="ReportViewer1_ReportTable" cellspacing="0" cellpadding="0" style="height:100%;width:100%;border-collapse:collapse;">
+				<tr style="height:1px;display:none;">
+					<td id="ReportViewer1_ParametersAreaCell"></td>
+				</tr><tr style="height:1px;">
+					<td></td>
+				</tr><tr style="height:1px;">
+					<td><div style='height:1px' /><input name="ReportViewer1$CP" type="hidden" id="ReportViewer1_CP" /><input name="ReportViewer1$RSID" type="hidden" id="ReportViewer1_RSID" /></td>
+				</tr><tr style="height:100%;">
+					<td style="height:100%;"><div style="width:100%;height:100%;">
+						<iframe id="ReportViewer1_ReportArea_PreviewFrame" width="0px" height="0px" style="top:-2px;float:left;z-index:-54321;position:relative;" src="javascript:&#39;&#39;" frameborder="0"></iframe><table id="ReportViewer1_ReportArea_ReportArea" cellspacing="0" cellpadding="0" style="border-width:0px;height:100%;width:100%;border-collapse:collapse;">
+							<tr id="ReportViewer1_ReportArea_ReportAreaRow" style="height:100%;width:100%;">
+								<td id="ReportViewer1_ReportArea_DocumentMapCell" valign="top" style="height:100%;width:1px;overflow:hidden;"></td><td id="ReportViewer1_ReportArea_SplitterCell" class="ReportViewerSplitterBar" style="height:100%;width:4px;display:none;background-image:url(/Telerik.ReportViewer.axd?name=Skins.Default.Splitter.gif&optype=Resource&version=18.1.24.709);"></td><td id="ReportViewer1_ReportArea_ReportCell" style="height:100%;"><div id="ReportViewer1_ReportArea_WaitControl" id="ReportViewer1_ReportArea_WaitControl" style="cursor:wait;display:none;width:100%;height:100%;">
+									<table style="width:100%;height:100%;">
+										<tr>
+											<td style="vertical-align:middle;text-align:center;"><img src="/Telerik.ReportViewer.axd?name=Skins.Default.Loading.gif&amp;optype=Resource&amp;version=18.1.24.709" alt="Loading image." /><br/><span class="WaitText"> </span></td>
+										</tr>
+									</table>
+								</div><div id="ReportViewer1_ReportArea_ErrorControl" class="ReportAreaErrorControl" style="display:none;">
+									<span id="ReportViewer1_ReportArea_ErrorLabel" class="ReportAreaErrorLabel"></span>
+								</div></td>
+							</tr>
+						</table>
+					</div></td>
+				</tr>
+			</table><div id="ReportViewer1_EditorPlaceholder" class="ParameterEditor" onclick="event.cancelBubble=true;" style="margin:0px;display:none;position:absolute;padding:0px;border-width:1px;border-style:solid;border-color:DarkGray;overflow:auto;background-color:white;"></div><iframe id="ReportViewer1_CalendarFrame" style="display:none;position:absolute;" frameborder="0" scrolling="no" src="javascript:&#39;&#39;"></iframe>
+		</div><script type="text/javascript">
+			var ReportViewer1 = new ReportViewer('ReportViewer1','ReportViewer1_ReportToolbar','ReportViewer1_ReportArea_WaitControl','ReportViewer1_ReportArea_ReportCell','ReportViewer1_ReportArea_PreviewFrame','ReportViewer1_ParametersAreaCell', 'ReportViewer1_ReportArea_ErrorControl', 'ReportViewer1_ReportArea_ErrorLabel', 'ReportViewer1_CP', '/Telerik.ReportViewer.axd', 'dacf8d4ad0a54598bbe7592e8256574a', 'Percent', '100', '', 'ReportViewer1_EditorPlaceholder', 'ReportViewer1_CalendarFrame', 'ReportViewer1_ReportArea_DocumentMapCell', {CurrentPageToolTip:'Current Page',ExportButtonText:'Export',ExportToolTip:'Export',ExportSelectFormatText:'Export to the selected format',FirstPageToolTip:'First page',LabelOf:'of',LastPageToolTip:'Last page',ProcessingReportMessage:' ',NoPageToDisplay:'No page to display.',NextPageToolTip:'Next page',ParametersToolTip:'Hide parameters area|Show parameters area',DocumentMapToolTip:'Hide document map|Show document map',PreviousPageToolTip:'Previous page',TogglePageLayoutToolTip:'Switch to interactive view|Switch to print preview',SessionHasExpiredError:'Session has expired.',SessionHasExpiredMessage:'Please refresh the page.',PrintToolTip:'Print',RefreshToolTip:'Refresh',NavigateBackToolTip:'Navigate back',NavigateForwardToolTip:'Navigate forward',ReportParametersSelectAllText:'<select all>',ReportParametersSelectAValueText:'<select a value>',ReportParametersInvalidValueText:'Invalid value.',ReportParametersNoValueText:'Value required.',ReportParametersNullText:'NULL',ReportParametersPreviewButtonText:'Preview',ReportParametersFalseValueLabel:'False',ReportParametersInputDataError:'Missing or invalid parameter value. Please input valid data for all parameters.',ReportParametersTrueValueLabel:'True',MissingReportSource:'Click Preview to load',ZoomToPageWidth:'Page Width',ZoomToWholePage:'Full Page'}, 'ReportViewer1_ReportArea_ReportArea', 'ReportViewer1_ReportArea_SplitterCell', 'ReportViewer1_ReportArea_DocumentMapCell', false, true, 'PDF', 'ReportViewer1_RSID', true);
+		</script>
+                        </div>
+                    </div><input id="MainRight_ClientState" name="MainRight_ClientState" type="hidden" /></td>
+	</tr>
+</table><input id="RadSplitter1_ClientState" name="RadSplitter1_ClientState" type="hidden" /></div></div>
+
+
+                <script type="text/javascript">   
+                    $(document).ready(initializeJoanS);
+
+                    function initializeJoanS() {
+                        if (true) {
+                            return;
+                        }
+
+                        let se = document.createElement('script');
+                        se.type = 'text/javascript';
+                        se.async = true;
+                        se.src = 'https://storage.googleapis.com/code.snapengage.com/js/44fd6b40-038f-4a79-826b-7c5a133e4ae4.js';
+
+                        let s = document.getElementsByTagName('script')[0];
+                        s.parentNode.insertBefore(se, s);
+                    }
+
+                    var chatConfig = {
+                        "webchatAppUrl": "https://apps.mypurecloud.com/webchat",
+                        "webchatServiceUrl": "https://realtime.mypurecloud.com:443",
+                        "orgId": "22379",
+                        "orgGuid": "b14dedb6-85ff-4f02-86b6-86d654038916",
+                        "orgName": "multisystemsinc",
+                        "queueName": "Independent Chorum",
+                        "logLevel": "DEBUG",
+                        "locale": "en",
+                        "data": {
+                            "firstName": "",
+                            "lastName": "CameronS",
+                            "addressStreet": "",
+                            "addressCity": "",
+                            "addressPostalCode": "",
+                            "addressState": "",
+                            "phoneNumber": "",
+                            "customField1Label": "HotelCode",
+                            "customField1": "UNILOG",
+                            "customField2Label": "ModuleName",
+                            "customField2": "Reports",
+                            "customField3Label": "OtherInfo",
+                            "customField3": window.location.href
+                        },
+                        "companyLogo": {
+                            "width": 600,
+                            "height": 149,
+                            "url": "https://master.msicloudpm.com/images/ChorumLogo_Medium.png"
+                        },
+                        "agentAvatar": {
+                            "width": 462,
+                            "height": 462,
+                            "url": "https://master.msicloudpm.com/images/ChorumLogo_Small.png"
+                        },
+                        "welcomeMessage": "Welcome to Jonas Chorum assistance chat",
+                        "cssClass": "webchat-frame",
+                        "css": {
+                            "width": "100%",
+                            "height": "100%"
+                        }
+                    };
+
+                    $("#ChatNowLink").on("click", DoCloudWebChat);
+                    
+                    function DoCloudWebChat() {
+                        let theUrl = "/Administration/Administration/ChatView?LSID=9ed92453-c971-45ff-8f76-391f5be620c4"; 
+                        window.open(theUrl, '_blank', "height=600, width=500");
+                    }
+
+                    // start auto logout module when enableAutoLogout property setting is true
+                    if (false) {
+                        //start auto logout module
+                        autoLogoutModule.startTimer({
+                            idleMinutesBeforeLogout: 30,
+                            idleMinutesBeforeWarning: 25,
+                            logoutUrl: "/Login/Logout?LSID=9ed92453-c971-45ff-8f76-391f5be620c4",
+                            logoutWarningTitle: 'Auto Logout',
+                            logoutWarningMessage: 'You have been idle for {0} minute(s). You will be logged out in {1} minute(s) if there is no activity.',
+                            okText: 'Continue Working',
+                            baseUrl: "../",
+                            updateLastActivityDateTimeUrl: "/Base/UpdateLastActivityDateTime?LSID=9ed92453-c971-45ff-8f76-391f5be620c4",
+                            getLastActivityDateTimeUrl: "/Base/GetLastActivityDateTime?LSID=9ed92453-c971-45ff-8f76-391f5be620c4",
+                            myLSID: '9ed92453-c971-45ff-8f76-391f5be620c4',
+                            module: "Reports"
+                        });
+                    }
+
+                    var ReportsUseLocalStorage = false;
+
+                    //Call every 5 mins
+                    window.setInterval(KeepSessionAlive, 300000);
+                    function KeepSessionAlive() {
+                        $.get("KeepReportsAlive.ashx");
+                    }
+
+                    var toolbar = null;
+                    var firstP = null;
+                    var prevP = null;
+                    var lastP = null;
+                    var nextP = null;
+                    var select = null;
+                    var btnRunRpt = null;
+
+                    function pageLoad() {
+
+                        try {
+
+                            /* START KRS LINKS */
+                            if (!isPostBack) {
+
+                                try {
+                                    var sessId;
+                                    var userId;
+                                    sessId = getParameterByName("LSID");
+                                    userId = getParameterByName("UserId");
+                                    var key = sessId + '_' + userId + '_ReportRunning';
+                                    var cachedData = window.localStorage.removeItem(key);
+                                } catch (error) {
+                                }
+
+                                var krsUrl = '../Krs/GetKrsLinks?LSID=9ed92453-c971-45ff-8f76-391f5be620c4&module=Reports';
+
+                            $.ajax({
+                                url: krsUrl,
+                                cache: false, //issue with IE not hitting the server when cache is not set to false
+                                method: "POST",
+                                dataType: "json",
+                                contentType: "application/json; charset=utf-8",
+                                error: function (e) {
+                                    var treeView = $find("RadTreeView1");
+                                    var selected = treeView.findNodeByValue("Knowledgebase");
+                                    treeView.trackChanges();
+                                    selected.set_visible(false);
+                                    treeView.commitChanges();
+                                },
+                                success: function (data) {
+                                    var treeView = $find("RadTreeView1");
+                                    var selected = treeView.findNodeByValue("Knowledgebase");
+
+                                    treeView.trackChanges();
+
+                                    if (data.length === 0) {
+                                        selected.set_visible(false);
+                                    } else {
+                                        $.each(data, function (index, value) {
+                                            var newNode = new Telerik.Web.UI.RadTreeNode();
+
+                                            if (value.LinkName.length > 25) {
+                                                text.substring(0, maxlength);
+                                                newNode.set_text(value.LinkName.substring(0, 25) + '...');
+                                                newNode.set_toolTip(value.LinkName);
+                                            } else {
+                                                newNode.set_text(value.LinkName);
+                                            }
+
+                                            newNode.set_value(value.LinkName + index);
+                                            newNode.set_navigateUrl(value.LinkURL);
+                                            newNode.set_postBack(false);
+                                            newNode.set_target("_blank");
+
+                                            var attributes = newNode.get_attributes();
+                                            attributes.setAttribute("runat", "server");
+
+                                            selected.set_visible(true);
+                                            selected.get_nodes().add(newNode);
+                                        });
+                                    }
+
+                                    treeView.commitChanges();
+                                }
+                            });
+                        }
+
+                        /* END KRS LINKS */
+
+                        toolbar = $find('RadToolBar1');
+
+                        if (toolbar != null) {
+                            firstP = toolbar.get_items().getItem(0);
+                            prevP = toolbar.get_items().getItem(1);
+                            nextP = toolbar.get_items().getItem(4);
+                            lastP = toolbar.get_items().getItem(5);
+
+                            if (prevP != null)
+                                prevP.disable();
+                            if (firstP != null)
+                                firstP.disable();
+                            if (nextP != null)
+                                nextP.disable();
+                            if (lastP != null)
+                                lastP.disable();
+
+                        }
+
+                        try {
+                            window.localStorage.setItem('LSAvail', 'yep');
+                            ReportsUseLocalStorage = true;
+                        } catch (error) {
+                            ReportsUseLocalStorage = false;
+                        }
+
+                        if (ReportsUseLocalStorage) {
+
+                            var sessId;
+                            var userId;
+                            sessId = getParameterByName("LSID");
+                            userId = getParameterByName("UserId");
+                            var key = sessId + '_' + userId + '_ReportRunning';
+
+                            var cachedData = window.localStorage.getItem(key);
+
+                            var ribbonBar = $find('RadRibbonBar1');
+                                if (ribbonBar != null) {
+                                    btnRunRpt = ribbonBar.findButtonByValue('Preview');
+
+                                    if (btnRunRpt != null) {
+                                        if (cachedData != null && cachedData != '' && cachedData != 'null') {
+                                            btnRunRpt.set_enabled(false);
+                                        }
+                                        else {
+                                            btnRunRpt.set_enabled(true);
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                        catch (err) { }
+                    }
+
+                    try {
+                        ReportViewer.OnReportLoadedOld = ReportViewer.OnReportLoaded;
+
+                        ReportViewer.prototype.OnReportLoaded = function () {
+                            let viewer = ReportViewer1;                            
+
+                            if (viewer) {
+                                this.OnReportLoadedOld();
+
+                                if (toolbar != null) {
+                                    document.getElementById("txtReportCurrentPage").value = this.get_CurrentPage();
+                                    document.getElementById("txtReportCurrentPage").setAttribute("max", viewer.get_TotalPages());
+                                    document.getElementById("RadToolBar1_i3_Label1").innerHTML = " of " + viewer.get_TotalPages();
+                                }
+
+                                if (nextP != null && lastP != null) {
+                                    nextP.enable();
+                                    lastP.enable();
+
+                                    if (viewer.get_TotalPages() == 1) {
+                                        nextP.disable();
+                                        lastP.disable();
+                                    }
+
+                                    if (viewer.get_CurrentPage() == viewer.get_TotalPages()) {
+                                        nextP.disable();
+                                        lastP.disable();
+                                    }
+                                }
+                   
+                                try {
+                                    let sessId = getParameterByName("LSID");
+                                    let userId = getParameterByName("UserId");
+                                    let key = sessId + '_' + userId + '_ReportRunning';
+                                    window.localStorage.removeItem(key)
+
+                                    btnRunRpt.set_enabled(true);
+                                }
+                                catch (err) { }
+                            }
+                        }
+                    }
+                    catch (err) {
+                    }
+
+                    function OnClientButtonClickingHandler(sender, eventArgs) {
+                        try {
+                            firstP.enable();
+                            prevP.enable();
+                            nextP.enable();
+                            lastP.enable();
+                            var viewer =  ReportViewer1 ;
+
+                            if (viewer) {
+                                if (eventArgs.get_item().get_index() == 0) {
+                                    viewer.set_CurrentPage(1);
+                                    prevP.disable();
+                                    firstP.disable();
+                                }
+
+                                if (eventArgs.get_item().get_index() == 1) {
+                                    if (viewer.get_CurrentPage() > 2) {
+                                        viewer.set_CurrentPage(viewer.get_CurrentPage() - 1);
+                                    }
+                                    else if (viewer.get_CurrentPage() == 2) {
+                                        viewer.set_CurrentPage(viewer.get_CurrentPage() - 1);
+                                        prevP.disable();
+                                        firstP.disable();
+                                    }
+                                }
+                                //Next page button is clicked index = 4
+                                if (eventArgs.get_item().get_index() == 4) {
+                                    if (viewer.get_TotalPages() > viewer.get_CurrentPage() + 1) {
+                                        viewer.set_CurrentPage(viewer.get_CurrentPage() + 1);
+                                        prevP.enable();
+                                        firstP.enable();
+                                    }
+                                    else if (viewer.get_TotalPages() == viewer.get_CurrentPage() + 1) {
+                                        viewer.set_CurrentPage(viewer.get_CurrentPage() + 1);
+                                        nextP.disable();
+                                        lastP.disable();
+                                    }
+                                }
+
+                                if (eventArgs.get_item().get_index() == 5) {
+                                    viewer.set_CurrentPage(viewer.get_TotalPages());
+                                }
+
+                                if (eventArgs.get_item().get_index() == 7) {
+                                    var select = document.getElementById("RadToolBar1_i6_DropDownList1");
+                                    if (select.value == "Select") {
+                                        alert("Please Select Export Format");
+                                    }
+                                    else {
+                                        viewer.ExportReport(select.value);
+                                    }
+                                }
+
+                                if (eventArgs.get_item().get_index() == 8) {
+                                    viewer.RefreshReport();
+                                }
+                                if (eventArgs.get_item().get_index() == 9) {
+                                    viewer.PrintReport();
+                                }
+                            }
+                        }
+                        catch (err) { }
+                    }
+
+                    function OnNavItemClicked(sender, eventArgs) {
+                        try {
+                            var panelBar = $find("RadPanelBar1");
+                            var panelItem = panelBar.findItemByText("Reports");
+                            panelItem.select();
+                        }
+                        catch (err) { }
+                    }
+
+                    $(".sub-menu").hide();
+
+                    //Passing Arguments back to the main window from Reservation Forecast Walkin
+                    function OnClientClose(oWnd, args) {
+
+                        try {
+                            //get the transferred arguments
+                            var arg = args.get_argument();
+                            if (arg) {
+                                //set value to controls
+                                var ResForecastSDate = $find("ctl200_ResForecaseSDate");
+                            ResForecastSDate.set_selectedDate(arg.sdate);
+                            var ResForecastEDate = $find("ctl200_ResForecastEDate");
+                                ResForecastEDate.set_selectedDate(arg.edate);
+                            }
+                        }
+                        catch (err) { }
+                    }
+
+                    $("#txtReportCurrentPage").keydown(function (e) {
+                        if (e.which === 13) {
+                            let viewer = ReportViewer1;
+                        let num = parseFloat($("#txtReportCurrentPage").val());
+
+                        if (num >= 1) {
+                            let totalPages = viewer.get_TotalPages();
+                            viewer.set_CurrentPage(num);
+
+                            if (num === 1 && totalPages > 1) {
+                                prevP.disable();
+                                firstP.disable();
+                                nextP.enable();
+                                lastP.enable();
+                            }
+                            else if (totalPages <= num && totalPages !== 1) {
+                                prevP.enable();
+                                firstP.enable();
+                                nextP.disable();
+                                lastP.disable();
+                            }
+                            else if (num > 1 && num < totalPages) {
+                                prevP.enable();
+                                firstP.enable();
+                                nextP.enable();
+                                lastP.enable();
+                            }
+                        }
+
+                        return false;
+                    }
+                });
+
+                
+                    if (typeof ReportViewer !== 'undefined') {
+                        ReportViewer.prototype.PrintReport = function () {
+                            this.PrintAs("PDF");
+                            previewFrame = document.getElementById(this.previewFrameID);
+                            previewFrame.onload = function () { previewFrame.contentDocument.execCommand("print", true, null); }
+                        };
+                    }
+                </script>
+
+            </div>
+            <div class="clear"></div>
+
+            <div class="footer"></div>
+        </div>
+    
+
+<script type="text/javascript">
+//<![CDATA[
+Telerik.Web.UI.RadSplitter._preInitialize("RadSplitter1");Telerik.Web.UI.RadPane._preInitialize("MainLeft", "RadSplitter1", "", "MainPageSplitter",  0, 0, "False");Telerik.Web.UI.RadSplitter._preInitialize("RadSplitter2");Telerik.Web.UI.RadPane._preInitialize("LeftTop", "RadSplitter2", "", "LeftSplitter",  0, 0, "False");Telerik.Web.UI.RadTreeView._preInitialize("RadTreeView1","0");Telerik.Web.UI.RadSplitBar._preInitialize("LeftSplitter", "RadSplitter2", "LeftTop", "LeftBottom", 1, 0);Telerik.Web.UI.RadPane._preInitialize("LeftBottom", "RadSplitter2", "LeftSplitter", "",  2, 1, "True");Telerik.Web.UI.RadSplitBar._preInitialize("MainPageSplitter", "RadSplitter1", "MainLeft", "MainRight", 1, 0);Telerik.Web.UI.RadPane._preInitialize("MainRight", "RadSplitter1", "MainPageSplitter", "",  2, 1, "True");Telerik.Web.UI.RadRibbonBar._preInitialize("RadRibbonBar1");;(function() {
+                        function loadHandler() {
+                            var hf = $get('RadStyleSheetManager1_TSSM');
+                            if (!hf._RSSM_init) { hf._RSSM_init = true; hf.value = ''; }
+                            hf.value += ';|638974980820000000:1dd4f3b0;Telerik.Web.UI, Version=2016.2.607.45, Culture=neutral, PublicKeyToken=121fae78165ba3d4:en-US:fb63f838-b932-4810-8e72-f1ca43eff960:92753c09:5c0abcde:b241f632:5951aeec:2b415891:1f65231b:7f7626a2:889f5a13:9fadc829:d7e35272:505983de:c17ca3a3:e4bb482f;Telerik.Web.UI.Skins, Version=2016.2.607.45, Culture=neutral, PublicKeyToken=121fae78165ba3d4:en-US:1f2d2395-8419-4ce3-8348-2c86968e7579:605d48d6';
+                            Sys.Application.remove_load(loadHandler);
+                        };
+                        Sys.Application.add_load(loadHandler);
+                    })();Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadWindow, {"_dockMode":false,"behaviors":22,"clientStateFieldID":"CLStmtNoticeDialog_ClientState","enableShadow":true,"formID":"Form1","height":"350px","iconUrl":"","minimizeIconUrl":"","modal":true,"name":"CLStmtNoticeDialog","navigateUrl":"CLStmtNoticeDialog.aspx","reloadOnShow":true,"showContentDuringLoad":false,"skin":"Windows7","title":"Notices for Invoices","visibleStatusbar":false,"width":"470px"}, null, null, $get("CLStmtNoticeDialog"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadWindow, {"_dockMode":false,"behaviors":4,"clientStateFieldID":"ResForecastWalkIns_ClientState","enableShadow":true,"formID":"Form1","height":"350px","iconUrl":"","minimizeIconUrl":"","modal":true,"name":"ResForecastWalkIns","navigateUrl":"ResForecastWalkIns.aspx","reloadOnShow":true,"showContentDuringLoad":false,"skin":"Windows7","title":"Walk-In Projection","visibleStatusbar":false,"width":"800px"}, {"close":OnClientClose}, null, $get("ResForecastWalkIns"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadWindowManager, {"clientStateFieldID":"RadWindowManager1_ClientState","enableShadow":true,"formID":"Form1","iconUrl":"","minimizeIconUrl":"","name":"RadWindowManager1","reloadOnShow":true,"showContentDuringLoad":false,"skin":"Windows7","visibleStatusbar":false,"windowControls":"['CLStmtNoticeDialog','ResForecastWalkIns']"}, null, {"child":"CLStmtNoticeDialog"}, $get("RadWindowManager1"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadPanelBar, {"_skin":"Default","clientStateFieldID":"RadPanelBar2_ClientState","collapseAnimation":"{\"duration\":450}","expandAnimation":"{\"duration\":450}","itemData":[{"postBack":false}]}, null, null, $get("RadPanelBar2"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadTreeView, {"_postBackOnClick":true,"_postBackReference":"__doPostBack(\u0027RadTreeView1\u0027,\u0027arguments\u0027)","_selectedValue":"Room Status","_skin":"Default","_uniqueId":"RadTreeView1","clientStateFieldID":"RadTreeView1_ClientState","collapseAnimation":"{\"duration\":200}","expandAnimation":"{\"duration\":200}","nodeData":[{"postBack":false},{"value":"Reservation Reports","items":[{"value":"Reservation Agent Productivity","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"AgentUpsellReport","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Guest Name List","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Availability","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"BookingRulesReport","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Print RegCards/Folios","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Cancellation/Denial","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Reservation Forecast","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Special Request","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"ReservationComments","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"VehicleDetails","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"TaskReport","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"BucketCheck","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"ArrivalsStayoversDepartures","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"FolioAudit_Reservations","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Room Revenue","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Rate and Market Forecast","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"ExtendedStayForecast","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"}],"postBack":false},{"expanded":true,"items":[{"value":"Room Status","selected":true,"cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Room Maintenance","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Room Change","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Room Assignments","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Housekeeper Cleaning Time","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Average Cleaning Time By Room Type","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Housekeeping Forecast","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Housekeeper Cleaning Log","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"}],"postBack":false},{"items":[{"value":"Shift Reconciliation Hotel","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Shift Reconciliation Cashier","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"}],"postBack":false},{"value":"Night Audit Reports","items":[{"value":"Daily Activity","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Department Audit","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Department Audit with Tax","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Transaction Totals","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Ledger Balance Reports","items":[{"value":"Guest Ledger","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"City Ledger","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Deposit Ledger","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Ledger Balance Summary","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"}],"postBack":false},{"value":"Deposits Due/Received","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Room Rate Audit","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Room Rate Variance","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Tax Exempt","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Managers Report","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Credit Limit Exception","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Voided Transactions","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"No Host Confirmations","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"BalancePaymentReports","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"ExpiringRatesReport","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"SystemOverrides","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"CreditCardCaptureMethod","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"EODCCAuthRelease","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"OpenAuth","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"}],"postBack":false},{"value":"Saved Reports","items":[{"value":"Create New","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Remove","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"SavedReportId=460ff402-3cb6-475d-91b6-c3950e44945a","items":[{"value":"EditSavedReportId=460ff402-3cb6-475d-91b6-c3950e44945a","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle","attributes":{"runat":"server"}}],"cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle","attributes":{"runat":"server"}}],"postBack":false},{"value":"Statistics Reports","items":[{"value":"Room Sales","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Rate and Market Statistics","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Travel Agent Commission Due","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"VIP Account Statistics","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Profile Statistics","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"GeoSourceOfBusiness","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"LengthOfStay","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"Booking Pace","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"RoomsSoldAndADR","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"OccupancyByRT","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"ESDOccupancy","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"}],"postBack":false},{"items":[{"value":"House Account Balances","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"City Ledger Balance","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"City Ledger Aging","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"City Ledger Statements","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"FolioAudit_House","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"InvoiceAudit","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"}],"postBack":false},{"value":"Groups","items":[{"value":"Group Booking","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"GroupCalendar","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"GroupCutoff","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"GroupRevenue","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"GroupRoomingList","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"FolioAudit_Groups","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"}],"postBack":false},{"value":"Exports","items":[{"value":"DepartmentAuditExport","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"RatePlansExport","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"RoomTypeSalesExport","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"value":"GuestProfileExport","cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"}],"postBack":false},{"value":"Print Options","items":[{"cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"},{"cssClass":"myUnSelectedNodeStyle","selectedCssClass":"mySelectedNodeStyle"}],"postBack":false},{"value":"Knowledgebase","items":[{"value":"Booking Rules (Report)0","postBack":false,"attributes":{"runat":"server"}},{"value":"Reports Overview1","postBack":false,"attributes":{"runat":"server"}},{"value":"Availability (Report)2","postBack":false,"attributes":{"runat":"server"}}],"postBack":false},{"value":"Help","expanded":true,"items":[{"postBack":false},{"postBack":false},{"postBack":false},{"value":"Support Access Code"},{"postBack":false},{"postBack":false}],"postBack":false}],"selectedIndexes":["2:0"]}, {"nodeClicked":OnRadTreeView1ClientNodeClicked}, null, $get("RadTreeView1"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadPane, {"_collapsedDirection":1,"_expandedSize":0,"_height":"433px","_originalHeight":"","_originalWidth":"240px","_scrollLeft":0,"_scrollTop":0,"_splitterOrientation":0,"_width":"240px","clientStateFieldID":"LeftTop_ClientState"}, null, null, $get("LeftTop"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadSplitBar, {"_liveResize":false,"_splitterOrientation":0,"clientStateFieldID":"LeftSplitter_ClientState","enableResize":false}, null, null, $get("LeftSplitter"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadPanelBar, {"_skin":"ModOffice2010Silver","clientStateFieldID":"RadPanelBar1_ClientState","collapseAnimation":"{\"duration\":450}","expandAnimation":"{\"duration\":450}","itemData":[{"value":"Reservations","target":"_blank"},{"value":"Groups","target":"_blank"},{"value":"Front Office","target":"_blank"},{"value":"Housekeeping","target":"_blank"},{"value":"City Ledger","target":"_blank"},{"value":"Profiles","target":"_blank"},{"value":"Reports","selected":true,"target":"_blank"},{"value":"Settlement","target":"_blank"},{"value":"Revenue Management","target":"_blank"},{"value":"Administration","target":"_blank"}]}, {"itemClicked":OnNavItemClicked}, null, $get("RadPanelBar1"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadPane, {"_collapsedDirection":1,"_expandedSize":0,"_height":"275px","_originalHeight":"275px","_originalWidth":"240px","_scrollLeft":0,"_scrollTop":0,"_splitterOrientation":0,"_width":"240px","clientStateFieldID":"LeftBottom_ClientState","maxHeight":275,"minHeight":242}, null, null, $get("LeftBottom"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadSplitter, {"_attachResizeHandler":false,"_height":"714px","_isNested":true,"_orientation":0,"_parentPaneId":"MainLeft","_registerWithScriptManager":true,"_width":"240px","clientStateFieldID":"RadSplitter2_ClientState"}, null, null, $get("RadSplitter2"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadPane, {"_childSplitterId":"RadSplitter2","_collapsedDirection":1,"_expandedSize":0,"_height":"714px","_originalHeight":"","_originalWidth":"240px","_scrollLeft":0,"_scrollTop":0,"_splitterOrientation":1,"_width":"240px","clientStateFieldID":"MainLeft_ClientState","maxWidth":270,"minHeight":268}, null, null, $get("MainLeft"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadSplitBar, {"_liveResize":false,"_splitterOrientation":1,"clientStateFieldID":"MainPageSplitter_ClientState"}, null, null, $get("MainPageSplitter"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadRibbonBar, {"_enableAutoArrange":true,"_enableMinimizing":false,"_minimized":false,"_navigationSettings":{"CommandKey":1,"FocusKey":82,"Activated":false},"_postBackOnButtonClick":true,"_postBackOnMenuItemClick":true,"_postBackReference":"__doPostBack(\u0027RadRibbonBar1\u0027,\u0027arguments\u0027)","_renderMode":2,"_skin":"Default","_uniqueId":"RadRibbonBar1","clientStateFieldID":"RadRibbonBar1_ClientState","defaultDisabledImageUrl":"/WebResource.axd?d=F5mzDzjzJ7k-eIHsGtuuUTuhH2vUjNPJls1z3ovKAP4BV9j_gLH3efgZXc2HGMw4lMZ1IBk9RHff-kF1w3T6tRsFGniMNqbgQ7jlWNRwsz25VC31Kir_To_e5dYdovcCVZwaK9lyAKwwnjUcP1CCF4zzVEchKZ_uXwhpPhIYJYU1&t=638194722640000000","defaultDisabledImageUrlLarge":"/WebResource.axd?d=6b-8jAjtPViO9SX9ffM44b-1qfyZszsd-W2boJM3hYYPFJeFbx-NifOWVh8sd8XrYBPmFI8OLwUHPDBeO2a_USb8hvIMpiglGJxNAPBc7ZeqqMX1Nwo2PZ8w_kBivfqnXSfk-g-59nkpQKKYzwR-hDTSjhcDow6jktKzvgTqEbY1&t=638194722640000000","defaultImageUrl":"/WebResource.axd?d=PE6LnOUmGlsSjAy7Xs0lCF6oZWJbGp6Ovh877s88JNwRcNrMOr4oRuU_GEY77QsSwGEGZOKMWVsDN5m7xSgwOuRWvUCChlU-e_5soWQyzWWExiPSUGLLXGlvCJ0A_Vl-qA_sN7I4tkff3Sl9mjRtKbH2rVWgZi0pDnNIpVyLtLk1&t=638194722640000000","defaultImageUrlLarge":"/WebResource.axd?d=pZe_j4aC6XokdjyDcP-8J_4OQFGJ_CqKvBT3VRO-ovkuTNi7G9sloqMHWZAnwcfWVmQu2xRBJo1VzhlvCaRENB4mw-2HBFqHGAXUJqgIQTnguNx7-T1GVAbRzwfDe7vhqzd5eGx4n3wZDG74WB1_5sibURCLG4Z8AaGE3RrmFHQ1&t=638194722640000000","groupData":[{"index":"0:0","value":"RunReports","itemData":[{"imageUrl":"/Content/Images/Reports/download-20.png","menuItemData":[{"value":"DownloadPDF","imageUrl":"/Content/Images/Reports/pdf-file-20.png"},{"value":"DownloadXLS","imageUrl":"/Content/Images/Reports/excel-20.png"},{"value":"DownloadCSV","imageUrl":"/Content/Images/Reports/csv-20.png"}]},{"imageUrl":"/Content/Images/Reports/Email.gif","menuItemData":[{"value":"EmailPDF","imageUrl":"/Content/Images/Reports/pdf-file-20.png"},{"value":"EmailXLS","imageUrl":"/Content/Images/Reports/excel-20.png"},{"value":"EmailCSV","imageUrl":"/Content/Images/Reports/csv-20.png"}]},{"value":"Preview","imageUrl":"/Content/Images/Eye-Small.png"}]},{"index":"0:1","value":"RoomStatusRep2","itemData":[{}]},{"index":"0:2","value":"RoomStatusRep3","itemData":[{}]}],"tabData":[{"value":"Report"}]}, {"buttonClicking":OnButtonClicking}, null, $get("RadRibbonBar1"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadToolBar, {"_cssClass":"","_postBackReference":"__doPostBack(\u0027RadToolBar1\u0027,\u0027{0}\u0027)","_simplePostBack":true,"_skin":"Default","attributes":{},"clientStateFieldID":"RadToolBar1_ClientState","collapseAnimation":"{\"type\":12,\"duration\":200}","expandAnimation":"{\"duration\":450}","itemData":[{"postback":false,"toolTip":"First Page","cssClass":"rtbWrap rtbIconOnly","imageUrl":"../Content/Images/Reports/FirstPage.gif","disabledImageUrl":"../Content/Images/Reports/FirstPageDisabled.gif"},{"postback":false,"toolTip":"Previous Page","cssClass":"rtbWrap rtbIconOnly","imageUrl":"../Content/Images/Reports/PrevPage.gif","disabledImageUrl":"../Content/Images/Reports/PrevPageDisabled.gif"},{"postback":false,"templated":true},{"templated":true},{"postback":false,"toolTip":"Next Page","cssClass":"rtbWrap rtbIconOnly","imageUrl":"../Content/Images/Reports/NextPage.gif","disabledImageUrl":"../Content/Images/Reports/NextPageDisabled.gif"},{"postback":false,"toolTip":"Last Page","cssClass":"rtbWrap rtbIconOnly","imageUrl":"../Content/Images/Reports/LastPage.gif","disabledImageUrl":"../Content/Images/Reports/LastPageDisabled.gif"},{"postback":false,"templated":true},{"postback":false,"toolTip":"Export","cssClass":"rtbWrap"},{"postback":false,"toolTip":"Refresh","cssClass":"rtbWrap rtbIconOnly","imageUrl":"../Content/Images/Reports/Refresh.gif","disabledImageUrl":"../Content/Images/Reports/RefreshDisabled.gif"},{"postback":false,"toolTip":"Print","cssClass":"rtbWrap rtbIconOnly","imageUrl":"../Content/Images/Reports/Print.gif","disabledImageUrl":"../Content/Images/Reports/PrintDisabled.gif"},{"postback":false,"templated":true},{"value":"SendEmailAttachment","toolTip":"Send Report as Email Attachment","cssClass":"rtbWrap rtbIconOnly","imageUrl":"../Content/Images/Reports/Email.gif","disabledImageUrl":"../Content/Images/Reports/Email.gif"},{"value":"SwitchViewMode","cssClass":"rtbWrap"}]}, {"buttonClicked":OnClientButtonClickingHandler}, null, $get("RadToolBar1"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadPane, {"_collapsedDirection":1,"_expandedSize":0,"_height":"714px","_originalHeight":"","_originalWidth":"","_scrollLeft":0,"_scrollTop":0,"_splitterOrientation":1,"_width":"1026px","clientStateFieldID":"MainRight_ClientState"}, null, null, $get("MainRight"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadSplitter, {"_attachResizeHandler":true,"_height":"100%","_isNested":false,"_registerWithScriptManager":true,"_width":"100%","clientStateFieldID":"RadSplitter1_ClientState"}, null, null, $get("RadSplitter1"));
+});
+//]]>
+</script>
+</form>
+</body>
+</html>

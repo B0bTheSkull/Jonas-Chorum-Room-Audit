@@ -1,0 +1,462 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Jonas Chorum PMS</title>
+    <link rel="icon" type="image/x-icon" href="/Content/Images/Chorum-Favicon32x32.png" />
+    <link rel="icon" type="image/x-icon" href="/Content/Images/chorum-apple-touch-icon.png" />
+    <link rel="icon" type="image/x-icon" href="/Content/Images/Chorum-Favicon192x192.png" />
+
+    <!-- Preload Script -->
+    <link rel="preload" as="script" href="/Scripts/Libraries/jquery-1.12.4.min.js">
+
+    <link href="/bundles/content/libraries?v=yqFwZDpjJk5Pu8FJFeJWCTxPkY0wREokH1WpP9CEQQ41" rel="stylesheet"/>
+
+    <link href="/bundles/content/common?v=68ZEQKOyPVSrRaklFSCaervCtZCjgy0exxtJxyl0AYw1" rel="stylesheet"/>
+
+    <link href="/bundles/content/login?v=s0ZqTPFBueOFwmgvqUZ-QsSugRnBW8zLIt2_2S2PgSY1" rel="stylesheet"/>
+
+</head>
+
+<body>
+    <div class="login-body">
+            <!-- Cloud PM Logo -->
+                <img id="cloudPMLogo" class="layout-align-center layout-margin-top-xlarge" src="/Content/Images/ChorumLogo_PMS.png" alt="CloudPM" asp-append-version="true" style="max-width: 80%;" />
+
+<form action="/Login/Login" method="post">            <input type="hidden" name="deviceId" id="deviceId" />
+<input data-val="true" data-val-number="The field WindowWidth must be a number." data-val-required="The WindowWidth field is required." id="WindowWidth" name="WindowWidth" type="hidden" value="0" /><input data-val="true" data-val-number="The field WindowHeight must be a number." data-val-required="The WindowHeight field is required." id="WindowHeight" name="WindowHeight" type="hidden" value="0" /><input id="BrowserName" name="BrowserName" type="hidden" value="" /><input data-val="true" data-val-number="The field BrowserVersion must be a number." data-val-required="The BrowserVersion field is required." id="BrowserVersion" name="BrowserVersion" type="hidden" value="0" /><input id="Platform" name="Platform" type="hidden" value="" /><input id="UserAgentHeader" name="UserAgentHeader" type="hidden" value="" /><input id="OSName" name="OSName" type="hidden" value="" /><input data-val="true" data-val-required="The CookiesEnabled field is required." id="CookiesEnabled" name="CookiesEnabled" type="hidden" value="False" />            <div class="login-form">
+                <!-- Customer Code -->
+                <div class="layout-margin-top-xxlarge">
+                    <h3 class="margin-bottom-none">Customer Code</h3>
+                    <input class="form-control" data-val="true" data-val-required="Customer Code is required" id="HotelCode" name="HotelCode" type="text" value="" />
+                </div>
+
+                <!-- Username -->
+                <div class="layout-margin-top-xxlarge">
+                    <h3>Username</h3>
+                    <input class="form-control" data-val="true" data-val-required="Username is required" id="Username" name="Username" type="text" value="" />
+                </div>
+
+                <!-- Password -->
+                <div class="layout-margin-top-xxlarge">
+                    <h3>Password</h3>
+                    <input class="form-control" id="Password" name="Password" type="password" />
+                </div>
+
+                <!-- Station Name -->
+                <div class="layout-margin-top-xxlarge">
+                    <h3>Station Name</h3>
+                    <select class="form-control" data-val="true" data-val-required="The SelectedStationId field is required." id="SelectedStationId" name="SelectedStationId"><option selected="selected" value="00000000-0000-0000-0000-000000000000"></option>
+</select>
+                </div>
+
+                <!-- Error Message -->
+                <div class="layout-margin-top-xxlarge validation-summary-errors login-validation layout-text-align-center" id="errorDiv"></div>
+
+                <!-- Validation Messages -->
+                <div class="layout-margin-top-xxlarge login-validation">
+                    <div class="validation-summary-valid" data-valmsg-summary="true"><ul><li style="display:none"></li>
+</ul></div>
+                </div>
+
+                <!-- Login -->
+                <div class="layout-margin-top-xxlarge" style="text-align: center;">
+                    <button id="login" onclick="loginLoading()" type="submit" class="btn btn-primary" name="Command" value="Login" style="width: 150px;">Login</button>
+                </div>
+
+                <!-- Change Password Buttons -->
+                <div class="layout-margin-top-xxlarge" style="text-align: center;">
+                    <button onclick="loginLoading()" id="ChangePassword" type="submit" class="btn btn-link" value="Change Password" name="Command">Change Password</button>
+                </div>
+
+                <!-- Forgot Password Buttons -->
+                <div class="layout-margin-top-small layout-text-align-center">
+                    <button onclick="SendToForgotPassword()" type="button" class="btn btn-link">Forgot Password</button>
+                </div>
+
+                <div id="lockedOutWarningDiv" class="layout-margin-top-medium validation-summary-errors login-validation">
+                    
+                </div>
+            </div>
+            <!-- Copyright -->
+            <div class="layout-margin-top-xxlarge login-footer">
+                <label id="copyright" class="layout-padding-none">Copyright &copy; 2026 Gary Jonas Computing Ltd. All Rights Reserved.</label>
+            </div>
+</form>    </div>
+
+    <script src="/bundles/scripts/libraries?v=311hQROIL-ezpsj0J3UnXVKeP5bWzX-lvCiZkrT31Lo1"></script>
+
+    <script src="/bundles/scripts/common?v=pc4Jr6RPQAeNiEc4xSRzjnI33aNXNUTZW8sV_mqUbhk1"></script>
+
+
+<script type="text/javascript">
+    var ROOT = "/";
+
+    function loginLoading() {
+        $("#lockedOutWarningDiv").hide();
+        window.loadingDialog.showLoadingDialog();
+    }
+
+    function SendToForgotPassword() {
+        window.loadingDialog.showLoadingDialog();
+        window.location.href = "/ForgotPassword/ForgotPasswordResetOptionsView?Username=" + $("#Username").val() + "&hotelcode=" + $("#HotelCode").val();
+    }
+
+    // Populate Login Station Dropdown When CustomerCode Changes
+    $(document).ready(function () {
+        // need to always call this bucket call to be able to decide whether to show "useNewMVCModule" or not
+        getStations($("#HotelCode").val());
+
+        CleanupOldLastActivityKeys();
+
+        $("#HotelCode").blur(function () {
+            getStations($("#HotelCode").val());
+        });
+
+        const urlString = window.location.search;
+
+        if (urlString) {
+            const params = new URLSearchParams(urlString);
+            const deviceId = params.get('DeviceId');
+
+            if (deviceId) {
+                $("#deviceId").val(deviceId);
+            }
+        }
+
+        let passwordExpiringMessage = '';
+        let lockoutTime = new Date(-62135571600000);
+
+        if (lockoutTime >= new Date()) {
+            let options = {
+                timeStyle: "short"
+            };
+
+            $("#errorDiv").html($("#errorDiv").html().replace("{0}", lockoutTime.toLocaleString("en-US", options)));
+
+        } else if (passwordExpiringMessage != '') {
+            let loginUrl = "/LandingPage/GoToLandingPage";
+
+            if (null)
+                loginUrl = "/OpenShift/OpenShiftView";
+
+            showInformationDialog({
+                title: 'Change Password',
+                message: passwordExpiringMessage,
+                button1Text: 'Yes',
+                button2Text: 'No',
+                button1OnClickFunction: function () {
+                    window.loadingDialog.showLoadingDialog();
+                    window.location.href = "/ChangePassword/ChangePasswordView";
+                },
+                button2OnClickFunction: function () {
+                    window.loadingDialog.showLoadingDialog();
+                    window.location.href = loginUrl;
+                },
+                baseUrl: '/'
+            });
+        }
+
+        $('#WindowWidth').val(screen.width);
+        $('#WindowHeight').val(screen.height);
+
+        let data = getBrowserInfo();
+
+        $("#BrowserName").val(data.name);
+        $('#BrowserVersion').val(data.version);
+        $('#CookiesEnabled').val(data.cookiesEnabled);
+        $('#Platform').val(data.platform);
+        $('#OSName').val(data.osName);
+        $('#UserAgentHeader').val(data.userAgentHeader);
+
+    });
+
+    function CleanupOldLastActivityKeys() {
+        try {
+            window.localStorage.clear();
+        }
+        catch (error) {
+        }
+    }
+
+    function getStations(hotelCode) {
+        let selectedStation = $("#SelectedStationId").val();
+
+        return $.ajax({
+            url: '/Login/Stations',
+            data: { "customerCode": hotelCode },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                $("#SelectedStationId").empty();
+                let parsed = $.parseJSON(JSON.stringify(data));
+
+                for (let i = 0; i < parsed.Stations.length; i++) {
+                    if (parsed.Stations[i].StationId == selectedStation) {
+                        $("#SelectedStationId").append("<option value=" + parsed.Stations[i].StationId + " selected >" + parsed.Stations[i].StationName + "</option>");
+                    } else {
+                        $("#SelectedStationId").append("<option value=" + parsed.Stations[i].StationId + ">" + parsed.Stations[i].StationName + "</option>");
+                    }
+                }
+            },
+            error: function (err) {
+                $("#SelectedStationId").empty();
+            }
+        });
+    }
+
+
+
+    function getBrowserInfo() {
+        let cookiesEnabled = navigator.cookieEnabled;
+        let platform = navigator.platform;
+        let browserAgent = navigator.userAgent;
+        let osName = "Unknown OS";
+
+        if (browserAgent.indexOf("Win") != -1) {
+            osName = "Windows";
+        }
+        else if (browserAgent.indexOf("Mac") != -1) {
+            osName = "MacOS";
+        }
+        else if (browserAgent.indexOf("X11") != -1) {
+            osName = "UNIX";
+        }
+        else if (browserAgent.indexOf("Linux") != -1) {
+            osName = "Linux";
+        }
+        else if (browserAgent.indexOf("Android") != -1) {
+            osName = "Android";
+        }
+        else if (browserAgent.indexOf("like Mac") != -1) {
+            osName = "iOS";
+        }
+
+        let browserName = "Unknown Name";
+        let fullVersion = navigator.appVersion;
+        let nameOffset, verOffset;
+
+        // In Opera 15+, the version is after "OPR/"
+        if ((verOffset = browserAgent.indexOf("OPR/")) != -1) {
+            browserName = "Opera";
+            fullVersion = browserAgent.substring(verOffset + 4);
+        }
+            // In older Opera, the version is after "Opera" or after "Version"
+        else if ((verOffset = browserAgent.indexOf("Opera")) != -1) {
+            browserName = "Opera";
+            fullVersion = browserAgent.substring(verOffset + 6);
+            if ((verOffset = browserAgent.indexOf("Version")) != -1)
+                fullVersion = browserAgent.substring(verOffset + 8);
+        }
+            //MS Edge
+        else if ((verOffset = browserAgent.indexOf("Edge")) != -1) {
+            browserName = "Microsoft Edge";
+            fullVersion = browserAgent.substring(verOffset + 5);
+        }
+            // Internet Explorer
+        else if ((verOffset = browserAgent.indexOf("MSIE")) != -1) {
+            browserName = "Microsoft Internet Explorer";
+            fullVersion = browserAgent.substring(verOffset + 5);
+        }
+        else if (browserAgent.indexOf("Trident") !== -1) {
+            if ((verOffset = browserAgent.indexOf("rv:")) !== -1) {
+                browserName = "Microsoft Internet Explorer";
+                fullVersion = browserAgent.substring(verOffset + 3);
+            }
+        }
+            // In Chrome, the version is after "Chrome/"
+        else if ((verOffset = browserAgent.indexOf("Chrome")) != -1) {
+            browserName = "Chrome";
+            fullVersion = browserAgent.substring(verOffset + 7);
+        }
+            // In Safari, the version is after "Safari" or after "Version"
+        else if ((verOffset = browserAgent.indexOf("Safari")) != -1) {
+            browserName = "Safari";
+            fullVersion = browserAgent.substring(verOffset + 7);
+
+            if ((verOffset = browserAgent.indexOf("Version")) != -1)
+                fullVersion = browserAgent.substring(verOffset + 8);
+        }
+            // SeaMonkey
+        else if ((verOffset = browserAgent.indexOf("SeaMonkey")) != -1) {
+            browserName = "SeaMonkey";
+            fullVersion = browserAgent.substring(verOffset + 10);
+        }
+            // Firefox
+        else if ((verOffset = browserAgent.indexOf("Firefox")) != -1) {
+            browserName = "Firefox";
+            fullVersion = browserAgent.substring(verOffset + 8);
+        }
+            // In most other browsers, "name/version" is at the end of userAgent
+        else if ((nameOffset = browserAgent.lastIndexOf(' ') + 1) < (verOffset = browserAgent.lastIndexOf('/'))) {
+            browserName = browserAgent.substring(nameOffset, verOffset);
+            fullVersion = browserAgent.substring(verOffset + 1);
+
+            if (browserName.toLowerCase() == browserName.toUpperCase()) {
+                browserName = navigator.appName;
+            }
+        }
+
+        fullVersion = parseFloat(fullVersion);
+
+        if (isNaN(fullVersion)) {
+            fullVersion = parseFloat(navigator.appVersion);
+        }
+
+        return ({ name: browserName, version: fullVersion, cookiesEnabled: cookiesEnabled, platform: platform, osName: osName, userAgentHeader: browserAgent });
+    }
+</script>
+
+    
+    <div id="ribbonBarCacheContainer" class="row" style="display: none;"></div>
+<script type="text/javascript">
+    function RibbonBarCache(view, ribbonBarContainerId, minHeight) {
+        'use strict';
+
+        const ribbonBarCacheStorageId = 'RibbonBarCache';
+
+        var owner = 'ribbonbar';
+        var ribbonBarContainerSelector;
+        var ribbonBarCacheContainerSelector = '#ribbonBarCacheContainer';
+        var isCacheShowing = false;
+        var isCacheLoaded = false;
+        var cachedRibbonBarHtml;
+
+        // Set initial min height
+        if (!minHeight) {
+            minHeight = 130;
+        }
+
+        $("ribbonBarCacheContainer").css('min-height', minHeight);
+
+        function cacheRibbonBar() {
+            try {
+                window.localStorage.setItem(getCacheStorageId(), $(ribbonBarContainerSelector)[0].innerHTML);
+            } catch (error) {
+            }
+        }
+
+        function getCacheStorageId() {
+            return ribbonBarCacheStorageId + "_" + owner;
+        }
+
+        function showRibbonBar() {
+            $(ribbonBarContainerSelector).show();
+            hideCachedRibbonBar();
+        }
+
+        function showCachedRibbonBar() {
+            if (hasCache()) {
+                $(ribbonBarContainerSelector).hide();
+
+                // 'hasCache' function loaded the cache if it is available
+                var cacheContainerObj = $(ribbonBarCacheContainerSelector);
+                cacheContainerObj.show();
+
+                // DOM manipulation does not work consistently across IE/Chrome so let's RegEx
+                // Disable small buttons
+                var html = cachedRibbonBarHtml.replace(/(class="acidjs-ui-ribbon-tool")/gm, '$1 disabled="disabled"');
+
+                // Disable buttons
+                html = html.replace(/(data-tool="split-button")/gm, '$1 disabled="disabled"');
+
+                // Disable tabs
+                html = html.replace(/(<a )(data-name="tab-)/gm, '$1disabled="disabled" $2');
+
+                // Disable menus
+                html = html.replace(/(data-tool="menu" )/gm, '$1disabled="disabled"');
+
+                // Remove active highlight
+                html = html.replace(/(ribbon-button-active)/m, '');
+
+                cacheContainerObj.html(html);
+                isCacheShowing = true;
+            }
+        }
+
+        function hideCachedRibbonBar() {
+            if (isCacheShowing) {
+                $(ribbonBarCacheContainerSelector).hide();
+                isCacheShowing = false;
+
+                // Make sure the cache container is cleared. Otherwise the actual ribbon bar will not show/work
+                $(ribbonBarCacheContainerSelector).html('');
+            }
+        }
+
+        function hasCache() {
+            if (!isCacheLoaded) {
+                cachedRibbonBarHtml = tryGetCachedRibbonBar();
+                if (cachedRibbonBarHtml !== null && cachedRibbonBarHtml.length > 0) {
+                    isCacheLoaded = true;
+                }
+            }
+
+            return isCacheLoaded;
+        }
+
+        function tryGetCachedRibbonBar() {
+            var cache = null;
+            try {
+                cache = window.localStorage.getItem(getCacheStorageId());
+            } catch (error) {
+            }
+
+            return cache;
+        }
+
+        function isCachedRibbonBarShowing() {
+            return isCacheShowing;
+        }
+
+        function getContainerWidth() {
+            return $(ribbonBarCacheContainerSelector).width();
+        }
+
+        function initialize() {
+            if (view === undefined || view === null || view.length === 0) {
+                throw "parameter view required";
+            }
+
+            if (ribbonBarContainerId === undefined || ribbonBarContainerId === null || ribbonBarContainerId.length === 0) {
+                throw "parameter ribbonBarContainerId required";
+            }
+
+            owner = view;
+            ribbonBarContainerSelector = '#' + ribbonBarContainerId;
+        }
+
+        this.cacheRibbonBar = cacheRibbonBar;
+        this.showCachedRibbonBar = showCachedRibbonBar;
+        this.showRibbonBar = showRibbonBar;
+        this.hasCache = hasCache;
+        this.isCachedRibbonBarShowing = isCachedRibbonBarShowing;
+        this.getContainerWidth = getContainerWidth;
+
+        initialize();
+    }
+
+    function ClearRibbonBarCache() {
+        const ribbonBarCacheStorageId = 'RibbonBarCache';
+        var keys = [];
+
+        $.each(localStorage, function (index, value) {
+            if (index.indexOf(ribbonBarCacheStorageId) >= 0) {
+                keys.push(index);
+            }
+        });
+
+        $.each(keys, function (index, value) {
+            window.localStorage.removeItem(value);
+        });
+    }
+</script>
+    <script type="text/javascript">
+        window.ClearRibbonBarCache();
+    </script>
+</body>
+</html>
